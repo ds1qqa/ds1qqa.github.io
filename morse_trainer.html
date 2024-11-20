@@ -1,0 +1,2470 @@
+<!DOCType HTML>
+<HTML xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" manifest="cache.manifest" lang="ko">
+<HEAD>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width">
+<title>Morse Trainer</title>
+<link rel='stylesheet' href='script/codemirror.css'>
+<script>window.console = window.console || function(t) {};</script>
+<script src='script/codemirror.js'></script>
+<script src='script/xml.js'></script>
+<script src='script/mark-selection.js'></script>
+<script src="script/hangul.js"></script>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+<link href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css" rel="stylesheet">
+<link rel='stylesheet' href='script/style.css'>
+</HEAD>
+<BODY>
+<Table id="main_table" cellspacing=0 cellpadding=0 bordercolor="#F2F2F2" bgcolor="white" border=0 align="left" valign="top">
+    <tr><td align="left" valign="middle" class="sticky-row" bgcolor="white" width="500" height="60">
+        <div id="main_button">
+            <fieldset id="main_control" style="text-align:center;">
+            <legend> 🐣 Main Menu 🐣 </legend>
+            <button id="play" class="main_button" title="PLAY, PAUSE ALT+P" accesskey="p">PLAY</button>
+            <button id="stop" class="main_button" title="STOP ALT+S" accesskey="s">STOP</button>
+            <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾 MP3</button>
+            <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾 1TZE</button>
+            <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">RESET</button>
+            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" accesskey="k" style="width:22px;height:22px;">
+            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" accesskey="l" style="width:22px;height:22px;">
+            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" accesskey=";" style="width:22px;height:22px;">
+            <script>
+                function toggleSetting1(check_value) {
+                    const settingElements = document.querySelectorAll('.setting');
+                    if(check_value==true){
+                        window.localStorage.setItem('view1', "true");
+                        settingElements.forEach(element => {
+                            element.style.display = 'none';
+                        });
+                        document.getElementById("keyer_setting").style.display = 'none';
+                    }else{
+                        window.localStorage.setItem('view1', "false");
+                        settingElements.forEach(element => {
+                            element.style.display = 'block';
+                        });
+                        if(!isAndroid && !isIOS) document.getElementById("keyer_setting").style.display = 'inline-block';
+                    }
+                    updateLayerPosition()
+                }
+                function toggleSetting2(check_value) {
+                    const settingElements = document.querySelectorAll('#word');
+                    if(check_value==true){
+                        window.localStorage.setItem('view2', "true");
+                        settingElements.forEach(element => {
+                            element.style.display = 'none';
+                        });
+                    }else{
+                        window.localStorage.setItem('view2', "false");
+                        settingElements.forEach(element => {
+                            element.style.display = 'block';
+                        });
+                    }
+                    updateLayerPosition()
+                }
+                function toggleSetting3(check_value) {
+                    const element1 = document.querySelector('.class_view3');
+                    if(check_value==true){
+                        localStorage.setItem('view3', 'true');
+                        element1.style.display = 'none';
+                    }else{
+                        localStorage.setItem('view3', 'false');
+                        element1.style.display = 'block';
+                    }
+                    updateLayerPosition()
+                };
+            </script>
+            </fieldset>
+        </div>
+</td></tr>
+<tr><td align="center"><span id="mp3" style="display:none;"> </span> <a id="tze"> </a></td></tr>
+<tr><td align=left>
+    <div class="setting" style="text-align:center;">
+        <fieldset id="option"><legend> ▶️ Play Setup ▶️</legend>
+            <span class="setting_bold">Font:</span>
+            <select id="font_select" style="text-align:left;width:150px;color:blue;">
+                <option value="Helvetica" style="font-family: 'Helvetica';" Selected>Helvetica</option>
+                <option value="sanserif" style="font-family: 'sanserif';">Sanserif</option>
+
+                <option value="MaruBuriExtraLight" style="font-family: 'MaruBuriExtraLight';">마루부리 ExtraLight</option>
+                <option value="MaruBuriLight" style="font-family: 'MaruBuriLight';">마루부리 Light</option>
+                <option value="MaruBuri" style="font-family: 'MaruBuri';">마루부리</option>
+                <option value="MaruBuriSemiBold" style="font-family: 'MaruBuriExtraLight';">마루부리 SemiBold</option>
+                <option value="MaruBuriBold" style="font-family: 'MaruBuriBold';">마루부리 Bold</option>
+
+                <option value="NanumSquareRound" style="font-family: 'NanumSquareRound';">나눔스퀘어 라운드</option>
+                <option value="NanumSquareRoundB" style="font-family: 'NanumSquareRoundBold';">나눔스퀘어 라운드 B</option>
+                <option value="NanumSquareRoundL" style="font-family: 'NanumSquareRoundLarge';">나눔스퀘어 L</option>
+                <option value="NanumSquareRoundEB" style="font-family: 'NanumSquareRoundExtra Bold';">나눔스퀘어 B</option>
+
+                <option value="EBSSR" style="font-family: 'EBSSR';">EBS훈민정음 새론R</option>
+                <option value="EBSSB" style="font-family: 'EBSSB';">EBS훈민정음 새론B</option>
+                <option value="EBSL" style="font-family: 'EBSL';">EBS훈민정음 L</option>
+                <option value="EBSR" style="font-family: 'EBSR';">EBS훈민정음 R</option>
+                <option value="EBSSL" style="font-family: 'EBSSL';">EBS훈민정음 새론L</option>
+                <option value="EBSSSB" style="font-family: 'EBSSSB';">EBS훈민정음 새론SB</option>
+
+                <option value="HancomHoonminjeongeumH" style="font-family: 'HancomHoonminjeongeumH';">한컴훈민정음 H</option>
+
+                <option value="JejuHallasan" style="font-family: 'JejuHallasan';">제주한라산</option>
+                <option value="BusanFont_Provisional" style="font-family: 'BusanFont_Provisional';">부산시청 부산체</option>
+                <option value="youth" style="font-family: 'youth';">청소년체</option>
+                <option value="dongB" style="font-family: 'dongB';">동그라미재단</option>
+                <option value="HSbombaramche2" style="font-family: 'HSbombaramche2';">HS봄바람체2.0</option>
+                <option value="netmarbleB" style="font-family: 'netmarbleB';">넷마블</option>
+                <option value="JalnanGothic" style="font-family: 'yg-jalnan';">잘난체</option>
+                <option value="sdmisaeng" style="font-family: 'sdmisaeng';">미생체</option>
+                <option value="wade_sans_light_plain" style="font-family: 'wade_sans_light_plain';">WADE SANS(쇼생크탈출)</option>
+
+                <option value="Binggrae-Bold" style="font-family: 'Binggrae-Bold';">Binggrae-Bold</option>
+                <option value="BinggraeMelona-Bold" style="font-family: 'BinggraeMelona-Bold';">BinggraeMelona-Bold</option>
+                <option value="BinggraeSamanco-Bold" style="font-family: 'BinggraeSamanco-Bold';">BinggraeSamanco-Bold</option>
+                <option value="BinggraeTaom-Bold" style="font-family: 'BinggraeTaom-Bold';">BinggraeTaom-Bold</option>
+                <option value="BusanFont_Provisional" style="font-family: 'BusanFont_Provisional';">BusanFont_Provisional</option>
+
+                <option value="LOTTEMARTHBMedium" style="font-family: 'LOTTEMARTHBMedium';">롯데마트 행복 Medium</option>
+                <option value="LOTTEMARTDRMedium" style="font-family: 'LOTTEMARTDRMedium';">롯데마트 드림 Medium</option>
+                <option value="LOTTEMARTDRLight" style="font-family: 'LOTTEMARTDRLight';">롯데마트 드림 Light</option>
+                <option value="LOTTEMARTDRBold" style="font-family: 'LOTTEMARTDRBold';">롯데마트 드림 Bold</option>
+            </select>
+            <script>
+                document.getElementById('font_select').addEventListener('change', function() {
+                    var font_select = document.getElementById('font_select');
+                    document.body.style.fontFamily = font_select.value;
+                    updateLayerPosition();
+                    localStorage.setItem('font_name', font_select.value)
+                });
+            </script>
+            &nbsp;
+            <span class="setting_bold">Freq:</span>
+            <select id="freq" name="freq" style="width:80px;text-align:center;">
+                <option value="100">100</option><option value="150">150</option><option value="200">200</option><option value="250">250</option><option value="300">300</option><option value="350">350</option><option value="400">400</option><option value="450">450</option>
+                <option value="500">500</option><option value="510">510</option><option value="520">520</option><option value="530">530</option><option value="540">540</option><option value="550">550</option><option value="560">560</option><option value="570">570</option><option value="580">580</option><option value="590">590</option><option value="600" selected>600</option>
+                <option value="610">610</option><option value="620">620</option><option value="630">630</option><option value="640">640</option><option value="650">650</option><option value="660">660</option><option value="670">670</option><option value="680">680</option><option value="690">690</option><option value="700">700</option>
+                <option value="710">710</option><option value="720">720</option><option value="730">730</option><option value="740">740</option><option value="750">750</option><option value="760">760</option><option value="770">770</option><option value="780">780</option><option value="790">790</option><option value="800">800</option>
+                <option value="810">810</option><option value="820">820</option><option value="830">830</option><option value="840">840</option><option value="850">850</option><option value="860">860</option><option value="870">870</option><option value="880">880</option><option value="890">890</option><option value="900">900</option>
+                <option value="910">910</option><option value="920">920</option><option value="930">930</option><option value="940">940</option><option value="950">950</option><option value="960">960</option><option value="970">970</option><option value="980">980</option><option value="990">990</option><option value="1000">1000</option>
+                <option value="1100">1,100</option><option value="1200">1,200</option><option value="1300">1,300</option><option value="1400">1,400</option><option value="1500">1,500</option><option value="1600">1,600</option><option value="1700">1,700</option><option value="1800">1,800</option><option value="1900">1,900</option><option value="2000">2,000</option>
+            </select>
+            Hz
+            &nbsp;
+            <span class="setting_bold">Speed:</span>
+            <select id="speed" name="speed" style="width:50px;text-align:center;">
+                <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20" selected>20</option>
+                <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option>
+                <option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option>
+                <option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option>
+                <option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option>
+            </select>Wpm
+            &nbsp;
+            <span class="setting_bold">Vol</span>
+            <select id="volume" name="volume" style="width:60px;text-align:center;">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80" selected>80</option>
+                <option value="90">90</option>
+                <option value="100">100</option>
+            </select>%
+            &nbsp;
+            <span class="setting_bold">Extra Gap:</span>
+            <select id="selectkey" name="key" style="width:120px;text-align:center;">
+                <option id="selectkey1" value="computer" selected>None(1.0)</option>
+                <option value="hangul_smaller">Small(2.0)</option>
+                <option value="hangul_small">Smaller(1.5)</option>
+                <option value="hangul">Large(3.0)</option>
+                <option value="elmer">Small</option>
+                <option value="farnsworth">Large</option>
+                <option value="straightmed">Random Medium</option>
+                <option value="straightbad">Random Bad</option>
+                <option value="straightvbad">Random Very Bad</option>
+            </select>
+            &nbsp;
+            <span class="setting_bold">Play:</span>
+            <input type="checkbox" id="selection_only" /><label for='selection_only'>Select only</label>
+            <input type="checkbox" id="repeat" /><label for='repeat'>🔁Repeat</label>
+
+            <span class="setting_bold">Highlight:</span>
+            <input type="checkbox" id="highlight_slowly" /><label for='highlight_slowly'>Slowly</label>
+            <input type="checkbox" id="hide_text" /><label for="hide_text">Hide</label>
+            <span class="setting_bold">Effect:</span>
+            <input type="checkbox" id="flute"><label for="flute">Flute</label>
+            <input type="checkbox" id="noise"><label for="noise">Noise</label>
+            <input type="checkbox" id="fading"><label for="fading">Fading</label>&nbsp;
+            <div id="keyer_setting">✅ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button> (IC-7300, 7610 USB Keying(CW)-DTR</div>
+        </fieldset>
+    </div>
+</td></tr>
+<tr><td align="left">
+    <div id="word">
+        <fieldset id="option"><legend> 💦 Generate Setup 💦 </legend>
+            <span class="setting_bold">Repeat:</span>
+                <select id="repeat_count" name="repeat_count" style="width:40px;">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>&nbsp;
+                <span class="setting_bold">Space:</span>
+                <select id="word_space" style="width:50px;">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            <span class="setting_bold">Num:</span>
+            <select id="gen_number" style="width: 65px;">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30" selected>30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80">80</option>
+                <option value="90">90</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+                <option value="250">250</option>
+                <option value="300">300</option>
+                <option value="350">350</option>
+                <option value="400">400</option>
+                <option value="450">450</option>
+                <option value="500">500</option>
+                <option value="600">600</option>
+                <option value="700">700</option>
+                <option value="800">800</option>
+                <option value="900">900</option>
+                <option value="1000">1,000</option>
+            </select>
+            </select>
+                <select id="gen_random_option" style="width:130px;color:blue;">
+                    <option value="" style="text-align:center;">RANDOM</option>
+                    <option value="random_hl_callsigns">1. HL Callsign</option>
+                    <option value="random_ja_callsigns">2. JA Callsign</option>
+                    <option value="random_babv_callsigns">3. BA/BV Callsign</option>
+                    <option value="random_hlja_callsigns">4. HL/JA Callsign</option>
+                    <option value="random_hlbabv_callsigns">5. HL/BA/BV Callsign</option>
+                    <option value="random_jababv_callsigns">6. JA/BA/BV Callsign</option>
+                    <option value="random_hljababv_callsigns">7. HL/JA/BA/BV Callsign</option>
+                    <option value="random_itu_callsigns" title="data source: https://en.wikipedia.org/wiki/ITU_prefix">8. WORLD Callsign</option>
+                    <option value="">--------------------</option>
+                    <option value="random_qso_elements">9. Qso Elements</option>
+                    <option value="random_qso_basic_elements">10. Basic Elements</option>
+                    <option value="random_stamp_qso">11. Stamp Qso</option>
+                    <option value="random_hl_words">12. Han Words</option>
+                    <option value="random_hl_phrases">13. Han Phrases</option>
+                    <option value="random_qso2_elements">14. General Word</option>
+                    <option value="random_kdn">15. Kdn NO</option>
+                    <option value="random_kdn_city">16. Kdn City Name</option>
+                    <option value="">--------------------</option>
+                    <option value="random_qcode">17. Q Code</option>
+                    <option value="random_number">18. Number</option>
+                    <option value="random_alphabat">19. Alphabat</option>
+                    <option value="random_specialchar">20. Special Character</option>
+                    <option value="random_number_alphabat">21. Number, Alphabat</option>
+                    <option value="random_alphabat_specialchar">22. Alphabat, Special Character</option>
+                    <option value="random_number_alphabat_specialchar">23. Number, Alphabat, Special Character</option>
+                </select>
+            <span class="setting_bold">Hangul Letter:</span>
+            <input type="checkbox" id="random"/><label for="random">Random</label>
+            <input type="checkbox" id="extend"/><label for="extend">Extend</label>
+            <select id="gen_syllables_option" style="width:200px;color:blue;">
+                <option value="" style="text-align:center;">HANGU LETTER</option>
+                <option value="hangul_initial_consonants">1. HANGUL INITIAL CONSONANT</option>
+                <option value="hangul_simple_vowels">2. HANGUL SIMPLE VOWELS</option>
+                <option value="hangul_simple_syllables">3. HANGUL SIMPLE SYLLABLES</option>
+                <option value="hangul_final_consonants">4. HANGUL FINAL CONSONANTS</option>
+                <option value="hangul_syllables">5. HANGUL SYLLABLES</option>
+                <option value="hangul_complex_vowels">6. HANGUL COMPLEX VOWELS</option>
+                <option value="hangul_complex_syllables">7. HANGUL COMPLEX SYLLABLES</option>
+                <option value="hangul_random_syllables">8. HANGUL RANDOM SYLLABLES</option>
+                <option value="hangul_frequent_syllables">9. HANGUL FREQUENT SYLLABLES</option>
+            </select>
+            <select id="gen_hangul_option" style="width:170px;color:blue">
+                <option value="" style="text-align:center;">HANGUL QSO</option>
+                <option value="hangul_qso_1">1. HANGUL QSO1</option>
+                <option value="hangul_qso_2">2. HANGUL QSO2</option>
+                <option value="hangul_qso_3">3. HANGUL QSO3</option>
+                <option value="hangul_qso_4">4. HANGUL QSO4</option>
+                <option value="">--------------------</option>
+                <option value="english_qso_1">5. ENGLISH QSO1</option>
+                <option value="english_qso_2">6. ENGLISH QSO1</option>
+            </select>
+        </span>
+        <span class="setting_bold">Num:</span>
+            <select id="loadScript_getcount" style="width: 60px;">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80">80</option>
+                <option value="90">90</option>
+                <option value="100">100</option>
+                <option value="150">150</option>
+                <option value="200">200</option>
+                <option value="250">250</option>
+                <option value="300">300</option>
+                <option value="350">350</option>
+                <option value="400">400</option>
+                <option value="450">450</option>
+                <option value="500">500</option>
+                <option value="600">600</option>
+                <option value="700">700</option>
+                <option value="800">800</option>
+                <option value="900">900</option>
+                <option value="1000">1,000</option>
+            </select>
+            <select id="loadScript_src" style="width:130px;color:blue;">
+                <option value="" style="text-align:center;">PROVERB</option>
+                <option value="proverb1.dat">1. 속담(SHORT)</option>
+                <option value="proverb2.dat">2. 속담(LONG)</option>
+                <option value="shorthan.dat">3. 속담2</option>
+                <option value="proverb3.dat">4. 격언</option>
+                <option value="hunminjeongum_prologue.dat">5. 훈민정음 서문</option>
+                <option value="proverb4.dat">6. 나의사랑 한글날</option>
+                <option value="proverb5.dat">7. 한글이 있음에 내가 있다</option>
+                <option value="national_anthem.dat">8. 애국가</option>
+                <option value="shorteng.dat">9. SHORT ENGLISH</option>
+            </select>
+            <span class="setting_bold">File Open:</span>
+            <input type="file" id="fileInput" accept=".txt" style="width:175px;text-align:center;height:30px;" title="Text File Open(Limit 30,000 Characters) ALT+O" accesskey="o"></span>
+            <span class="setting_bold">Add: </span>
+            <input type="checkbox" id="add_vvv" title="To add a character to the beginning"><label for="add_vvv">Start</label>
+            <input type=text id="add_vvv_text" style="width:140px;text-align:center;" size="10" max=100 value="VVV VVV <BT>" title="Type characters to add to the beginning">
+            <input type="checkbox" id="add_ar" title="To add a text at the end"><label for="add_ar">End</label>
+            <input type=text id="add_ar_text" style="width:130px;text-align:center;" size="10" max=100 value="<AR>" title="Type a character to add to the end">
+            <script>
+                const loadButton = document.getElementById('loadScript_src');
+                loadButton.addEventListener('change', () => {
+                    const script = document.createElement('script');
+                    var loadScript_src = document.getElementById('loadScript_src').value;
+                    if(!loadScript_src){
+                        document.getElementById('loadScript_src').value = '';
+                        return false;
+                    }
+                    var loadScript_getnumber = document.getElementById('loadScript_getcount').value;
+                    script.src = 'script/' + loadScript_src;
+                    document.head.appendChild(script);
+                    script.onload = () => {
+                        if(loadScript_getnumber <= word_data.length){
+                            count = loadScript_getnumber;
+                        }else{
+                            count = word_data.length;
+                        }
+                        if(loadScript_src == 'proverb4.dat' || loadScript_src == 'proverb5.dat' )
+                        {
+                            count = word_data.length;
+                        }else{
+                            array_shuffle(word_data);
+                        }
+                        result_array = word_data.slice(0, count);
+                        result_join = result_array.join('\n');
+                        if(document.getElementById('add_vvv').checked) result_join = add_vvv_text.value + ' ' + result_join;
+                        if(document.getElementById('add_ar').checked) result_join = result_join + ' ' + add_ar_text.value;
+                        document.getElementById('user_txt_caption').innerHTML = word_data_caption;
+                        changeQsoSample(result_join);
+                    }
+                    document.getElementById('loadScript_src').value='';
+                });
+            </script>
+        </fieldset>
+    </div>
+</td></tr>
+<tr><td width="500" align="left">
+    <div class="class_view3">
+        <fieldset id="user_text"><legend> 🎵 PLAY MONITER 🎵 </legend>
+            <div id="play_moniter_top" style="width:100%;text-align:center;">
+                <button id="copy_text" onclick="copy_text();" title="Copy to Clipboard ALT+C" accesskey="c">📋 COPY</button>
+                <button id="copy_text" onclick="print_text();" title="Text to Print">🖨️ PRINT</button>
+                <button id="save_as_file" title="Text Save as File ALT+V" accesskey="v">💾 SAVE</button>
+                <button onclick="user_txt_del();" title="Text Clear ALT+N" accesskey="n">❌ DEL</button>
+                <button onclick="resetFontSize()" id="font_text" title="Click to Font Size Reset">21px</button>
+                <button onclick="increaseFontSize()" title="Font Size Up ALT+Q" accesskey="q">➕</button>
+                <button onclick="decreaseFontSize()" title="Font Size Down ALT+W" accesskey="w">➖</button>
+                <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0/0</button> 
+                <button id="textarea_select_percent" style="text-align:center;width:40px;color:red;text-align:right;" title="Now Playing Percent">0</button>%
+                <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
+                <button id="textarea_play_char" style="width:60px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to Large View 🎵">Char</button>
+                <button id='cwport_signal' style="border-radius:12px;width:24px;height:24px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
+                <div class="progress-bar"><div class="progress"></div></div>
+                <div id="layer"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
+            </div>
+            <script>
+                function downloadPDF(filename) {
+                    const str = '\nDownload the ' + filename + '?';
+                    if (confirm(str)) {
+                        const newWindow = window.open();
+                        newWindow.location.href = filename;
+                    }
+                }
+                function copy_text(){
+                    c_text = doc.getValue();
+                    if(c_text.length==0){
+                        alert("There's no contents!");
+                        return false;
+                    }else{
+                        navigator.clipboard.writeText(c_text);
+                        alert('\nCopied to Clipboard\n');
+                    }
+                    }
+                    function print_text() {
+                        var printContents = doc.getValue();
+                        if(!printContents){
+                            alert("There's no contents!");
+                            return  false;
+                        }
+                        if(!confirm("Contents to Print?") === true) return false;
+                        printContents = printContents.replace(/[^가-힣a-zA-Z0-9!@$&*()-+=,.;:'"?]/g, ' ');
+                        printContents = printContents.replace(/\r\n|\r|\n/g, '\n')
+                        printContents = printContents.toUpperCase();
+                        var originalContents = document.body.innerHTML;
+                        var printWindow = window.open('', '', 'width=600,height=800');
+                        printWindow.document.write('<html><head><title>Print</title>');
+                        printWindow.document.write('</head><body>');
+                        printWindow.document.write(printContents);
+                        printWindow.document.write('</body></html>');
+                        printWindow.document.close();
+                        printWindow.focus();
+                        printWindow.print();
+                    }
+                    function user_txt_del(){
+                        if(!confirm('Erase Contents all?')==true) return false;
+                        changeQsoSample('');
+                        clearDitdah();
+                        setProgressBar(0);
+                    }
+                    function textarea_fontsize(){
+                        const textarea = document.getElementById('user_txt');
+                        const font_text =  document.getElementById('font_text');
+                        const computedStyle = window.getComputedStyle(textarea);
+                        const fontSize = computedStyle.fontSize;
+                        localStorage.setItem('textarea_fontsize', fontSize);
+                        document.getElementById('font_text').innerHTML = fontSize;
+                    }
+                    function increaseFontSize() {
+                        const textarea = document.getElementById('user_txt');
+                        textarea.style.fontSize = parseFloat(getComputedStyle(textarea).fontSize) + 3 + 'px';
+                        textarea_fontsize()
+                    }
+                    function resetFontSize(){
+                        const textarea = document.getElementById('user_txt');
+                        const currentFontSize = parseFloat(getComputedStyle(textarea).fontSize);
+                        textarea.style.fontSize = '21px';
+                        textarea_fontsize()
+                    }
+                    function decreaseFontSize() {
+                        const textarea = document.getElementById('user_txt');
+                        const currentFontSize = parseFloat(getComputedStyle(textarea).fontSize);
+                        const newFontSize = Math.max(currentFontSize - 3, 14);
+                        textarea.style.fontSize = newFontSize + 'px';
+                        textarea_fontsize()
+                    }
+            </script>
+            <script>
+                function download(filename, text) {
+                    const now = new Date();
+                    const formattedDate = now.toISOString().replace(/[-T:]/g, '').substring(0, 12); 
+                    timestampedFilename = Filename = filename + '_' + formattedDate + '_' + freq.value + 'Hz_' + speed.value + 'wpm.txt';
+                    const element = document.createElement('a');
+                    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                    element.setAttribute('download', timestampedFilename);
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+                }
+                document.getElementById('save_as_file').addEventListener('click', function() {
+                        var SaveContents =  doc.getValue();
+                        if(!SaveContents){
+                            alert("There's no Contents");
+                            return  false;
+                        }
+                        let isTrue = confirm("Save the Contents?");
+                        if(!isTrue === true) return false;
+                        SaveContents = SaveContents.replace(/[^가-힣a-zA-Z0-9!@$&*()-+=,.;:'"?]/g, ' ');
+                        SaveContents = SaveContents.replace(/\r\n|\r|\n/g, '\n')
+                        SaveContents = SaveContents.toUpperCase();
+                        download('Morse', SaveContents);
+                    }
+                );
+                function truncate(str, maxLength) {
+                    let result = '';
+                    let count = 0;
+                    for (let i = 0; i < str.length && count < maxLength; i++) {
+                    result += str[i];
+                    count += str.codePointAt(i) > 0xFFFF ? 2 : 1;
+                    }
+                    return result;
+                }
+                document.getElementById('fileInput').addEventListener('change', function() {
+                    if (!stopped) stop.click();
+                        var file = this.files[0];
+                        if (file) {
+                            var reader = new FileReader();
+                            const fileName = file.name;
+                            const ext = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+                            if (ext === 'txt') {
+                                reader.onload = function(e) {
+                                    let str = e.target.result;
+                                    const parser = new DOMParser();
+                                    const doc = parser.parseFromString(str, 'text/html');
+                                    const textOnly = doc.body.textContent;
+                                    let result = str.replace(/[^가-힣a-zA-Z0-9!@$&*()-+=,.;:'"?]/g, ' ');
+                                    result = result.split(/ +/).join(' ');
+                                    const data = truncate(result, 30000);
+                                    var datas = data.replace(/0/g, 'Ø');
+                                    if(document.getElementById('add_vvv').checked) datas = "VVV VVV <BT> " + datas;
+                                    if(document.getElementById('add_ar').checked) datas = datas + " <AR>";
+                                    window.localStorage.setItem('user_txt', datas);
+                                    changeQsoSample(datas);
+                                };
+                                reader.readAsText(file);
+                        } else {
+                            alert('txt 파일만 선택해주세요.');
+                        }
+                    }
+                });
+            </script>
+        <div align="left"><textarea id="user_txt"></textarea></div>
+        <div class="log_container_ditdah"><span id="ditdah" align="center" title="Click to see the text you are playing in a Larger View 🎵"></span></div>
+        <div style="text-align:center;vertical-align:top;">
+            <div id="user_txt_caption" style="display:block;"></div>
+            <div style="vertical-align:bottom;">
+                <div id="setting_bold" style="display:inline-block;">💾 MORSE:</div>
+                <button onclick="downloadPDF('MORSE_CODE.pdf');" title="Morse Code Chart Download" style="font-size:12px;height:20px;">Chart</button>
+                <button onclick="downloadPDF('MORSE_CODE_TREE_HAN.pdf');" title="Morse Code Englich Tree Chart Download" style="font-size:12px;height:20px;">Tree Han</button>
+                <button onclick="downloadPDF('MORSE_CODE_TREE_ENG.pdf');" title="Morse Code Hangul Tree Chart Download" style="font-size:12px;height:20px;">Tree Eng</button>
+                <a href='https://hits.seeyoufarm.com'><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a>
+            </div>
+        </div>
+    </fieldset>
+</div>
+</td></tr>
+<tr><td align="center">
+    <div id="original_author">Original Author: DS1TZE(<a href="https://shingiru.github.io/hangul_cw_trainer.html" target="_blank" title="Hangul CW Trainer by DS1TZE">https://shingiru.github.io</a>)</div>
+</td></tr>
+</table>
+<script>Mp3LameEncoderConfig = { memoryInitializerPrefixURL: "" };</script>
+<script src="script/Mp3LameEncoder.min.js"></script>
+<script type="text/javascript">
+(function(AudioContext) {
+    AudioContext.prototype.createEffect = function() {
+        var bufferSize = 4096;
+        var node = this.createScriptProcessor(bufferSize, 1, 1);
+        node.onaudioprocess = function(e) {
+            const inputBuffer = e.inputBuffer;
+            const outputBuffer = e.outputBuffer;
+
+            // Loop through the output channels (in this case there is only one)
+            for (let channel = 0; channel < outputBuffer.numberOfChannels; channel++) {
+                const inputData = inputBuffer.getChannelData(channel);
+                const outputData = outputBuffer.getChannelData(channel);
+
+                // Loop through the 4096 samples
+                for (let sample = 0; sample < inputBuffer.length; sample++) {
+                    // make output equal to the same as the input
+                    outputData[sample] = inputData[sample];
+
+                    // add noise to each output sample
+                    if (useNoise) outputData[sample] += ((Math.random() * 2) - 1) * 0.9; //  white noise. 0.2 noise strength 
+                }
+            }
+        }
+        return node;
+    };
+    
+    AudioContext.prototype.createWhiteNoise = function(bufferSize) {
+        bufferSize = bufferSize || 4096;
+        var node = this.createScriptProcessor(bufferSize, 1, 1);
+        node.onaudioprocess = function(e) {
+            var output = e.outputBuffer.getChannelData(0);
+            for (var i = 0; i < bufferSize; i++) {
+                output[i] = Math.random() * 2 - 1;
+            }
+        }
+        return node;
+    };
+
+    AudioContext.prototype.createPinkNoise = function(bufferSize) {
+        bufferSize = bufferSize || 4096;
+        var b0, b1, b2, b3, b4, b5, b6;
+        b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
+        var node = this.createScriptProcessor(bufferSize, 1, 1);
+        node.onaudioprocess = function(e) {
+            var output = e.outputBuffer.getChannelData(0);
+            for (var i = 0; i < bufferSize; i++) {
+                var white = Math.random() * 2 - 1;
+                b0 = 0.99886 * b0 + white * 0.0555179;
+                b1 = 0.99332 * b1 + white * 0.0750759;
+                b2 = 0.96900 * b2 + white * 0.1538520;
+                b3 = 0.86650 * b3 + white * 0.3104856;
+                b4 = 0.55000 * b4 + white * 0.5329522;
+                b5 = -0.7616 * b5 - white * 0.0168980;
+                output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+                output[i] *= 0.11; // (roughly) compensate for gain
+                b6 = white * 0.115926;
+            }
+        }
+        return node;
+    };
+
+    AudioContext.prototype.createBrownNoise = function(bufferSize) {
+        bufferSize = bufferSize || 4096;
+        var lastOut = 0.0;
+        var node = this.createScriptProcessor(bufferSize, 1, 1);
+        node.onaudioprocess = function(e) {
+            var output = e.outputBuffer.getChannelData(0);
+            for (var i = 0; i < bufferSize; i++) {
+                var white = Math.random() * 2 - 1;
+                output[i] = (lastOut + (0.02 * white)) / 1.02;
+                lastOut = output[i];
+                output[i] *= 3.5; // (roughly) compensate for gain
+            }
+        }
+        return node;
+    };
+})(window.AudioContext);
+
+</script>
+<script type="text/javascript">
+MorseNode.prototype.MORSE = {"A": ".-","B": "-...","C": "-.-.","D": "-..","E": ".","F": "..-.","G": "--.","H": "....","I": "..","J": ".---","K": "-.-","L": ".-..","M": "--","N": "-.","O": "---","P": ".--.","Q": "--.-","R": ".-.","S": "...","T": "-","U": "..-","V": "...-","W": ".--","X": "-..-","Y": "-.--","Z": "--..","1": ".----","2": "..---","3": "...--","4": "....-","5": ".....","6": "-....","7": "--...","8": "---..","9": "----.","0": "-----","Ø": "-----",".": ".-.-.-",",": "--..--","?": "..--..","/": "-..-.","+": ".-.-.","-": "-....-","=": "-...-",":": "---...",";": "-.-.-.","(": "-.--.",")": "-.--.-","'": ".----.","\"": ".-..-.","@": ".--.-.","ㄱ": ".-..","ㄴ": "..-.","ㄷ": "-...","ㄹ": "...-","ㅁ": "--","ㅂ": ".--","ㅅ": "--.","ㅇ": "-.-","ㅈ": ".--.","ㅊ": "-.-.","ㅋ": "-..-","ㅌ": "--..","ㅍ": "---","ㅎ": ".---","ㅏ": ".","ㅑ": "..","ㅓ": "-","ㅕ": "...","ㅗ": ".-","ㅛ": "-.","ㅜ": "....","ㅠ": ".-.","ㅡ": "-..","ㅣ": "..-","ㅔ": "-.--","ㅐ": "--.-","&" : ".-...","[" : "-...-.-","]" : "...-.-","^" : "-.-.-","※" : "........"};
+MorseNode.prototype.PROSIGN = {"<AR>" : "+","<KN>" : "(","<AS>" : "&","<BT>" : "=","<SN>" : "?","<BK>" : "[","<SK>" : "]","<VA>" : "]","<KA>" : "^","<HH>" : "※"};
+
+function MorseNode(ac, rate) {
+    // ac is an audio context.
+    this._oscillator = ac.createOscillator();
+    this._gain = ac.createGain();
+
+    this._gain.gain.value = 0;
+    this._oscillator.type = 'sine';
+    this._oscillator.frequency.value = 600;
+    
+    this._oscillator.connect(this._gain);
+    this.key = 'computer';
+
+    if ("undefined" == typeof rate)
+        rate = 20;
+    this._dot = 1.2 / rate; // formula from Wikipedia.
+
+    this._oscillator.start(0);
+	this._moved = 0;
+}
+
+MorseNode.prototype.connect = function(target) {
+    return this._gain.connect(target);
+}
+
+MorseNode.prototype.timeMove = function(sec) {
+	if (ac.currentTime + this._moved + sec < queue[0][0]) sec = queue[0][0] - ac.currentTime - this._moved;
+	else if (ac.currentTime + this._moved + sec > queue[queue.length - 1][0]) sec = queue[queue.length - 1][0] - ac.currentTime - this._moved;
+	this._moved += sec;
+	
+	console.log(sec);
+	
+	var i = 0;
+	for (; i < queue.length; i++)
+		if (queue[i][0] > ac.currentTime + this._moved) break;
+	
+	this._gain.disconnect(filter);
+	this._oscillator.disconnect(this._gain);
+	this._gain = ac.createGain();
+	this._gain.gain.value = 0;
+	this._oscillator.connect(this._gain);
+	this._gain.connect(filter);
+	
+	for (; i < queue.length; i++)
+		this._gain.gain.setValueAtTime(queue[i][1], queue[i][0] - this._moved);
+	
+	var min = timestamp[0];
+	timestamp.forEach((el, idx, ary) => { ary[idx] = el - sec; });
+}
+
+MorseNode.prototype.dotfac = function(t) {
+    switch (this.key) {
+            // t is type of dotvalue. l=letter int. i=inter el. s=spaces .=dit -=dah 
+        case 'computer':
+            return 1;
+		case 'straightmed': //i and . are rather too long than too short, s the inverse rest is random
+            if (t=='.' || t=='i') return Math.random()*0.33+0.95;
+            if (t=='s') return Math.random()*0.2+0.85;
+            return Math.random()*0.3+0.85;
+        case 'straightbad':
+            if (t=='.' || t=='i') return Math.random()*0.6+0.8;
+            if (t=='s') return Math.random()*0.4+0.7;
+            return Math.random()*0.5+0.75;
+        case 'straightvbad':
+            if (t=='.' || t=='i') return Math.random()*1.6+0.8;
+            if (t=='s') return Math.random()*0.85+0.4;
+            return Math.random()*0.8+0.6;
+        case 'hangul_smaller':
+			if (t=='s') return 1.5;
+            if (t=='l') return 1.5;
+        case 'hangul_small':
+			if (t=='s') return 2;
+            if (t=='l') return 2;
+        case 'hangul':
+			if (t=='s') return 3;
+            if (t=='l') return 3;
+        case 'farnsworth': //uses farnsworth
+            if (t=='s') return 6;
+            if (t=='l') return 4;
+        case 'elmer': //uses farnsworth
+            if (t=='s') return 4;
+            if (t=='l') return 1.5;
+            return 1;
+        }
+}
+
+var smoothingDuration = 0.004;  // 10ms is very soft, icom default 4ms;
+MorseNode.prototype.playChar = function(queueOnly, t, c, v) {
+    for (var i = 0; i < c.length; i++) {
+        switch(c[i]) {
+        case '.':
+            if (!queueOnly) {
+				this._gain.gain.setValueAtTime(0, t - smoothingDuration);
+				this._gain.gain.linearRampToValueAtTime(1.0 * v, t);
+			}
+			enQueue(1.0 * v, t);
+            t += this._dot * this.dotfac('.');
+            if (!queueOnly) {
+				this._gain.gain.setValueAtTime(1.0 * v, t - smoothingDuration);
+				this._gain.gain.linearRampToValueAtTime(0.0, t);
+			}
+			enQueue(0.0, t)
+            break;
+        case '-':
+            if (!queueOnly) {
+				this._gain.gain.setValueAtTime(0, t - smoothingDuration);
+				this._gain.gain.linearRampToValueAtTime(1.0 * v, t);
+			}
+			enQueue(1.0 * v, t);
+            t += 3 * this._dot * this.dotfac('-');
+            if (!queueOnly) {
+				this._gain.gain.setValueAtTime(1.0 * v, t - smoothingDuration);
+				this._gain.gain.linearRampToValueAtTime(0.0, t);
+			}
+			enQueue(0.0, t)
+            break;
+        }
+        t += this._dot * this.dotfac('i');
+    }
+    return t;
+}
+
+var timestamp = [];
+var queue = [];
+function enQueue(v, t) {
+	queue.push([t, v]);
+}
+var hasHangul = false;
+
+MorseNode.prototype.playString = function(queueOnly, t, w, v, k, fade) {
+    this.key = k;
+    
+    w = this.convertHangulAndProsign(w.toUpperCase());
+    timestamp = [];
+	queue = [];
+	enQueue(0, 0);
+	hasHangul = false;
+    
+    var start = t, fv = v;
+    for (var n = 0; n < w.length; n++) {
+        if (fade && (t - start) > 0) { // skip face effect during first 10s
+            var pointOneSec = parseInt((t - start) * 10) % 150;
+            if (pointOneSec < 75) fv = v * (100 - pointOneSec) * 0.01; // gradually goes down to the quarter volume for 7.5 sec
+            else fv = v * (pointOneSec - 50) * 0.01; // gradually goes up to the normal volume for 7.5 sec
+        }
+        if (!highlightSlowly.checked) timestamp.push(t);
+        var c = w[n];
+        var hangul = (c.length > 1);
+        for (var i = 0; i < c.length; i++) {
+            if (c[i] == ' ' || c[i] == '\u00A0') {
+                t += 4 * this._dot * this.dotfac('s'); // 3 dots gap already added after ending letter before
+            }
+            else if ("undefined" != typeof this.MORSE[c[i]]) {
+                t = this.playChar(queueOnly, t, this.MORSE[c[i]], fv); // 1 gap after dit/dah
+                t += 2 * this._dot * this.dotfac('l'); // with this 2 more gap, whole gap between letter is 3
+            }
+        }
+        if (hangul) {
+            t += (2+2) * this._dot * this.dotfac('l');
+			hasHangul = true;
+        }
+        if (highlightSlowly.checked) timestamp.push(t);
+    }
+    timestamp.push(t);
+    
+    return t;
+}
+
+MorseNode.prototype.convertHangulAndProsign = function(w) {
+    // convert prosign
+    for (var key in this.PROSIGN) {
+        w = w.replace(new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), this.PROSIGN[key]);
+    }
+    return Hangul.disassemble(w, true);
+}
+
+MorseNode.prototype.getSpaceDelayInMills = function() {
+    return 1000 * this._dot * (this.dotfac('i') + 2 * this.dotfac('l') + 4 * this.dotfac('s'));
+}
+
+function array_shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+}
+
+var ac, filter, morse = null, vol = 1.0, cwPort = null, cwPortInitialized = false, cwPortOpen = false;
+
+var ua = navigator.userAgent.toLowerCase();
+var isIOS = (ua.indexOf("iphone") > -1 || ua.indexOf("ipad") > -1 || ua.indexOf("ipod") > -1);
+var isAndroid = ua.indexOf("android") > -1;
+var isMobile = (isIOS || isAndroid);
+
+var user_textarea = document.getElementById('user_txt');
+
+var view1 = document.querySelector("#view1");
+var view2 = document.querySelector("#view2");
+var view3 = document.querySelector("#view3");
+var word_space = document.querySelector("#word_space");
+var repeat_count = document.querySelector("#repeat_count");
+var gen_number = document.querySelector("#gen_number");
+var loadScript_getcount = document.querySelector("#loadScript_getcount");
+var freq = document.querySelector("#freq");
+var wpm = document.querySelector("#speed");
+var volume = document.querySelector("#volume");
+var play = document.querySelector("#play");
+var stop = document.querySelector("#stop");
+var make_mp3 = document.querySelector("#make_mp3");
+var makeTze = document.querySelector("#make_tze");
+var keyComputer = document.getElementById('selectkey');
+var keyHangulSmaller = document.getElementById('selectkey');
+var keyHangulSmall = document.getElementById('selectkey');
+var keyHangul = document.getElementById('selectkey');
+var flute = document.querySelector("#flute");
+var noise = document.querySelector("#noise");
+var fading = document.querySelector("#fading");
+var selectionOnly = document.querySelector("#selection_only");
+var highlightSlowly = document.querySelector("#highlight_slowly");
+var hideText = document.querySelector("#hide_text");
+var repeat = document.querySelector("#repeat");
+var connect = document.querySelector("#connect");
+var disconnect = document.querySelector("#disconnect");
+var add_vvv = document.querySelector("#add_vvv");
+var add_ar = document.querySelector("#add_ar");
+var add_vvv_text = document.querySelector("#add_vvv_text");
+var add_ar_text = document.querySelector("#add_ar_text");
+
+var gen_hangul_option = document.querySelector("#gen_hangul_option");
+var gen_random_option = document.querySelector("#gen_random_option");
+var gen_syllables_option = document.querySelector("#gen_syllables_option");
+
+connect.addEventListener("click", async () => {
+	if (isAndroid || isIOS) {
+        alert("Mobile devices don't support serial communication.");
+        return;
+    }
+	
+	var options = { baudRate: 115200, flowControl: 'hardware' };
+	if (!cwPortInitialized) {
+		navigator.serial.requestPort().then(async (port) => {
+			cwPort = port;
+			await cwPort.open(options); // DTR should be set on the radio
+			await cwPort.setSignals({dataTerminalReady:false});
+			toggleConnectButtons(true);
+			cwPortInitialized = true;
+			cwPortOpen = true;
+		}).catch((e) => {
+		});
+	} else if (!cwPortOpen) {
+		await cwPort.open(options);
+		await cwPort.setSignals({dataTerminalReady:false});
+		toggleConnectButtons(true);
+		cwPortOpen = true;
+	}
+}, false);
+disconnect.addEventListener("click", async () => {
+	if (cwPort != null && cwPortOpen) {
+		await cwPort.setSignals({dataTerminalReady:false});
+		await cwPort.close();
+		toggleConnectButtons(false);
+		cwPortOpen = false;
+	}
+}, false);
+
+reset.addEventListener("click", async () => {
+    if(confirm('Initialize all environments?')){
+        window.localStorage.clear();
+        window.location.reload();
+    }else{
+        return false;
+    }
+});
+
+function toggleConnectButtons(connected) {
+	connect.replaceChild(document.createTextNode(connected ? "CONNECTED!" : "CONNECT"), connect.firstChild);
+	disconnect.replaceChild(document.createTextNode(connected ? "DISCONNECT" : "DISCONNECTED!"), disconnect.firstChild);
+}
+
+function renewMorse() {
+    ac = (ac || new AudioContext());
+    if (ac.state != "running") ac.resume();
+
+    if (morse != null) morse._oscillator.stop(0);
+    morse = new MorseNode(ac, parseInt(wpm.value));
+    
+    filter = ac.createBiquadFilter(); 
+    filter.frequency.value = freq.value;
+    filter.Q.value = 0;
+    
+    morse.connect(filter);
+    filter.connect(ac.destination);
+    
+    morse._dot = 1.2 / parseFloat(wpm.value);
+    morse._oscillator.frequency.value = parseInt(freq.value);
+}
+var stopped = true, paused = false;
+var cm, doc, txtValue, cursorFrom = null, cursorTo, cursorTempFrom, cursorTempTo, cursorTempEnd, highlightStart, hightlightEnd, repeatId = -1, marker = null;
+var DELAY_AMOUNT = 1; // seconds
+stop.onclick = function() {
+    try { clearTimeout(repeatId); repeatId = -1;}
+    catch (e) {}
+    document.getElementById('layer').style.display = 'none';
+    renewMorse();
+    if (noiseNode) noiseGain.disconnect();
+    morse.playString(false, ac.currentTime, " ", vol, document.getElementById('selectkey').value, fading.checked);
+    doc.readOnly = false;
+    
+    addDitdah(false, 1); // this also manage cw port
+	
+	clearMarker();
+	cm.setOption("extraKeys", {});
+    // cm.focus();
+
+    if (cursorFrom != null) {
+        doc.setSelection(cursorFrom, cursorTo);
+        cm.refresh();
+    }
+    stopped = true;
+
+    play.replaceChild(document.createTextNode("PLAY"), play.firstChild);
+    paused = false;
+}
+
+var bufferSource = noiseNode = noiseGain = null;
+play.onclick = function() {
+    var str =  doc.getValue();
+    if(!str){
+        alert("There's no Contents");
+        return  false;
+    }
+    if (paused) {
+        play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
+        paused = false;
+        ac.resume();
+        return;
+    } else if (stopped == false && repeatId == -1) {
+        play.replaceChild(document.createTextNode("RESUME"), play.firstChild);
+        paused = true;
+        ac.suspend();
+        return;
+    } else {
+        play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
+        paused = false;
+    }
+   
+    try { clearTimeout(repeatId); repeatId = -1;}
+    catch (e) {}
+
+    renewMorse();
+    
+    if (noise.checked) {
+        if (bufferSource == null) {
+            bufferSource = ac.createBufferSource();
+            noiseNode = ac.createWhiteNoise();
+            bufferSource.connect(noiseNode);
+            noiseGain = ac.createGain();
+            noiseNode.connect(noiseGain);
+            bufferSource.start(0);
+        }
+        noiseGain.gain.value = vol * 0.5;
+        noiseGain.connect(ac.destination);
+    }
+    
+    clearMarker();
+    // cm.focus();
+    if (cursorFrom != null && !stopped) {
+        doc.setSelection(cursorFrom, cursorTo);
+        cm.refresh();
+        previousTime = 0;
+    } else clearDitdah();
+    
+    cursorFrom = doc.getCursor("from");
+    cursorTo = doc.getCursor("to");
+    txtValue = doc.getSelection();
+    
+    var lastLine = doc.lastLine();
+    var lastLineLength = doc.getLine(lastLine).length;
+    
+    if (selectionOnly.checked) {
+        if (txtValue == '') { // when no selection  
+            if (cursorTo.line == lastLine && cursorTo.ch == lastLineLength) { // when caret is at the end, start from first letter
+                txtValue = doc.getValue();
+                cursorTempFrom = {line: 0, ch: 0};
+                cursorTempTo = {line: 0, ch: 0};
+                cursorTempEnd = {line: lastLine, ch: lastLineLength};
+            } else { // when caret is in the middle, start from caret position
+                doc.setSelection(cursorFrom, {line: lastLine, ch: lastLineLength});
+                txtValue = doc.getSelection();
+                doc.setSelection(cursorFrom, cursorTo);
+                cursorTempFrom = {line: cursorFrom.line, ch: cursorFrom.ch};
+                cursorTempTo = {line: cursorFrom.line, ch: cursorFrom.ch};
+                cursorTempEnd = {line: lastLine, ch: lastLineLength}
+            }
+        } else { // play selection
+            cursorTempFrom = {line: cursorFrom.line, ch: cursorFrom.ch};
+            cursorTempTo = {line: cursorFrom.line, ch: cursorFrom.ch};
+            cursorTempEnd = {line: cursorTo.line, ch: cursorTo.ch};
+        }
+    } else {
+        txtValue = doc.getValue();
+        cursorTempFrom = {line: 0, ch: 0};
+        cursorTempTo = {line: 0, ch: 0};
+        cursorTempEnd = {line: lastLine, ch: lastLineLength};
+    }
+    highlightStart = highlightEnd = 0;
+
+
+    morse.playString(false, ac.currentTime + DELAY_AMOUNT, txtValue, vol * (noise.checked ? 0.5 : 1), document.getElementById('selectkey').value, fading.checked);
+    
+    doc.readOnly = true;
+
+    window.localStorage.setItem('user_txt', user_txt.CodeMirror.doc.getValue());
+    
+    stopped = false;
+    
+    // cm.focus();
+    if (highlightSlowly.checked) doc.setSelection(cursorTempFrom, cursorTempFrom);
+    if (hideText.checked) setMarker(cursorTempFrom, cursorTempEnd);
+	cm.setOption("extraKeys", { Left: function() {rollback(true);}, Right: function() {rollback(false);} });
+    // cm.focus();
+    
+	/*if (selectionOnly.checked == false) repeatId = setTimeout(highlight, DELAY_AMOUNT * 1000);
+    else */highlight();
+}
+
+function delayedRepeat() {
+    if (!stopped) play.click();
+}
+var previousTime = 0;
+function highlight() {
+    if (timestamp.length == 0) {
+        if (!stopped) stop.click();
+        if (repeat.checked) {
+            stopped = false;
+            repeatId = setTimeout(delayedRepeat, 2 * morse.getSpaceDelayInMills());
+        }
+        return;
+    }
+    
+    if (previousTime != 0) addDitdah(morse._gain.gain.value > 0, parseInt((ac.currentTime - previousTime)*1000));
+    previousTime = ac.currentTime;
+    
+    if (ac.currentTime > timestamp[0]) {
+        timestamp.shift();
+        
+        highlightStart = highlightEnd;
+        cursorTempFrom.line = cursorTempTo.line, cursorTempFrom.ch = cursorTempTo.ch;
+        
+        if (txtValue[highlightStart] == '<' && txtValue.length > highlightStart + 3 
+            && !!morse.PROSIGN[txtValue.substring(highlightStart, highlightStart + 4).toUpperCase()]) {
+            highlightEnd = highlightStart + 4;
+            cursorTempTo.ch = cursorTempFrom.ch + 4;
+        } else if (txtValue.length > highlightStart) {
+            highlightEnd = highlightStart + 1;
+            if (txtValue[highlightStart] == '\n') {
+                cursorTempTo.line++;
+                cursorTempTo.ch = 0;
+            } else {
+                cursorTempTo.ch = cursorTempFrom.ch + 1;
+            }
+        }
+
+        if (!stopped && cursorTempTo.ch != 0) {
+            cm.focus();
+            doc.setSelection(cursorTempFrom, cursorTempTo);
+            document.getElementById('textarea_select_char').innerHTML = doc.getSelection();
+            document.getElementById('textarea_play_char').innerHTML = doc.getSelection();
+            document.getElementById('textarea_select_count').innerHTML = highlightEnd;
+            var now_percent = parseInt(highlightEnd/txtValue.length*100);
+            document.getElementById('textarea_select_percent').innerHTML = now_percent;
+            setProgressBar(now_percent);
+            if (hideText.checked) {
+                setMarker(cursorTempTo, cursorTempEnd);
+            }
+            cm.refresh();
+        }
+    }
+    if (!stopped) setTimeout(highlight, 7); // 7ms is based on the sampling rate
+}
+function setMarker(start, end) {
+    clearMarker();
+    marker = cm.markText(start, end, {className: "hide_markText"});
+}
+function clearMarker() {
+    if (marker == null) return;
+    
+    marker.clear();
+    marker = null;
+}
+
+function rollback(back) {
+	if (stopped || morse == null) return;
+	morse.timeMove(back ? -5 : 5);
+}
+
+var MP3_SAMPLE_RATE = 16000; //(isMobile ? 16000 : 44100);
+var MP3_BIT_RATE = 32; //(isMobile ? 32 : 128);
+var MP3_SAMPLE_BLOCK_SIZE = 1152;
+make_mp3.onclick = function() {
+    var str =  doc.getValue();
+    if(!str){
+        alert("Ther'e no Contents");
+        return  false;
+    }
+    if(!confirm('Save as mp3 file?')==true) return false;
+	stop.click();
+	var mp3 = document.querySelector("#mp3");
+	mp3.replaceChild(document.createTextNode("Generating.. Please wait a few minutes."), mp3.firstChild);
+    mp3.style="display: inline-block;";
+    setTimeout(makeMp3, 1);
+};
+async function makeMp3() {
+	morse.playString(true, DELAY_AMOUNT, doc.getValue(), vol, document.getElementById('selectkey').value, fading.checked);
+	var encoder = new Mp3LameEncoder(MP3_SAMPLE_RATE, MP3_BIT_RATE);
+	var duration = makeBufferAndEncode(encoder, noise.checked, vol);
+	saveRecording(encoder.finish(), duration);
+}
+function makeBufferAndEncode(encoder, withNoise, noiseVolume) {
+	if (queue.length == 0) return;
+	
+	var queueLen = queue.length;
+	var duration = Math.ceil(queue[queueLen - 1][0]);
+	var sampleLen = parseInt((duration + DELAY_AMOUNT) * MP3_SAMPLE_RATE);
+	//sampleLen = Math.ceil(sampleLen / MP3_SAMPLE_BLOCK_SIZE) * MP3_SAMPLE_BLOCK_SIZE;
+	var buffer = new Float32Array(MP3_SAMPLE_BLOCK_SIZE);
+	var angular_frequency = freq.value * 2 * Math.PI;
+	var angular_frequency_factor = angular_frequency / MP3_SAMPLE_RATE;
+	var rising_step = rising_start_volume = rising_end_volume = 0;
+	var rising_steps = MP3_SAMPLE_RATE * smoothingDuration;
+	
+	var queueIndex = 0, sampleIndex = 0, volume = 0.0, nextVolume = 0.0;
+	for ( ; queueIndex < queueLen; queueIndex++) {
+		var item = queue[queueIndex];
+		if (item[1] > 0) {
+			sampleIndex = parseInt(item[0] * MP3_SAMPLE_RATE);
+			nextVolume = item[1];
+			break;
+		}
+	}
+	for (var i = 0, j = 0; i < sampleLen; i++, j++) {
+		if (j == MP3_SAMPLE_BLOCK_SIZE) {
+			encoder.encode([buffer, buffer]);
+			buffer.fill(0);
+			j = 0;
+		}
+		
+		if (i > sampleIndex) {
+			if (queueIndex < queueLen - 1) queueIndex++;
+			sampleIndex = parseInt(queue[queueIndex][0] * MP3_SAMPLE_RATE);
+			if (volume != nextVolume) {
+				rising_step = rising_steps;
+				rising_start_volume = volume;
+				rising_end_volume = nextVolume;
+			}
+			volume = nextVolume;
+			nextVolume = queue[queueIndex][1];
+		}
+		
+		if (rising_step-- > 0) {
+			if (rising_start_volume > rising_end_volume) volume = rising_end_volume + (rising_start_volume - rising_end_volume) * rising_step / rising_steps;
+			else volume = rising_start_volume + (rising_end_volume - rising_start_volume) * (rising_steps - rising_step) / rising_steps;
+		}
+		buffer[j] = Math.sin(i * angular_frequency_factor) * volume; // https://teropa.info/blog/2016/08/04/sine-waves.html
+		if (withNoise) buffer[j] = buffer[j] * Math.cos(0.5*0.5*Math.PI) + ((Math.random() * 2) - 1) * noiseVolume * Math.cos(0.5*0.5*Math.PI); // half + half
+	}
+	encoder.encode([buffer, buffer]);
+	
+	return duration;
+}
+function saveRecording(blob, duration) {
+	var url = URL.createObjectURL(blob);
+	
+	var sound = document.createElement("AUDIO");
+	sound.controls = 'controls';
+	sound.src = url;
+	sound.type = 'audio/mpeg';
+	
+	var link = document.createElement("A");
+	link.href = url;
+	link.appendChild(document.createTextNode(" 💾 MP3 "));
+	var filename = 'Morse_' + (new Date()).toISOString().replace(/[\-\:T]/ig, '').substring(0, 12);
+	filename += "_" + freq.value + 'Hz_' + wpm.value + "wpm_" + parseInt(duration + 2) + "sec_" + MP3_SAMPLE_RATE.toLocaleString('en-US') + "rate_" + MP3_BIT_RATE + "kbps";
+	link.download = filename + ".mp3";
+	
+	var div = document.createElement("DIV");
+	div.appendChild(sound);
+	div.appendChild(link);
+	
+	var mp3 = document.querySelector("#mp3");
+	mp3.replaceChild(div, mp3.firstChild);
+}
+
+makeTze.onclick = function() {
+    var str =  doc.getValue();
+    if(!str){
+        alert("There's no Contents");
+        return  false;
+    }
+    if(!confirm('Save as 1TZE file?')==true) return false;
+	stop.click();
+	morse.playString(true, DELAY_AMOUNT, doc.getValue(), 1.0, document.getElementById('selectkey').value, false);
+	queue.push([queue[queue.length - 1][0] + 1, 0]);
+	saveTzeFile();
+}
+function saveTzeFile() {
+	var data = packTzeFile();
+	var blob = new Blob([JSON.stringify(data)], {type:"application/json"});
+	var url = URL.createObjectURL(blob);
+	
+	var link = document.createElement("A");
+	link.href = url;
+	link.appendChild(document.createTextNode(" 💾 1TZE "));
+	var filename = (new Date()).toISOString().replace(/[\-\:T]/ig, '').substring(0, 14);
+	link.download = filename + ".tze";
+	
+	var anchor = document.querySelector("#tze");
+    link.id = anchor.id;
+    anchor.parentNode.replaceChild(link, anchor);
+}
+function packTzeFile() {
+	return {
+		version: 1,
+		creatdAt: (new Date()).toISOString(),
+		wpm: parseInt(wpm.value),
+		hangul: hasHangul,
+		queue: queue.map(x => [x[0].toFixed(3),parseInt(x[1])])
+	};
+}
+
+var ditdah = document.querySelector("#ditdah");
+var last = false, lastWidth = 0;
+function addDitdah(bar, len) {
+    if (bar == last && ditdah.childNodes.length > 0 && lastWidth < 8192) {
+        var span = ditdah.lastChild;
+        lastWidth += len;
+        span.style.width = (parseInt(lastWidth) >> 3) + "px";
+        return;
+    }
+    var span = document.createElement("SPAN");
+    span.className = bar ? "ditdah_bar" : "ditdah_gap";  
+    span.style.width = parseInt(len >> 5) + "px";
+    ditdah.appendChild(span);
+    if (ditdah.childNodes.length > 256) ditdah.removeChild(ditdah.firstChild);
+    last = bar;
+    lastWidth = len;
+	
+	if (cwPortOpen) cwPort.setSignals({dataTerminalReady:bar});
+    document.getElementById('cwport_signal').style.backgroundColor = bar ? 'red' : 'white';
+}
+
+function clearDitdah() {
+    var len = ditdah.childNodes.length;
+    for (var i = 0; i < len; i++) ditdah.removeChild(ditdah.firstChild);
+    previousTime = 0;
+}
+
+var RANDOM_GEN_NUMBER = gen_number.value;
+
+function add_spacer(){
+    RANDOM_GEN_NUMBER = gen_number.value;
+    let numSpaces = parseInt(document.getElementById('word_space').value);
+    let spacer = " ".repeat(numSpaces);
+    return spacer;
+}
+
+gen_hangul_option.addEventListener('change', function() {
+    if (!stopped) stop.click();
+    var RANDOM_GEN_NUMBER = gen_number.value;
+    const selectedValue = this.value;
+    gen_hangul_option.value = '';
+    if(selectedValue=="hangul_qso_1"){
+        textarea_change("hangul_qso_1");
+    }else if(selectedValue=="hangul_qso_2"){
+        textarea_change("hangul_qso_2");
+    }else if(selectedValue=="hangul_qso_3"){
+        textarea_change("hangul_qso_3");
+    }else if(selectedValue=="hangul_qso_4"){
+        textarea_change("hangul_qso_4");
+    }else if(selectedValue=="english_qso_1"){
+        textarea_change("english_qso_1");
+    }else if(selectedValue=="english_qso_2"){
+        textarea_change("english_qso_2");
+    }
+});
+
+
+gen_random_option.addEventListener('change', function() {
+    if (!stopped) stop.click();
+    RANDOM_GEN_NUMBER = gen_number.value;
+    const selectedValue = this.value;
+    gen_random_option.value = '';
+    count = gen_number.value;
+    document.getElementById('user_txt_caption').innerHTML = '';
+
+    function remove_add_vvv_ar(callsign_data) {
+        return callsign_data.filter(item => {
+        return !item.includes(add_vvv_text.value) && !item.includes(add_ar_text.value);
+    });}
+
+    if(selectedValue=="random_itu_callsigns"){
+        var data = generateITUCallsigns(RANDOM_GEN_NUMBER, getRepeatCount()).join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_hl_callsigns"){
+        var callsigns = generateHLCallsigns(RANDOM_GEN_NUMBER, 1);
+        callsigns.sort(() => Math.random() - 0.5);
+        var repeated = [], repeatCount = getRepeatCount();
+        for (var callsign of callsigns)
+            repeated.push(Array(repeatCount).fill(callsign).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_ja_callsigns"){
+        var data = generateJACallsigns(RANDOM_GEN_NUMBER, getRepeatCount()).join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_babv_callsigns"){
+        var data = generateBABVCallsigns(RANDOM_GEN_NUMBER, getRepeatCount()).join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_qcode"){
+        var data = generateQCODE(RANDOM_GEN_NUMBER, getRepeatCount()).join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_hlja_callsigns"){
+        var callsigns = generateHLCallsigns(RANDOM_GEN_NUMBER/2, 1);
+        callsigns = callsigns.concat(generateJACallsigns(RANDOM_GEN_NUMBER/2, 1));
+        callsigns = remove_add_vvv_ar(callsigns);
+        callsigns.sort(() => Math.random() - 0.5);
+        var repeated = [], repeatCount = getRepeatCount();
+        for (var callsign of callsigns)
+            repeated.push(Array(repeatCount).fill(callsign).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_hlbabv_callsigns"){
+        var callsigns = generateHLCallsigns(RANDOM_GEN_NUMBER/2, 1);
+        callsigns = callsigns.concat(generateBABVCallsigns(RANDOM_GEN_NUMBER/2, 1));
+        callsigns = remove_add_vvv_ar(callsigns);
+        callsigns.sort(() => Math.random() - 0.5);
+        var repeated = [], repeatCount = getRepeatCount();
+        for (var callsign of callsigns)
+            repeated.push(Array(repeatCount).fill(callsign).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_jababv_callsigns"){
+        var callsigns = generateBABVCallsigns(RANDOM_GEN_NUMBER/2, 1);
+        callsigns = callsigns.concat(generateJACallsigns(RANDOM_GEN_NUMBER/2, 1));
+        callsigns = remove_add_vvv_ar(callsigns);
+        callsigns.sort(() => Math.random() - 0.5);
+        var repeated = [], repeatCount = getRepeatCount();
+        for (var callsign of callsigns)
+            repeated.push(Array(repeatCount).fill(callsign).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_hljababv_callsigns"){
+        var callsigns = generateHLCallsigns(RANDOM_GEN_NUMBER/3, 1);
+        callsigns = callsigns.concat(generateJACallsigns(RANDOM_GEN_NUMBER/3, 1));
+        callsigns = callsigns.concat(generateBABVCallsigns(RANDOM_GEN_NUMBER/3, 1));
+        callsigns = remove_add_vvv_ar(callsigns);
+        callsigns.sort(() => Math.random() - 0.5);
+        var repeated = [], repeatCount = getRepeatCount();
+        for (var callsign of callsigns)
+            repeated.push(Array(repeatCount).fill(callsign).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_qso_elements"){
+        var QSO_ELEMENTS = ["DE", "GM", "GA", "GE", "DR", "OM", "TNX", "TKS", "FER", "CALL", "<BT>","ES", "UR", "RST", "RPRT", "RPT", "IS", "599", "5NN", "579", "57N", "559", "55N","HR", "OP", "NAME", "QTH", "KDN", "HW", "HW?", "CPI", "CPY","QSO", "CU", "AGN", "CUAGN", "HOPE", "HPE", "QSL", "VIA", "BURO","DX", "GL", "GB", "GUD", "73", "88", "PSE", "CQ", "QRL", "QRZ","CFM", "SRI", "TU", "VY", "QRS", "QRP", "QRM", "QSB", "TEST","OK", "FB", "BK", "<BK>", "RR", "ALL", "RIG", "PWR", "ANT", "WX", "TEMP","K", "<KN>", "<AR>", "<VA>", "<AS>", "?"];
+        var repeated = [], repeatCount = getRepeatCount();
+        array_shuffle(QSO_ELEMENTS)
+        QSO_ELEMENTS = array_lenth_up(QSO_ELEMENTS,count);
+        for (var qso_element of QSO_ELEMENTS)
+            repeated.push(Array(repeatCount).fill(qso_element).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_qso_basic_elements"){
+        QSO_BASIC_ELEMENTS = ["CQ", "DE", "PSE", "K", "<AR>","GM", "GA", "GE", "DR", "OM","TNX", "FER", "CALL", "<BT>","ES", "UR", "RST", "IS", "599", "5NN","HR", "OP", "NAME","HW?","HPE", "CUAGN", "GL", "GB", "73", "TU","RR", "OK", "FB", "<BK>","<KN>", "<VA>"];
+        var repeated = [], repeatCount = getRepeatCount();
+        array_shuffle(QSO_BASIC_ELEMENTS)
+        QSO_BASIC_ELEMENTS = array_lenth_up(QSO_BASIC_ELEMENTS,count);
+        for (var qso_basic_element of QSO_BASIC_ELEMENTS)
+            repeated.push(Array(repeatCount).fill(qso_basic_element).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_stamp_qso"){
+        GREETINGS = ["GM DR OM","GA DR OM","GE DR OM"];
+        THANKS = ["TNX FER CALL","TKS FER CALL","TNX FER RPRT","TNX FER FB RPRT","TKS FER RPRT",];
+        RSTS = ["UR RST 599 5NN","UR 599 5NN","UR RST IS 599 5NN",];
+        NAMES = ["HR OP IS KIM KIM","HR OP CHOI CHOI","OP HR IS KIM KIM","OP OP CHOI CHOI","OP IS KIM KIM","MY NAME IS PARK PARK", "NAME IS KIM KIM","NAME NAME PARK PARK"];
+        FINALS = ["CUAGN 73 TU EE","HPE CUAGN 73 <VA>","73 TU <VA> EE","HW? <BK>","HW CPI? <BK>","OK? <BK>","<BK>","73 TU TU <VA> EE"];
+        var qsos = [];
+        for (var n = 0; n < 10; n++) {
+            var greeting = GREETINGS[Math.floor(Math.random() * GREETINGS.length)];
+            var thank = THANKS[Math.floor(Math.random() * THANKS.length)];
+            var rst = RSTS[Math.floor(Math.random() * RSTS.length)];
+            var name = NAMES[Math.floor(Math.random() * NAMES.length)];
+            var final = FINALS[Math.floor(Math.random() * FINALS.length)];
+
+            var qso = (Math.random() > 0.5 ? "  " : "  ") + greeting;
+            qso += (Math.random() > 0.5 ? (Math.random() > 0.5 ? " " : " <BT> ") + thank : "");
+            qso += (Math.random() > 0.5 ? " ES " : " <BT> ") + rst;
+            qso += (name.startsWith("NAME") ? " <BT> " : (Math.random() > 0.5 ? " ES " : " <BT> ")) + name;
+            qso += (final.startsWith("<BK>") ? " " : " <BT> ") + final;
+            qsos.push(qso);
+        }
+        var data = qsos.join("   \n");
+        changeQsoSample(data);
+    }else if(selectedValue=="random_hl_words"){
+        QSO_WORDS = [
+            "안녕","신호","오엠","말씀","수신","오늘","교신","한글","전신","여기","이곳","운영","다음","주말","저녁","종료","이만","가게","가격","가구","가방","가수","가슴","가요","가위","가을","가족","간식","간장","갈비","갈색","감기","감동","감자","개인","거기","거리","거실","거울","건물","게임","겨울","결과","경기","경주","경찰","경치","경험","계단","계란","계절","계획","고기","고모","고장","고추","고향","골목","골프","공간","공기","공연","공원","공짜","공책","공항","과거","과일","과자","과학","관계","관심","광고","교수","교실","교통","교회","구두","구름","구월","국내","국립","국수","국어","국적","국제","군인","규칙","그거","그것","그곳","그날","그때","그램","그릇","그림","그분","그쪽","극장","근처","금연","기간","기름","기분","기사","기사","기온","기자","기차","기침","기타","김밥","김치","꽃집","나라","나무","나이","나중","나흘","낚시","날씨","날짜","남녀","남미","남산","남자","남쪽","남편","내과","내년","내용","내일","냄비","냄새","냉면","노래","노트","녹색","녹차","농구","누구","누나","눈물","뉴스","뉴욕","느낌","능력","다리","다리","다음","단어","단점","달러","달력","담배","답장","당근","당신","대학","대화","대회","덕분","도로","도시","도움","도쿄","독서","독일","동네","동물","동생","동안","동양","동전","동쪽","돼지","된장","두부","듣기","등산","딸기","떡국","라면","로션","마늘","마음","만두","만화","매일","매주","맥주","머리","머리","메뉴","메모","며칠","면도","명절","모양","모임","모자","목적","몸살","몽골","무료","무릎","무엇","무역","무용","문장","문제","문화","물건","미국","미래","미술","바다","바람","바지","박수","반지","반찬","발음","발표","방법","방송","방학","배구","배달","배우","배탈","버스","번호","벚꽃","병원","볼펜","봉지","봉투","부모","부부","부산","부엌","부인","부탁","북쪽","비누","비밀","빌딩","빨래","빵집","사고","사과","사람","사물","사원","사월","사이","사장","사전","사진","사촌","사탕","사흘","산책","삼월","삼촌","상자","상처","상품","새벽","새우","색깔","생선","생신","생일","생활","샴푸","서류","서양","서울","서점","서쪽","선배","선수","설날","설탕","성격","성함","세계","센터","소리","소설","소식","소파","소포","소풍","손님","송이","수건","수도","수박","수업","수영","수저","수첩","수학","숙제","순서","스키","습관","시간","시계","시골","시내","시디","시민","시설","시외","시월","시작","시장","시청","시험","식당","식사","식탁","신문","신발","실수","쓰기","아기","아내","아들","아래","아빠","아이","아침","아침","악기","안경","야구","야채","약국","약사","약속","양말","양복","양식","양파","어깨","어디","어른","언니","얼굴","얼마","얼음","엄마","여권","여기","여름","여자","여행","역사","연세","연필","연휴","열쇠","열차","엽서","영국","영상","영어","영하","영화","예약","옛날","오리","오빠","오월","오이","오전","오후","올해","옷장","외국","왼쪽","요금","요리","요일","요즘","우리","우산","우유","우표","월급","월세","웬일","위치","유럽","유리","유월","유학","유행","은행","음식","음악","의미","의사","의자","이거","이것","이곳","이름","이모","이번","이분","이사","이월","이유","이쪽","이틀","인구","인기","인도","인삼","인상","인천","인형","일기","일본","일식","일월","읽기","입구","입학","자기","자료","자리","자신","자연","자유","작년","잔치","잡지","장갑","장마","장미","장소","장점","재료","재킷","저거","저것","저곳","저기","저녁","저녁","저분","저쪽","저희","전공","전화","점수","점심","점심","점원","점퍼","정도","정문","정보","제목","제일","조카","종로","종류","종이","종일","주말","주변","주부","주사","주소","주스","주위","주인","중국","중식","중심","증세","지갑","지도","지방","지하","직업","직원","직장","찌개","창문","채소","책상","책장","처음","최고","추석","추억","축구","축제","출구","출장","취미","치과","치마","치약","친구","친척","칠월","칠판","침대","칫솔","카드","카레","카페","커피","코트","코피","콜라","콧물","크기","탁구","태국","태풍","택시","통장","특징","파티","팔월","패션","편지","평일","포도","포장","표현","피자","필름","필통","하늘","하루","하숙","학교","학기","학년","학생","학원","한강","한국","한글","한번","한복","한식","한자","할인","합격","해외","햇빛","행복","행사","허리","현금","현재","형제","호주","호텔","혼자","홍차","화가","환자","회사","회색","회의","후배","휴가","휴일","휴지","흰색"
+            ];
+        var repeated = [], repeatCount = getRepeatCount();
+        array_shuffle(QSO_WORDS)
+        QSO_WORDS = array_lenth_up(QSO_WORDS,count);
+        for (var qso_word of QSO_WORDS)
+            repeated.push(Array(repeatCount).fill(qso_word).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_hl_phrases"){
+        var QSO_PHRASES = [
+            "안녕하세요?",
+            "반갑습니다.",
+            "예,",
+            "오엠님",
+            "말씀 잘 수신했습니다.",
+            "신호는 599 5NN 입니다.",
+            "오늘 교신 고맙습니다.",
+            "잘 지내셨나요?",
+            "그동안 잘 지내셨는지요?",
+            "저는 용인, 용인 에 사는 김대성, 김대성 입니다.",
+            "여기는 고양, 고양 이고 운영자는 최영일, 최영일 입니다.",
+            "이곳은 성남, 성남 이고 저는 최병태, 최병태 입니다.",
+            "이름은 배태원, 배태원 이고 경기광주, 경기광주 에서 신호 드리고 있습니다.",
+            "안녕히계세요.",
+            "다음에 또 뵙겠습니다.",
+            "한글 전신 교신 대단히 감사합니다.",
+            "평안한 저녁 되세요.",
+            "오랜만에 뵙습니다.",
+            "신호 받아주셔서 고맙습니다."
+        ];
+        var repeated = [], repeatCount = getRepeatCount();
+        array_shuffle(QSO_PHRASES)
+        QSO_PHRASES = array_lenth_up(QSO_PHRASES,count);
+        for (var qso_phrase of QSO_PHRASES)
+            repeated.push(Array(repeatCount).fill(qso_phrase).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_qso2_elements"){
+        var QSO_ELEMENTS = ["안녕","감사","사람","좋아요","뭐해요","오늘","내일","어제","어디","어떻게","좀","바쁘세요","괜찮아요","미안해요","기분","외국","문제","과제","시험","청소","요리","맛있어요","재미있어요","좋아하다","싫어하다","먹어요","마셔요","자요","가요","와요","들어요","많아요","적어요","죄송해요","고맙다","오늘은","내일은","어제는","아침에","점심에","저녁에","오늘도","내일도","어제도","주말에","방학에","겨울에","봄에","여름에","가을에","비가","눈이","추워서","더워서","춥은","더운","맑은","흐린","바람이","비바람이","구름이","꽃이","나무가","물이","바다가","산이","계곡이","연못이","높은","낮은","멀은","가까운","빠른","느린","바쁜","여유로운","조용한","시끄러운","싫은","예쁜","멋있는","지루한","쉬는","차가운","더운","빨리","느리게","바쁘게","예뻐요","예쁜","어떤","많은","다른","새로운","예전","다음","이전","앞으로","뒤로","좋은","좋아","불고기","된장","계란","카레","만두","파스타","샐러드","김치","된장찌개","순두부","갈비찜","불닭볶음면","라면","바게트","빵","치킨","피자","김밥","떡볶이","김치찌개","햄버거","스테이크","회","초밥","냉면","곱창","갈매기살","순대","부대찌개","삼겹살","돈까스","탕수육","짜장면","탄탕멘","곰탕","분식","죽","떡국","해물찜","해물탕","된장국","김치전","감자전","파전","미역국","매운탕","돼지고기","소고기","오징어","쭈꾸미","게","연어","참치","고등어","쇠고기","계란말이","쌀국수","소스","양파","상추","오이","피망","토마토","버섯","양배추","브로콜리","당근","파","마늘","생강","양념","후추","소금","설탕","카레","커피","주스","차","물","우유","시금치","애호박","호박","두부","콩","콩나물","콩물","연두부","소고기","생선","게살","참치캔","홍고추","청고추","가지","무","백합","버터","계란","빵","라면","감자","당근","포도","건포도","딸기","오렌지","감","토마토","호박","참외","배","쌀","보리","배추","청경채","부추","콩나물","미나리","쪽파","땅콩","조개","가리비","새우","소라","조개","전복","홍합","오징어","문어","거북이","가재","게","꽃게","명란","카우프","모시조개","생선","건어물","건어물찜","참치캔","싱싱한","신선한","바다","들꽃","노을","물소리","파도","강아지","고양이","새끼","부모님","할머니","할아버지","친구","친척","형제","자매","가족","소중한","행복한","웃음","눈물","기쁨","슬픔","설렘","두근거림","마음","감동","사랑","사랑해요","사랑한다","헤어짐","이별","보고싶어요","그리워요","미워요","미워한다","누나","오빠","아빠","엄마","아들","딸","부모님","할머니","할아버지","정성","진심","진심으로","믿음","신뢰","믿다","신뢰하다","소중한","감사함","감사하다","기도","기도하다","의지","의지하다","용기","용기를내다","인내","인내심","참음","참아내다","희망","희망하다","미래","꿈","꿈꾸다","목표","목표를가지다","성취","성취하다","성공","성공하다","실패","실패하다","자신감","자신감을갖다","자랑","자랑스럽다","겸손","겸손하다","존경","존경하다","존중","존중하다","이해","이해하다","이야기","이야기하다","대화","대화하다","고민","고민하다","노력","노력하다","응원","응원하다","격려","격려하다","조언","조언하다","코칭","코칭하다","인정","인정하다","허락","허락하다","권유","권유하다","제안","제안하다","협의","협의하다","합의","합의하다","결정","결정하다","약속","약속하다","미리","미리약속하다","확정","확정하다","예정","예정되다","방법","방법을모색하다","시도","시도하다","행동","행동하다","실험","실험하다","경험","경험하다","배움","배우다","교훈","교훈을얻다","성숙","성숙하다","성장","성장하다","변화","변화하다","삶","삶을사는방법","노래","노래하다","춤","춤추다","음악","음악을듣다","예술","예술을감상하다","배우","연극","연기","연기하다","영화","영화를보다","책","책을읽다","그림","그림을그리다","여행","여행하다","휴가","휴가를보내다","쉬다","쉬는시간","휴식","휴식을취하다","잠","잠을자다","꿈을꾸다","일","일을하다","노동","노동하다","취업","취업하다","직업","직업을가지다","직장","직장생활","일상","일상생활","휴일","휴일을보내다","요일","날짜","시간","시계","기다림","기다리다","도착","도착하다","출발","출발하다","여행","여행하다","식사","식사하다","아침식사","점심식사","저녁식사","간식","간식먹다","영양","영양가","음식","음식을맛보다","요리","요리하다","청소","청소하다","세탁","세탁하다","목욕","목욕하다","샤워","샤워하다","꾸미다","꾸미다","놀이","놀이하다","놀이터","놀이공원","약속","약속하다","모임","모임참석하다","쇼핑","쇼핑하다","물건","물건사기","여행","여행하다","가방","가방을들다","사진","사진찍다","카메라","카메라를들다","전화","전화하다","문자","문자를보내다","인터넷","인터넷을이용하다","휴대폰","휴대폰을가지다","컴퓨터","컴퓨터를사용하다","도서관","도서관을가다","공원","공원에가다","꽃"];
+        var repeated = [], repeatCount = getRepeatCount();
+        array_shuffle(QSO_ELEMENTS)
+        QSO_ELEMENTS = array_lenth_up(QSO_ELEMENTS,count);
+        for (var qso_element of QSO_ELEMENTS)
+            repeated.push(Array(repeatCount).fill(qso_element).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_kdn"){
+        var KDNs = ["A11","A12","A13","A14","A15","A16","A17","A18","A19","A2Ø","A21","A22","A23","A24","A25","A26","A27","A28","A29","A3Ø","A31","A32","A33","A34","A35","B11","B12","B13","B14","B15","B16","B17","B18","B19","B2Ø","B21","B22","B23","B24","B25","B26","CØ1","CØ3","CØ4","CØ5","CØ6","CØ7","CØ8","CØ1Ø","CØ11","CØ12","CØ13","CØ14","CØ15","CØ16","CØ17","CØ18","CØ2Ø","CØ21","CØ22","CØ23","CØ24","CØ25","CØ26","CØ27","CØ28","CØ29","CØ3Ø","CØ31","C2Ø","C21","C23","DØ1","DØ2","DØ3","DØ4","DØ5","DØ6","DØ7","D12","D13","D15","D16","D17","D2Ø","D21","D22","D23","D24","D25","EØ1","EØ2","EØ3","E11","E12","E13","E14","E15","E16","E17","E2Ø","E21","FØ2","FØ3","FØ6","FØ7","FØ8","FØ9","FØ1Ø","FØ11","F19","F2Ø","F21","F23","F24","F25","F26","GØ1","GØ2","GØ6","GØ7","GØ8","GØ9","G11","G15","G16","G18","G19","G21","G22","G23","HØ2","HØ3","HØ4","HØ5","HØ9","H12","H13","H14","H15","H19","H2Ø","H21","H23","H24","H25","H26","H27","H28","H29","H3Ø","H31","H32","KØ2","KØ3","KØ4","KØ5","KØ6","KØ7","KØ8","KØ9","KØ11","KØ12","K12","K13","K15","K16","K2Ø","K22","K23","K25","K28","K31","K32","K33","K34","LØ2","LØ7","LØ8","LØ9","LØ11","LØ12","LØ13","LØ14","L14","L18","L19","L21","L23","L24","L25","L26","L27","L28","MØ1","MØ2","NØ1","NØ2","NØ3","NØ5","NØ6","NØ7","NØ8","NØ9","NØ1Ø","NØ11","PØ1","PØ2","PØ3","PØ4","PØ5","PØ6","PØ7","PØ8","QØ1","QØ2","QØ3","QØ4","QØ5","RØ1","RØ2","RØ3","RØ4","RØ5","SØ1","SØ2","SØ3","SØ4","SØ5","TØ1","ISØ1","ISØ2","ISØ3","ISØ4","ISØ5"];
+        var repeated = [], repeatCount = getRepeatCount();
+        array_shuffle(KDNs)
+        KDNs = array_lenth_up(KDNs,count);
+        for (var kdn of KDNs)
+            repeated.push(Array(repeatCount).fill(kdn).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_kdn_city"){
+        var KDNCities = ["서울 종로","서울 중구","서울 성동","서울 동대문","서울 성북","서울 서대문","서울 마포","서울 용산","서울 영등포","서울 관악","서울 도봉","서울 강남","서울 강서","서울 은평","서울 동작","서울 구로","서울 강동","서울 중랑","서울 노원","서울 서초","서울 양천","서울 송파","서울 금천","서울 광진","서울 강북","부산 동구","부산 중구","부산 서구","부산 영도","부산 부산진","부산 동래","부산 남구","부산 북구","부산 해운대","부산 사하","부산 금정","부산 강서","부산 연제","부산 수영","부산 사상","부산 기장","수원","의정부","성남","부천","안양","광명","동두천","구리","평택","안산","과천","오산","하남","군포","의왕","시흥","고양","남양주","용인","이천","파주","김포","안성","화성","광주","포천","양주","여주","양평","가평","연천","춘천","원주","강릉","속초","동해","태백","삼척","홍천","횡성","평창","정선","영월","양양","인제","고성","양구","화천","철원","청주","충주","제천","청원","보은","옥천","영동","괴산","진천","음성","단양","증평","천안","공주","서산","아산","보령","논산","계룡","당진","예산","홍성","청양","서천","부여","금산","태안","전주","군산","남원","김제","정읍","익산","완주","부안","고창","순창","임실","장수","진안","무주","목포","여수","순천","나주","광양","장성","담양","곡성","구례","고흥","보성","화순","함평","영광","무안","영암","강진","장흥","해남","완도","진도","신안","김천","경주","안동","포항","구미","영주","영천","상주","경산","문경","고령","성주","칠곡","군위","예천","봉화","영양","의성","청도","청송","영덕","울진","울릉","진주","창원","김해","밀양","통영","거제","사천","양산","함안","남해","고성","하동","산청","함양","거창","합천","의령","창녕","제주","서귀포","인천 중구","인천 동구","인천 미추홀","인천 남동","인천 서구","인천 부평","인천 계양","인천 연수","인천 강화","인천 옹진","대구 중구","대구 동구","대구 서구","대구 남구","대구 북구","대구 수성","대구 달서","대구 달성","광주 동구","광주 서구","광주 북구","광주 광산","광주 남구","대전 대덕","대전 동구","대전 서구","대전 중구","대전 유성","울산 중구","울산 남구","울산 동구","울산 북구","울산 울주","세종","독도","마라도","흑산도","격렬비열도","백령도"];
+        var repeated = [], repeatCount = getRepeatCount();
+        array_shuffle(KDNCities)
+        KDNCities = array_lenth_up(KDNCities,count);
+        for (var kdncitie of KDNCities)
+            repeated.push(Array(repeatCount).fill(kdncitie).join(add_spacer()));
+        add_string(repeated);
+        var data = repeated.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_number"){
+        const resultArray = random_number();
+        resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat);
+        var data = resultArray_repeat.join(add_spacer());
+        let newStr = data.replace(/0/g, "Ø");
+        changeQsoSample(newStr);
+    }else if(selectedValue=="random_alphabat"){
+        const resultArray = random_alphabat();
+        resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat);
+        var data = resultArray_repeat.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_specialchar"){
+        const resultArray = random_specialchar();
+        resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat);
+        data = resultArray_repeat.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_number_alphabat"){
+        var callsigns = random_number();
+        callsigns = callsigns.concat(random_alphabat());
+        array_shuffle(callsigns);
+        result = array_shuffle_slice(callsigns,count);
+        resultArray_repeat = result.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat)
+        data = resultArray_repeat.join(add_spacer());
+        let newStr = data.replace(/0/g, "Ø");
+        changeQsoSample(newStr);
+    }else if(selectedValue=="random_alphabat_specialchar"){
+        var callsigns = random_alphabat();
+        callsigns = callsigns.concat(random_specialchar());
+        array_shuffle(callsigns);
+        result = array_shuffle_slice(callsigns,count);
+        resultArray_repeat = result.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat)
+        data = resultArray_repeat.join(add_spacer());
+        let newStr = data.replace(/0/g, "Ø");
+        changeQsoSample(newStr);
+    }else if(selectedValue=="random_number_alphabat_specialchar"){
+        var callsigns = random_number();
+        callsigns = callsigns.concat(random_alphabat());
+        callsigns = callsigns.concat(random_specialchar());
+        array_shuffle(callsigns);
+        result = array_shuffle_slice(callsigns, count);
+        resultArray_repeat = result.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat)
+        data = resultArray_repeat.join(add_spacer());
+        let newStr = data.replace(/0/g, "Ø");
+        changeQsoSample(newStr);
+    }
+});
+
+function array_shuffle_slice(array_data, count){
+        // 1차원 배열로 분해
+        let charArray = array_data.join('').split('');  // 모든 문자를 한 배열에 저장
+
+        // 배열을 랜덤하게 섞기 (Fisher-Yates Shuffle 알고리즘)
+        for (let i = charArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [charArray[i], charArray[j]] = [charArray[j], charArray[i]];
+        }
+
+        // 5개씩 다시 자르고 새로운 배열로 저장
+        let resultArray = [];
+        for (let i = 0; i < charArray.length; i += 5) {
+            resultArray.push(charArray.slice(i, i + 5).join('')); // 다시 문자열로 변환하여 배열에 저장
+        }
+        result = resultArray.slice(0, count);
+        return result;
+}
+
+function random_number(){
+    count = gen_number.value;
+    const resultArray = [];
+    for (let i = 0; i < count; i++) {
+        const randomNumbers = [];
+        for (let j = 0; j < 5; j++) {
+            randomNumbers.push(Math.floor(Math.random() * 10));
+        }
+        resultArray.push(randomNumbers.join(''));
+    }
+    return resultArray;
+}
+
+function random_alphabat(){
+    count = gen_number.value;
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const resultArray = [];
+    for (let i = 0; i < count; i++) {
+        const randomLetters = [];
+        for (let j = 0; j < 5; j++) {
+            const randomIndex = Math.floor(Math.random() * alphabet.length);
+            randomLetters.push(alphabet[randomIndex]);
+        }
+        resultArray.push(randomLetters.join(''));
+    }
+    return resultArray;
+}
+
+function random_specialchar(){
+    count = gen_number.value;
+    const specialChars = `$&.,?/+-=:;()'"@`;
+    const resultArray = [];
+    for (let i = 0; i < count; i++) {
+        const randomChars = [];
+        for (let j = 0; j < 5; j++) {
+            const randomIndex = Math.floor(Math.random() * specialChars.length);
+            randomChars.push(specialChars[randomIndex]);
+        }
+        resultArray.push(randomChars.join(''));
+    }
+    return resultArray;
+}
+
+gen_syllables_option.addEventListener('change', function() {
+    const selectedValue = this.value;
+    gen_syllables_option.value = '';
+    document.getElementById('user_txt_caption').innerHTML = '※ Sample from : DS1TZE';
+    if(selectedValue=="hangul_initial_consonants"){
+        hangulInitialConsonants();
+    }else if(selectedValue=="hangul_simple_vowels"){
+        hangulSimpleVowels();
+    }else if(selectedValue=="hangul_simple_syllables"){
+        hangulSimpleSyllables();
+    }else if(selectedValue=="hangul_final_consonants"){
+        hangulFinalConsonants();
+    }else if(selectedValue=="hangul_syllables"){
+        hangulSyllables();
+    }else if(selectedValue=="hangul_complex_vowels"){
+        hangulComplexVowels();
+    }else if(selectedValue=="hangul_complex_syllables"){
+        hangulComplexSyllables();
+    }else if(selectedValue=="hangul_random_syllables"){
+        hangulRandomSyllables();
+    }else if(selectedValue=="hangul_frequent_syllables"){
+        hangulFrequentSyllables();
+    }
+});
+
+view1.onchange = function() {
+    window.localStorage.setItem('view1', view1.checked);
+    toggleSetting1(view1.checked);
+}
+view2.onchange = function() {
+    window.localStorage.setItem('view2', view2.checked);
+    toggleSetting2(view2.checked);
+}
+view3.onchange = function() {
+    window.localStorage.setItem('view3', view3.checked);
+    toggleSetting3(view3.checked);
+}
+word_space.onchange = function() {
+    window.localStorage.setItem('word_space', word_space.value);
+}
+repeat_count.onchange = function() {
+    window.localStorage.setItem('repeat_count', repeat_count.value);
+}
+gen_number.onchange = function() {
+    window.localStorage.setItem('gen_number', gen_number.value);
+}
+loadScript_getcount.onchange = function() {
+    window.localStorage.setItem('loadScript_getcount', loadScript_getcount.value);
+}
+loadScript_getcount.onchange = function() {
+    window.localStorage.setItem('loadScript_getcount', loadScript_getcount.value);
+}
+freq.onchange = function() {
+    window.localStorage.setItem('freq', freq.value);
+}
+wpm.onchange = function() {
+    window.localStorage.setItem('wpm', wpm.value);
+}
+volume.onchange = function() {
+    vol = volume.value / 100.0;
+    window.localStorage.setItem('volume', volume.value);
+}
+keyComputer.onchange = function() {
+    window.localStorage.setItem('key', document.getElementById('selectkey').value);
+}
+
+keyHangulSmaller.onclick = function() {
+    window.localStorage.setItem('key', document.getElementById('selectkey').value);
+}
+keyHangulSmall.onclick = function() {
+    window.localStorage.setItem('key', document.getElementById('selectkey').value);
+}
+keyHangul.onclick = function() {
+    window.localStorage.setItem('key', document.getElementById('selectkey').value);
+}
+flute.onchange = function() {
+	smoothingDuration = flute.checked ? 0.02 : 0.004;
+    window.localStorage.setItem('flute', flute.checked);
+}
+noise.onchange = function() {
+    window.localStorage.setItem('noise', noise.checked);
+}
+fading.onchange = function() {
+    window.localStorage.setItem('fading', fading.checked);
+}
+selectionOnly.onchange = function() {
+    window.localStorage.setItem('selection_only', selectionOnly.checked);
+}
+highlightSlowly.onchange = function() {
+    window.localStorage.setItem('highlight_slowly', highlightSlowly.checked);
+}
+hideText.onchange = function() {
+    window.localStorage.setItem('hide_text', hideText.checked);
+}
+repeat.onchange = function() {
+    window.localStorage.setItem('repeat', repeat.checked);
+}
+add_vvv.onchange = function() {
+    window.localStorage.setItem('add_vvv', add_vvv.checked);
+}
+add_ar.onchange = function() {
+    window.localStorage.setItem('add_ar', add_ar.checked);
+}
+add_vvv_text.onchange = function() {
+    window.localStorage.setItem('add_vvv_text', add_vvv_text.value);
+}
+add_ar_text.onchange = function() {
+    window.localStorage.setItem('add_ar_text', add_ar_text.value);
+}
+window.addEventListener('DOMContentLoaded', function() {
+    try {
+        if(window.localStorage.getItem('view1') == 'true'){
+            document.getElementById('view1').checked = true;
+            toggleSetting1(true);
+        }
+        if(window.localStorage.getItem('view2') == 'true'){
+            document.getElementById('view2').checked = true;
+            toggleSetting2(true);
+        }
+        if(window.localStorage.getItem('view3') == 'true'){
+            document.getElementById('view3').checked = true;
+            toggleSetting3(true);
+        }
+        if(window.localStorage.getItem('add_vvv') == 'true') document.getElementById('add_vvv').checked = true;
+        if(window.localStorage.getItem('add_ar') == 'true') document.getElementById('add_ar').checked = true;
+        if(window.localStorage.getItem('add_vvv_text')) document.getElementById('add_vvv_text').value = window.localStorage.getItem('add_vvv_text');
+        if(window.localStorage.getItem('add_ar_text')) document.getElementById('add_ar_text').value = window.localStorage.getItem('add_ar_text');
+        if (window.localStorage.getItem('word_space')) word_space.value = parseInt(window.localStorage.getItem('word_space'));
+        if (window.localStorage.getItem('repeat_count')) repeat_count.value = parseInt(window.localStorage.getItem('repeat_count'));
+        if (window.localStorage.getItem('gen_number')) gen_number.value = parseInt(window.localStorage.getItem('gen_number'));
+        if (window.localStorage.getItem('loadScript_getcount')) loadScript_getcount.value = parseInt(window.localStorage.getItem('loadScript_getcount'));
+        if (window.localStorage.getItem('freq')) freq.value = parseInt(window.localStorage.getItem('freq'));
+        if (window.localStorage.getItem('wpm')) wpm.value = parseInt(window.localStorage.getItem('wpm'));
+        if (window.localStorage.getItem('volume')) volume.value = parseInt(window.localStorage.getItem('volume'));
+        vol = volume.value / 100.0;
+        if (window.localStorage.getItem('flute')) flute.checked = window.localStorage.getItem('flute') == 'true';
+		smoothingDuration = flute.checked ? 0.02 : 0.004;
+        if (window.localStorage.getItem('noise')) noise.checked = window.localStorage.getItem('noise') == 'true';
+        if (window.localStorage.getItem('fading')) fading.checked = window.localStorage.getItem('fading') == 'true';
+        if (window.localStorage.getItem('selection_only')) selectionOnly.checked = window.localStorage.getItem('selection_only') == 'true';
+        if (window.localStorage.getItem('highlight_slowly')) highlightSlowly.checked = window.localStorage.getItem('highlight_slowly') == 'true';       
+        if (window.localStorage.getItem('hide_text')) hideText.checked = window.localStorage.getItem('hide_text') == 'true';
+        if (window.localStorage.getItem('repeat')) repeat.checked = window.localStorage.getItem('repeat') == 'true';
+        if (window.localStorage.getItem('key')) document.getElementById('selectkey').selected = true;
+        if (window.localStorage.getItem('font_name')){
+            document.getElementById('font_select').value = window.localStorage.getItem('font_name');
+            document.body.style.fontFamily = window.localStorage.getItem('font_name');
+        } 
+        changeQsoSample(localStorage.getItem('user_txt'));
+    } catch (e) {
+    }
+}, true);
+
+makeEditor(document.querySelector("#user_txt"));
+
+function makeEditor(textArea, display) {
+    var editor = CodeMirror(function(el) {
+        el.id = textArea.id;
+        el.className = el.className + " " + textArea.className;
+        textArea.parentNode.replaceChild(el, textArea);
+    }, {
+        value: textArea.value,
+        mode: "xml",
+        lineWrapping: true,
+        styleSelectedText: true
+    });
+
+editor.on("change", function(instance, changeObj) {
+        var str = instance.getValue().toString();
+        strcnt_total = str.length;
+        strcnt_character = str.replace(/\s+/g, "").length;
+        strcnt_space = strcnt_total - strcnt_character;
+        strcnt_total_enUS = strcnt_total.toLocaleString('en-US');
+        strcnt_character_enUS = strcnt_character.toLocaleString('en-US');
+        strcnt_space_enUS = strcnt_space.toLocaleString('en-US');
+        document.getElementById('textarea_count').innerHTML = strcnt_total_enUS + '(' + strcnt_space_enUS + '+' + strcnt_character_enUS + ')';
+        // document.getElementById('textarea_count').innerHTML = strcnt_character_enUS + ' / ' + strcnt_total_enUS;
+        window.localStorage.setItem('user_txt', doc.getValue());
+    });
+}
+
+document.getElementById('textarea_count').addEventListener('click', (event) => {
+    alert(document.getElementById('textarea_count').title);
+});
+
+function changeQsoSample(data) {
+    if (!stopped) stop.click();
+    cursorFrom = null;
+    user_txt.style.display = "block";
+    user_txt.classList.toggle('active');
+    cm = user_txt.CodeMirror;
+    doc = cm.doc;
+    cm.refresh();
+    doc.setValue(data);
+    window.localStorage.setItem('user_txt', doc.getValue());
+    clearDitdah();
+    setProgressBar(0)
+    document.getElementById('textarea_play_char').innerHTML = 'Char';
+    document.getElementById('textarea_select_count').innerHTML = '0';
+    document.getElementById('textarea_select_percent').innerHTML = '0';
+}
+
+var RANDOM_GEN_NUMBER = gen_number.value;
+
+function generateSuffix(length) {
+    var ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var result = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+    for (var i = 1; i < length; i++)
+        result += ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
+    return result;
+}
+function getRepeatCount() {
+    return parseInt(document.getElementById('repeat_count').value);
+}
+function generateHLCallsigns(count, repeatCount) {
+    var callsigns = [];
+    var PREFIX = ["HLØ","HL1","HL2","HL3","HL4","HL5","DSØ","DS1","DS2","DS3","DS4","DS5","DTØ","D7Ø","D8Ø","D9Ø","6KØ","6K2","6K5","6LØ","6L5","6MØ","6M5","6NØ"];
+    for (var i = 0; i < count; i++) {
+        var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
+        var suffixLength = (prefix.startsWith("HL") ? (Math.random() > 0.2 ? 3 : 2) : 3);
+        var callsign = prefix + generateSuffix(suffixLength);
+        callsign = callsign.replace('0','Ø');
+        callsigns.push(Array(repeatCount).fill(callsign));
+    }
+    return callsigns;
+}
+
+function generateITUCallsigns(count, repeatCount) {
+    var callsigns = [];
+    var PREFIX=["AA","AB","AC","AD","AE","AF","AG","AH","AI","AJ","AK","AL","AM","AN","AO","AP","AQ","AR","AS","AT","AU","AV","AW","AX","AY","AZ","A2","A3","A4","A5","A6","A7","A8","A9","B","BM","BN","BO","BQ","BU","BV","BW","BX","CA","CD","CE","CF","CG","CH","CI","CJ","CK","CL","CM","CN","CO","CP","CQ","CR","CS","CT","CU","CV","CW","CX","CY","CZ","C2","C3","C4","C5","C6","C7","C8","C9","DA","DB","DC","DD","DE","DF","DG","DH","DI","DJ","DK","DL","DM","DN","DO","DP","DQ","DR","DS","DT","DU","DV","DW","DX","DY","DZ","D2","D3","D4","D5","D6","D7","D8","D9","EA","EB","EC","ED","EE","EF","EG","EH","EI","EJ","EK","EL","EM","EN","EO","EP","EQ","ER","ES","ET","EU","EV","EW","EX","EY","EZ","E2","E3","E4","E5","E6","E7","F","G","HA","HB","HB0","HB3Y","HBL","HC","HD","HE","HF","HG","HH","HI","HJ","HK","HL","HM","HN","HO","HP","HQ","HR","HS","HT","HU","HV","HW","HX","HY","HZ","H2","H3","H4","H6","H7","H8","H9","I","JA","JB","JC","JD","JE","JF","JG","JH","JI","JJ","JK","JL","JM","JN","JO","JP","JQ","JR","JS","JT","JU","JV","JW","JX","JY","JZ","J2","J3","J4","J5","J6","J7","J8","K","LA","LB","LC","LD","LE","LF","LG","LH","LI","LJ","LK","LL","LM","LN","LO","LP","LQ","LR","LS","LT","LU","LV","LW","LX","LY","LZ","L2","L3","L4","L5","L6","L7","L8","L9","M","N","OA","OB","OC","OD","OE","OF","OG","OH","OI","OJ","OK","OL","OM","ON","OP","OQ","OR","OS","OT","OU","OV","OW","OX","OY","OZ","PA","PB","PC","PD","PE","PF","PG","PH","PI","PI","PJ","PK","PL","PM","PN","PPO","PP","PQ","PR","PS","PT","PU","PV","PW","PX","PY","PZ","P2","P3","P4","P5","P6","P7","P8","P9","R","SA","SB","SC","SD","SE","SF","SG","SH","SI","SJ","K","SL","SM","SN","SO","SP","SQ","SR","SSA","SSB","SSC","SSD","SSE","SSF","SSG","SSH","SSI","SSJ","SSK","SSL","SSM","SSN","STO","STP","STQ","STR","STS","STT","STU","STV","STW","STX","STY","STZ","SU","SV","SW","SX","SY","SZ","S2","S3","S5","S6","S7","S8","S9","TA","TB","TC","TD","TE","TF","TG","TH","TI","TJ","TK","TL","TM","TN","TO","TP","TQ","TR","TS","TT","TU","TV","TW","TX","TY","TZ","T2","T3","T4","T5","T6","T7","T8","UA","UB","UC","UD","UE","UF","UG","UH","UI","UJ","UK","UL","UM","UN","UO","UP","UQ","UR","US","UT","UU","UV","UW","UX","UY","UZ","VA","VB","VC","VD","VE","VF","VG","VG","VH","VI","VJ","VK","VL","VM","VN","VO","VP","VQ","VR","VS","VT","VU","VV","VW","VX","VY","VZ","V2","V3","V4","V5","V6","V7","V8","W","XA","XB","XC","XD","XE","XF","XG","XH","XI","XJ","XK","XL","XM","XN","XO","XP","XQ","XR","XS","XT","XU","XV","XW","XX","XY","XZ","YA","YB","YC","YD","YE","YF","YG","YH","YH","YI","YJ","YK","YL","YM","YN","YO","YP","YQ","YR","YS","YT","YU","YV","YW","YX","YY","Y2","Y3","Y4","Y5","Y6","Y7","Y8","Y9","ZA","ZB","ZC","ZD","ZE","ZF","ZG","ZH","ZI","ZJ","ZK","XL","ZM","ZN","ZO","ZP","ZQ","ZR","ZS","ZT","ZU","ZV","ZW","ZX","ZZ","Z2","Z3","Z8","2","3A","3B","3C","3DA","3DB","3DC","3DD","3DE","3DF","3DG","3DH","3DI","3DJ","3DK","3DL","3DM","3DN","3DO","3DP","3DQ","3DR","3DS","3DT","3DU","3DV","3DX","3DY","3DZ","3E","3F","3G","3H","3I","3J","3K","3L","3M","3N","3O","3P","3Q","3R","3S","3T","3U","3V","3W","3X","3Y","3Z","4A","4B","4C","4D","4E","4F","4G","4H","4I","4J","4K","4L","4M","4O","4P","4Q","4R","4S","4T","4U","4V","4W","4X","4Y","4Z","5A","5B","5C","5D","5E","5F","5G","5H","5I","5J","5K","5L","5M","5N","5O","5P","5Q","5R","5S","5T","5U","5V","5W","5X","5Y","5Z","6A","6B","6C","6D","6E","6F","6J","6K","6L","6M","6N","6O","6P","6Q","6S","6T","6U","6V","6W","6X","6Y","6Z","7A","7B","7C","7D","7E","7F","7G","7H","7I","7J","7K","7L","7M","7N","7O","7P","7Q","7R","7S","7T","7U","7V","7W","7X","7Y","7Z","8A","8B","8C","8D","8E","8F","8G","8H","8I","8J","8K","8L","8M","8N","8O","8P","8Q","8R","8S","8T","8U","8V","8E","8X","8Y","8Z","9A","9B","9C","9D","9E","9F","9G","9H","9I","9J","9K","9L","9M","9N","9O","9P","9Q","9R","9S","9T","9U","9V","9W","9X","9Y","9Z"];
+    for (var i = 0; i < count; i++) {
+        var prefix1 = PREFIX[Math.floor(Math.random() * PREFIX.length)];
+        var randoNnum = Math.floor(Math.random() * 10);
+        let randomChars = [];
+        for (let i = 0; i < 3; i++) {
+            randomChars += String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+        }
+        callsign = prefix1 + randoNnum + randomChars;
+        callsign = callsign.replace('0','Ø');
+        callsigns.push(Array(repeatCount).fill(callsign).join(" "));
+    }
+    add_string(callsigns);
+    return callsigns;
+}
+
+function generateJACallsigns(count, repeatCount) {
+    var callsigns = [];
+    var PREFIX = [];
+    var PRE_PREFIX = ["A", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S"].map(x => "J" + x);
+    PRE_PREFIX.push("7J", "8J", "8N");
+    for (var i = 0; i < 10; i++)
+        for (var pre of PRE_PREFIX)
+            PREFIX.push(pre + i);
+    for (var i = 0; i < count; i++) {
+        var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
+        var callsign = prefix + generateSuffix(3);
+        callsign = callsign.replace('0','Ø');
+        callsigns.push(Array(repeatCount).fill(callsign).join(" "));
+    }
+    add_string(callsigns);
+    return callsigns;
+}
+
+function generateBABVCallsigns(count, repeatCount) {
+    var callsigns = [];
+    var PREFIX = [];
+    var PRE_PREFIX = ["A", "D", "G", "T", "Y", "Z", "V"].map(x => "B" + x);
+    for (var i = 0; i < 10; i++)
+        for (var pre of PRE_PREFIX)
+            PREFIX.push(pre + i);
+    for (var i = 0; i < count; i++) {
+        var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
+        var callsign = prefix + generateSuffix(3);
+        callsign = callsign.replace('0','Ø');
+        callsigns.push(Array(repeatCount).fill(callsign).join(" "));
+    }
+    add_string(callsigns);
+    return callsigns;
+}
+
+function generateQCODE(count, repeatCount) {
+  var qcodes = ["QRA","QRG","QRH","QRI","QRJ","QRK","QRL","QRM","QRN","QRO","QRP","QRQ","QRS","QRT","QRU","QRV","QRW","QRX","QRZ","QSA","QSB","QSD","QSG","QSK","QSL","QSM","QSN","QSO","QSP","QSR","QSS","QST","QSU","QSW","QSX","QSY","QSZ","QTA","QTC","QTH","QTR","QTU","QTX","QUA","QUC","QUD","QUE","QUF"];
+  const result_qcodes = array_lenth_up(qcodes, count);
+  const repeatedQcodes = result_qcodes.flatMap(code => Array(repeatCount).fill(code));
+  add_string(repeatedQcodes);
+  return repeatedQcodes;
+}
+
+function array_lenth_up(array, count){
+    if(count > array.length){
+        const newArray = [];
+        for (let i = 0; i < count; i++) {
+            newArray.push(array[i % array.length]);
+        }
+        array = newArray;
+    }
+    array_shuffle(array);
+    const slice_array = array.slice(0, count);
+    return slice_array;
+}
+
+function space_add(){
+    let numSpaces = parseInt(document.getElementById('word_space').value);
+    let spacer = " ".repeat(numSpaces);
+    return spacer;
+}
+
+function isKSX1001(letter) {
+    var ksx1001 = "가각간갇갈갉갊감갑값갓갔강갖갗같갚갛개객갠갤갬갭갯갰갱갸갹갼걀걋걍걔걘걜거걱건걷걸걺검겁것겄겅겆겉겊겋게겐겔겜겝겟겠겡겨격겪견겯결겸겹겻겼경곁계곈곌곕곗고곡곤곧골곪곬곯곰곱곳공곶과곽관괄괆괌괍괏광괘괜괠괩괬괭괴괵괸괼굄굅굇굉교굔굘굡굣구국군굳굴굵굶굻굼굽굿궁궂궈궉권궐궜궝궤궷귀귁귄귈귐귑귓규균귤그극근귿글긁금급긋긍긔기긱긴긷길긺김깁깃깅깆깊까깍깎깐깔깖깜깝깟깠깡깥깨깩깬깰깸깹깻깼깽꺄꺅꺌꺼꺽꺾껀껄껌껍껏껐껑께껙껜껨껫껭껴껸껼꼇꼈꼍꼐꼬꼭꼰꼲꼴꼼꼽꼿꽁꽂꽃꽈꽉꽐꽜꽝꽤꽥꽹꾀꾄꾈꾐꾑꾕꾜꾸꾹꾼꿀꿇꿈꿉꿋꿍꿎꿔꿜꿨꿩꿰꿱꿴꿸뀀뀁뀄뀌뀐뀔뀜뀝뀨끄끅끈끊끌끎끓끔끕끗끙끝끼끽낀낄낌낍낏낑나낙낚난낟날낡낢남납낫났낭낮낯낱낳내낵낸낼냄냅냇냈냉냐냑냔냘냠냥너넉넋넌널넒넓넘넙넛넜넝넣네넥넨넬넴넵넷넸넹녀녁년녈념녑녔녕녘녜녠노녹논놀놂놈놉놋농높놓놔놘놜놨뇌뇐뇔뇜뇝뇟뇨뇩뇬뇰뇹뇻뇽누눅눈눋눌눔눕눗눙눠눴눼뉘뉜뉠뉨뉩뉴뉵뉼늄늅늉느늑는늘늙늚늠늡늣능늦늪늬늰늴니닉닌닐닒님닙닛닝닢다닥닦단닫달닭닮닯닳담답닷닸당닺닻닿대댁댄댈댐댑댓댔댕댜더덕덖던덛덜덞덟덤덥덧덩덫덮데덱덴델뎀뎁뎃뎄뎅뎌뎐뎔뎠뎡뎨뎬도독돈돋돌돎돐돔돕돗동돛돝돠돤돨돼됐되된될됨됩됫됴두둑둔둘둠둡둣둥둬뒀뒈뒝뒤뒨뒬뒵뒷뒹듀듄듈듐듕드득든듣들듦듬듭듯등듸디딕딘딛딜딤딥딧딨딩딪따딱딴딸땀땁땃땄땅땋때땍땐땔땜땝땟땠땡떠떡떤떨떪떫떰떱떳떴떵떻떼떽뗀뗄뗌뗍뗏뗐뗑뗘뗬또똑똔똘똥똬똴뙈뙤뙨뚜뚝뚠뚤뚫뚬뚱뛔뛰뛴뛸뜀뜁뜅뜨뜩뜬뜯뜰뜸뜹뜻띄띈띌띔띕띠띤띨띰띱띳띵라락란랄람랍랏랐랑랒랖랗래랙랜랠램랩랫랬랭랴략랸럇량러럭런럴럼럽럿렀렁렇레렉렌렐렘렙렛렝려력련렬렴렵렷렸령례롄롑롓로록론롤롬롭롯롱롸롼뢍뢨뢰뢴뢸룀룁룃룅료룐룔룝룟룡루룩룬룰룸룹룻룽뤄뤘뤠뤼뤽륀륄륌륏륑류륙륜률륨륩륫륭르륵른를름릅릇릉릊릍릎리릭린릴림립릿링마막만많맏말맑맒맘맙맛망맞맡맣매맥맨맬맴맵맷맸맹맺먀먁먈먕머먹먼멀멂멈멉멋멍멎멓메멕멘멜멤멥멧멨멩며멱면멸몃몄명몇몌모목몫몬몰몲몸몹못몽뫄뫈뫘뫙뫼묀묄묍묏묑묘묜묠묩묫무묵묶문묻물묽묾뭄뭅뭇뭉뭍뭏뭐뭔뭘뭡뭣뭬뮈뮌뮐뮤뮨뮬뮴뮷므믄믈믐믓미믹민믿밀밂밈밉밋밌밍및밑바박밖밗반받발밝밞밟밤밥밧방밭배백밴밸뱀뱁뱃뱄뱅뱉뱌뱍뱐뱝버벅번벋벌벎범법벗벙벚베벡벤벧벨벰벱벳벴벵벼벽변별볍볏볐병볕볘볜보복볶본볼봄봅봇봉봐봔봤봬뵀뵈뵉뵌뵐뵘뵙뵤뵨부북분붇불붉붊붐붑붓붕붙붚붜붤붰붸뷔뷕뷘뷜뷩뷰뷴뷸븀븃븅브븍븐블븜븝븟비빅빈빌빎빔빕빗빙빚빛빠빡빤빨빪빰빱빳빴빵빻빼빽뺀뺄뺌뺍뺏뺐뺑뺘뺙뺨뻐뻑뻔뻗뻘뻠뻣뻤뻥뻬뼁뼈뼉뼘뼙뼛뼜뼝뽀뽁뽄뽈뽐뽑뽕뾔뾰뿅뿌뿍뿐뿔뿜뿟뿡쀼쁑쁘쁜쁠쁨쁩삐삑삔삘삠삡삣삥사삭삯산삳살삵삶삼삽삿샀상샅새색샌샐샘샙샛샜생샤샥샨샬샴샵샷샹섀섄섈섐섕서석섞섟선섣설섦섧섬섭섯섰성섶세섹센셀셈셉셋셌셍셔셕션셜셤셥셧셨셩셰셴셸솅소속솎손솔솖솜솝솟송솥솨솩솬솰솽쇄쇈쇌쇔쇗쇘쇠쇤쇨쇰쇱쇳쇼쇽숀숄숌숍숏숑수숙순숟술숨숩숫숭숯숱숲숴쉈쉐쉑쉔쉘쉠쉥쉬쉭쉰쉴쉼쉽쉿슁슈슉슐슘슛슝스슥슨슬슭슴습슷승시식신싣실싫심십싯싱싶싸싹싻싼쌀쌈쌉쌌쌍쌓쌔쌕쌘쌜쌤쌥쌨쌩썅써썩썬썰썲썸썹썼썽쎄쎈쎌쏀쏘쏙쏜쏟쏠쏢쏨쏩쏭쏴쏵쏸쐈쐐쐤쐬쐰쐴쐼쐽쑈쑤쑥쑨쑬쑴쑵쑹쒀쒔쒜쒸쒼쓩쓰쓱쓴쓸쓺쓿씀씁씌씐씔씜씨씩씬씰씸씹씻씽아악안앉않알앍앎앓암압앗았앙앝앞애액앤앨앰앱앳앴앵야약얀얄얇얌얍얏양얕얗얘얜얠얩어억언얹얻얼얽얾엄업없엇었엉엊엌엎에엑엔엘엠엡엣엥여역엮연열엶엷염엽엾엿였영옅옆옇예옌옐옘옙옛옜오옥온올옭옮옰옳옴옵옷옹옻와왁완왈왐왑왓왔왕왜왝왠왬왯왱외왹왼욀욈욉욋욍요욕욘욜욤욥욧용우욱운울욹욺움웁웃웅워웍원월웜웝웠웡웨웩웬웰웸웹웽위윅윈윌윔윕윗윙유육윤율윰윱윳융윷으윽은을읊음읍읏응읒읓읔읕읖읗의읜읠읨읫이익인일읽읾잃임입잇있잉잊잎자작잔잖잗잘잚잠잡잣잤장잦재잭잰잴잼잽잿쟀쟁쟈쟉쟌쟎쟐쟘쟝쟤쟨쟬저적전절젊점접젓정젖제젝젠젤젬젭젯젱져젼졀졈졉졌졍졔조족존졸졺좀좁좃종좆좇좋좌좍좔좝좟좡좨좼좽죄죈죌죔죕죗죙죠죡죤죵주죽준줄줅줆줌줍줏중줘줬줴쥐쥑쥔쥘쥠쥡쥣쥬쥰쥴쥼즈즉즌즐즘즙즛증지직진짇질짊짐집짓징짖짙짚짜짝짠짢짤짧짬짭짯짰짱째짹짼쨀쨈쨉쨋쨌쨍쨔쨘쨩쩌쩍쩐쩔쩜쩝쩟쩠쩡쩨쩽쪄쪘쪼쪽쫀쫄쫌쫍쫏쫑쫓쫘쫙쫠쫬쫴쬈쬐쬔쬘쬠쬡쭁쭈쭉쭌쭐쭘쭙쭝쭤쭸쭹쮜쮸쯔쯤쯧쯩찌찍찐찔찜찝찡찢찧차착찬찮찰참찹찻찼창찾채책챈챌챔챕챗챘챙챠챤챦챨챰챵처척천철첨첩첫첬청체첵첸첼쳄쳅쳇쳉쳐쳔쳤쳬쳰촁초촉촌촐촘촙촛총촤촨촬촹최쵠쵤쵬쵭쵯쵱쵸춈추축춘출춤춥춧충춰췄췌췐취췬췰췸췹췻췽츄츈츌츔츙츠측츤츨츰츱츳층치칙친칟칠칡침칩칫칭카칵칸칼캄캅캇캉캐캑캔캘캠캡캣캤캥캬캭컁커컥컨컫컬컴컵컷컸컹케켁켄켈켐켑켓켕켜켠켤켬켭켯켰켱켸코콕콘콜콤콥콧콩콰콱콴콸쾀쾅쾌쾡쾨쾰쿄쿠쿡쿤쿨쿰쿱쿳쿵쿼퀀퀄퀑퀘퀭퀴퀵퀸퀼큄큅큇큉큐큔큘큠크큭큰클큼큽킁키킥킨킬킴킵킷킹타탁탄탈탉탐탑탓탔탕태택탠탤탬탭탯탰탱탸턍터턱턴털턺텀텁텃텄텅테텍텐텔템텝텟텡텨텬텼톄톈토톡톤톨톰톱톳통톺톼퇀퇘퇴퇸툇툉툐투툭툰툴툼툽툿퉁퉈퉜퉤튀튁튄튈튐튑튕튜튠튤튬튱트특튼튿틀틂틈틉틋틔틘틜틤틥티틱틴틸팀팁팃팅파팍팎판팔팖팜팝팟팠팡팥패팩팬팰팸팹팻팼팽퍄퍅퍼퍽펀펄펌펍펏펐펑페펙펜펠펨펩펫펭펴편펼폄폅폈평폐폘폡폣포폭폰폴폼폽폿퐁퐈퐝푀푄표푠푤푭푯푸푹푼푿풀풂품풉풋풍풔풩퓌퓐퓔퓜퓟퓨퓬퓰퓸퓻퓽프픈플픔픕픗피픽핀필핌핍핏핑하학한할핥함합핫항해핵핸핼햄햅햇했행햐향허헉헌헐헒험헙헛헝헤헥헨헬헴헵헷헹혀혁현혈혐협혓혔형혜혠혤혭호혹혼홀홅홈홉홋홍홑화확환활홧황홰홱홴횃횅회획횐횔횝횟횡효횬횰횹횻후훅훈훌훑훔훗훙훠훤훨훰훵훼훽휀휄휑휘휙휜휠휨휩휫휭휴휵휸휼흄흇흉흐흑흔흖흗흘흙흠흡흣흥흩희흰흴흼흽힁히힉힌힐힘힙힛힝";
+    return ksx1001.indexOf(letter) >= 0;
+}
+function isRandom() {
+    return document.querySelector("#random").checked;
+}
+function isExtend() {
+    return document.querySelector("#extend").checked;
+}
+
+function add_string(string){
+    if(document.getElementById('add_vvv').checked) string.unshift(add_vvv_text.value);
+    if(document.getElementById('add_ar').checked) string.push(add_ar_text.value);
+        return string;
+}
+
+function hangulInitialConsonants() {
+    if (!stopped) stop.click();
+    var consonants = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ","ㄲ","ㄸ","ㅃ","ㅆ","ㅉ"];
+    var vowels = ["ㅏ","ㅑ","ㅓ","ㅕ"];
+    if (isExtend()) vowels = vowels.concat(["ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ","ㅔ","ㅐ"]);
+    var repeated = [];
+    for (var i = 0; i < (isExtend() ? 2 : 5); i++) {
+        for (var v of vowels) {
+            var syllables = [];
+            for (var c of consonants) {
+                var letter = Hangul.a([c, v]);
+                if (isKSX1001(letter)) syllables.push(letter);
+            }
+            if (isRandom()) syllables.sort(() => Math.random() - 0.5);
+            repeated = repeated.concat(syllables);
+        }
+    }
+    repeated = repeated.flatMap(code => Array(getRepeatCount()).fill(code));
+    add_string(repeated);
+    changeQsoSample(repeated.join(space_add()));
+}
+function hangulSimpleVowels() {
+    if (!stopped) stop.click();
+
+    var consonants = ["ㅇ"];
+    if (isExtend()) consonants = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    var vowels = ["ㅏ","ㅑ","ㅓ","ㅕ","ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ","ㅔ","ㅐ"];
+    var repeated = [];
+    for (var i = 0; i < (isExtend() ? 3 : 30); i++) {
+        var syllables = [];
+        for (var c of consonants) {
+            for (var v of vowels) {
+                var letter = Hangul.a([c, v]);
+                if (isKSX1001(letter)) syllables.push(letter);
+            }
+        }
+        if (isRandom()) syllables.sort(() => Math.random() - 0.5);
+        repeated = repeated.concat(syllables);
+    }
+    repeated = repeated.flatMap(code => Array(getRepeatCount()).fill(code));
+    add_string(repeated);
+    changeQsoSample(repeated.join(space_add()));
+}
+function hangulSimpleSyllables() {
+    if (!stopped) stop.click();
+
+    var consonants = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    if (isExtend()) consonants = consonants.concat(["ㄲ","ㄸ","ㅃ","ㅆ","ㅉ"]);
+    var vowels = ["ㅏ","ㅑ","ㅓ","ㅕ","ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ","ㅔ","ㅐ"];
+    var repeated = [];
+    for (var i = 0; i < (isExtend() ? 2 : 3); i++) {
+        var syllables = [];
+        for (var c of consonants) {
+            for (var v of vowels) {
+                var letter = Hangul.a([c, v]);
+                if (isKSX1001(letter)) syllables.push(letter);
+            }
+        }
+        if (isRandom()) syllables.sort(() => Math.random() - 0.5);
+        repeated = repeated.concat(syllables);
+    }
+    repeated = repeated.flatMap(code => Array(getRepeatCount()).fill(code));
+    add_string(repeated);
+    changeQsoSample(repeated.join(space_add()));
+}
+function hangulFinalConsonants() {
+    if (!stopped) stop.click();
+
+    var consonants = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ"];
+    var vowels = ["ㅏ","ㅑ","ㅓ","ㅕ","ㅡ","ㅣ","ㅔ","ㅐ"];
+    var finals = ["ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    var repeated = [];
+    for (var i = 0; i < (isExtend() ? 1 : 1); i++) {
+        var syllables = [];
+        for (var c of consonants) {
+            for (var v of vowels) {
+                for (var f of finals) {
+                    var letter = Hangul.a([c, v, f]);
+                    if (isKSX1001(letter)) syllables.push(letter);
+                }
+            }
+        }
+        if (isRandom()) syllables.sort(() => Math.random() - 0.5);
+        repeated = repeated.concat(syllables);
+    }
+    repeated = repeated.flatMap(code => Array(getRepeatCount()).fill(code));
+    add_string(repeated);
+    changeQsoSample(repeated.join(space_add()));
+}
+function hangulSyllables() {
+    if (!stopped) stop.click();
+
+    var consonants = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    if (isExtend()) consonants = consonants.concat(["ㄲ","ㄸ","ㅃ","ㅆ","ㅉ"]);
+    var vowels = ["ㅏ","ㅑ","ㅓ","ㅕ","ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ","ㅔ","ㅐ"];
+    var finals = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    if (isExtend()) finals = ["ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    var repeated = [];
+    for (var i = 0; i < (isExtend() ? 1 : 1); i++) {
+        var syllables = [];
+        for (var c of consonants) {
+            for (var v of vowels) {
+                for (var f of finals) {
+                    var letter = Hangul.a([c, v, f]);
+                    if (isKSX1001(letter)) syllables.push(letter);
+                }
+            }
+        }
+        if (isRandom()) syllables.sort(() => Math.random() - 0.5);
+        repeated = repeated.concat(syllables);
+    }
+    repeated = repeated.flatMap(code => Array(getRepeatCount()).fill(code));
+    add_string(repeated);
+    changeQsoSample(repeated.join(space_add()));
+}
+function hangulComplexVowels() {
+    if (!stopped) stop.click();
+
+    var consonants = ["ㅇ"];
+    if (isExtend()) consonants = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    var vowels = ["ㅒ","ㅖ","ㅘ","ㅙ","ㅚ","ㅝ","ㅞ","ㅟ","ㅢ"];
+    var repeated = [];
+    for (var i = 0; i < (isExtend() ? 3 : 30); i++) {
+        var syllables = [];
+        for (var c of consonants) {
+            for (var v of vowels) {
+                var letter = Hangul.a([c, v]);
+                if (isKSX1001(letter)) syllables.push(letter);
+            }
+        }
+        if (isRandom()) syllables.sort(() => Math.random() - 0.5);
+        repeated = repeated.concat(syllables);
+    }
+    repeated = repeated.flatMap(item => Array(getRepeatCount()).fill(item));
+    add_string(repeated);
+    changeQsoSample(repeated.join(space_add()));
+}
+function hangulComplexSyllables() {
+    if (!stopped) stop.click();
+
+    var consonants = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    if (isExtend()) consonants = consonants.concat(["ㄲ","ㄸ","ㅃ","ㅆ","ㅉ"]);
+    var vowels = ["ㅒ","ㅖ","ㅘ","ㅙ","ㅚ","ㅝ","ㅞ","ㅟ","ㅢ"];
+    var finals = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    if (isExtend()) finals = ["ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    var repeated = [];
+    for (var i = 0; i < (isExtend() ? 1 : 1); i++) {
+        var syllables = [];
+        for (var c of consonants) {
+            for (var v of vowels) {
+                for (var f of finals) {
+                    var letter = Hangul.a([c, v, f]);
+                    if (isKSX1001(letter)) syllables.push(letter);
+                }
+            }
+        }
+        if (isRandom()) syllables.sort(() => Math.random() - 0.5);
+        repeated = repeated.concat(syllables);
+    }
+    repeated = repeated.flatMap(item => Array(getRepeatCount()).fill(item));
+    add_string(repeated);
+    changeQsoSample(repeated.join(space_add()));
+}
+function hangulRandomSyllables() {
+    if (!stopped) stop.click();
+
+    var consonants = ["ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    if (isExtend()) consonants = consonants.concat(["ㄲ","ㄸ","ㅃ","ㅆ","ㅉ"]);
+    var vowels = ["ㅏ","ㅑ","ㅓ","ㅕ","ㅗ","ㅛ","ㅜ","ㅠ","ㅡ","ㅣ","ㅔ","ㅐ"];
+    if (isExtend()) vowels = vowels.concat(["ㅒ","ㅖ","ㅘ","ㅙ","ㅚ","ㅝ","ㅞ","ㅟ","ㅢ"]);
+    var finals = ["","ㄱ","ㄴ","ㄷ","ㄹ","ㅁ","ㅂ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    if (isExtend()) finals = ["","ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+    var repeated = [];
+    for (var i = 0; i < (isExtend() ? 1 : 1); i++) {
+        var syllables = [];
+        for (var c of consonants) {
+            for (var v of vowels) {
+                for (var f of finals) {
+                    var letter = Hangul.a([c, v, f]);
+                    if (isKSX1001(letter)) syllables.push(letter);
+                }
+            }
+        }
+        if (isRandom()) syllables.sort(() => Math.random() - 0.5);
+        repeated = repeated.concat(syllables);
+        repeated = array_shuffle(repeated)
+    }
+    repeated = repeated.flatMap(item => Array(getRepeatCount()).fill(item));
+    add_string(repeated);
+    var data = repeated.join(space_add());
+    changeQsoSample(data);
+}
+function hangulFrequentSyllables() {
+    if (!stopped) stop.click();
+    var SYLLABLES = ["가","게","가","격","가","구","가","방","가","수","가","슴","가","요","가","위","가","을","가","족","간","식","간","장","갈","비","갈","색","감","기","감","동","감","자","개","인","거","기","거","리","거","실","거","울","건","물","게","임","겨","울","결","과","경","기","경","주","경","찰","경","치","경","험","계","단","계","란","계","절","계","획","고","기","고","모","고","장","고","추","고","향","골","목","골","프","공","간","공","기","공","연","공","원","공","짜","공","책","공","항","과","거","과","일","과","자","과","학","관","계","관","심","광","고","교","수","교","실","교","통","교","회","구","두","구","름","구","월","국","내","국","립","국","수","국","어","국","적","국","제","군","인","규","칙","그","거","그","것","그","곳","그","날","그","때","그","램","그","릇","그","림","그","분","그","쪽","극","장","근","처","금","연","기","간","기","름","기","분","기","사","기","사","기","온","기","자","기","차","기","침","기","타","김","밥","김","치","꽃","집","나","라","나","무","나","이","나","중","나","흘","낚","시","날","씨","날","짜","남","녀","남","미","남","산","남","자","남","쪽","남","편","내","과","내","년","내","용","내","일","냄","비","냄","새","냉","면","노","래","노","트","녹","색","녹","차","농","구","누","구","누","나","눈","물","뉴","스","뉴","욕","느","낌","능","력","다","리","다","리","다","음","단","어","단","점","달","러","달","력","담","배","답","장","당","근","당","신","대","학","대","화","대","회","덕","분","도","로","도","시","도","움","도","쿄","독","서","독","일","동","네","동","물","동","생","동","안","동","양","동","전","동","쪽","돼","지","된","장","두","부","듣","기","등","산","딸","기","떡","국","라","면","로","션","마","늘","마","음","만","두","만","화","매","일","매","주","맥","주","머","리","머","리","메","뉴","메","모","며","칠","면","도","명","절","모","양","모","임","모","자","목","적","몸","살","몽","골","무","료","무","릎","무","엇","무","역","무","용","문","장","문","제","문","화","물","건","미","국","미","래","미","술","바","다","바","람","바","지","박","수","반","지","반","찬","발","음","발","표","방","법","방","송","방","학","배","구","배","달","배","우","배","탈","버","스","번","호","벚","꽃","병","원","볼","펜","봉","지","봉","투","부","모","부","부","부","산","부","엌","부","인","부","탁","북","쪽","비","누","비","밀","빌","딩","빨","래","빵","집","사","고","사","과","사","람","사","물","사","원","사","월","사","이","사","장","사","전","사","진","사","촌","사","탕","사","흘","산","책","삼","월","삼","촌","상","자","상","처","상","품","새","벽","새","우","색","깔","생","선","생","신","생","일","생","활","샴","푸","서","류","서","양","서","울","서","점","서","쪽","선","배","선","수","설","날","설","탕","성","격","성","함","세","계","센","터","소","리","소","설","소","식","소","파","소","포","소","풍","손","님","송","이","수","건","수","도","수","박","수","업","수","영","수","저","수","첩","수","학","숙","제","순","서","스","키","습","관","시","간","시","계","시","골","시","내","시","디","시","민","시","설","시","외","시","월","시","작","시","장","시","청","시","험","식","당","식","사","식","탁","신","문","신","발","실","수","쓰","기","아","기","아","내","아","들","아","래","아","빠","아","이","아","침","아","침","악","기","안","경","야","구","야","채","약","국","약","사","약","속","양","말","양","복","양","식","양","파","어","깨","어","디","어","른","언","니","얼","굴","얼","마","얼","음","엄","마","여","권","여","기","여","름","여","자","여","행","역","사","연","세","연","필","연","휴","열","쇠","열","차","엽","서","영","국","영","상","영","어","영","하","영","화","예","약","옛","날","오","리","오","빠","오","월","오","이","오","전","오","후","올","해","옷","장","외","국","왼","쪽","요","금","요","리","요","일","요","즘","우","리","우","산","우","유","우","표","월","급","월","세","웬","일","위","치","유","럽","유","리","유","월","유","학","유","행","은","행","음","식","음","악","의","미","의","사","의","자","이","거","이","것","이","곳","이","름","이","모","이","번","이","분","이","사","이","월","이","유","이","쪽","이","틀","인","구","인","기","인","도","인","삼","인","상","인","천","인","형","일","기","일","본","일","식","일","월","읽","기","입","구","입","학","자","기","자","료","자","리","자","신","자","연","자","유","작","년","잔","치","잡","지","장","갑","장","마","장","미","장","소","장","점","재","료","재","킷","저","거","저","것","저","곳","저","기","저","녁","저","녁","저","분","저","쪽","저","희","전","공","전","화","점","수","점","심","점","심","점","원","점","퍼","정","도","정","문","정","보","제","목","제","일","조","카","종","로","종","류","종","이","종","일","주","말","주","변","주","부","주","사","주","소","주","스","주","위","주","인","중","국","중","식","중","심","증","세","지","갑","지","도","지","방","지","하","직","업","직","원","직","장","찌","개","창","문","채","소","책","상","책","장","처","음","최","고","추","석","추","억","축","구","축","제","출","구","출","장","취","미","치","과","치","마","치","약","친","구","친","척","칠","월","칠","판","침","대","칫","솔","카","드","카","레","카","페","커","피","코","트","코","피","콜","라","콧","물","크","기","탁","구","태","국","태","풍","택","시","통","장","특","징","파","티","팔","월","패","션","편","지","평","일","포","도","포","장","표","현","피","자","필","름","필","통","하","늘","하","루","하","숙","학","교","학","기","학","년","학","생","학","원","한","강","한","국","한","글","한","번","한","복","한","식","한","자","할","인","합","격","해","외","햇","빛","행","복","행","사","허","리","현","금","현","재","형","제","호","주","호","텔","혼","자","홍","차","화","가","환","자","회","사","회","색","회","의","후","배","휴","가","휴","일","휴","지","흰","색"];
+    SYLLABLES = SYLLABLES.flatMap(item => Array(getRepeatCount()).fill(item));
+    add_string(SYLLABLES);
+    var data = SYLLABLES.join(space_add());
+    changeQsoSample(data);
+}
+function textarea_change(qso_name){
+if (!stopped) stop.click();
+
+var hangul_qso_1_caption = "※ QSO Sample from : <a href='https://hl5ky.tistory.com/105' target='_blank'>https://hl5ky.tistory.com/105</a>";
+var hangul_qso_1 = (`CQ CQ CQ DE HL5KY HL5KY <AR> K
+
+HL5KY DE DS1ABC DS1ABC K
+
+DS1ABC DE HL5KY TNX FER CALL UR RST IS 599 5NN VY GUD <BT> NAME IS JOE JOE QTH IS BUSAN BUSAN HW? DS1ABC DE HL5KY K
+
+HL5KY DE DS1ABC <KA> 조오엠님 안녕하십니까? <BT> 신호는 역시 599 5NN으로 잘 들어옵니다. 저의 이름은 홍길동 홍길동이며 서울 서울에 살고 있습니다 <KA> HL5KY DE DS1ABC K
+
+DS1ABC DE HL5KY <KA> 예 홍길동님 반갑습니다 <BT> 저의 이름은 조윤재 조윤재입니다. 한글로 교신하게 되니 아주 좋습니다 종종 뵙도록 하겠습니다 <AR> DS1ABC DE HL5KY <KN>
+
+HL5KY DE DS1ABC <KA> 예 조오엠님 첫 교신 대단히 감사합니다 <BT> 다음에 또 뵙겠습니다. 안녕히 계십시오 <AR> HL5KY DE DS1ABC 73 TU <SK> E E
+
+TNX QSO 73 TU <SK> E E
+
+TU E E`);
+
+var hangul_qso_2_caption = "※ QSO Sample from : <a href='https://hl5ky.tistory.com/106' target='_blank'>https://hl5ky.tistory.com/106</a>";
+var hangul_qso_2 = (`CQ CQ CQ DE HL4LF HL4LF <AR>
+
+HL4LF DE 6K5EIA 6K5EIA <KN>
+
+6K5EIA DE HL4LF <KA> 안녕하십니까 반갑습니다. 귀국의 신호는 599 5NN으로 잘 수신됩니다. 이곳은 여수 여수입니다. 저의 이름은 정경철 정경철입니다. <AR> 6K5EIA DE HL4LF <KN>
+
+HL4LF DE 6K5EIA <KA> 예 정오엠님 이렇게 뵙게 되어 반갑습니다. 신호는 579 57N으로 들어옵니다 <BT> 저의 이름은 장석대 장석대라고 하며 울산 울산에 살고 있습니다. 울산의 날씨는 조금 흐리고 빗방울이 떨어지고 있습니다. <KA> HL4LF DE 6K5EIA <KN>
+
+6K5EIA DE HL4LF <KA> 예 장석대오엠님 반갑습니다 <BT> 방금 일본 신호가 강하게 들어와서 조금 혼신을 받았지만 잘 수신하였습니다. 여수도 아침에 비가 왔는데 지금은 햇살이 비치고 있습니다. 기온은 약 20도 정도입니다 <AR> 6K5EIA DE HL4LF K
+
+HL4LF DE 6K5EIA <KA> 일본 혼신이 있군요. 울산에서도 일본 신호가 잘 수신되어서 자주 혼신을 받는 편입니다. 여수는 날이 개었군요. 그러면 좋은 주말 보내시고 다음에 또 뵙기 바랍니다. 건강하세요 <AR> HL4LF DE 6K5EIA 73 <SK>
+
+6K5EIA DE HL4LF <KA> 예 잘 알겠습니다. 오늘 교신 감사드립니다. 자주 전신에서 뵙도록 하겠습니다. 즐거운 주말 보내십시오 6K5EIA DE HL4LF 73 TU <SK> E E
+
+TU <SK> E E
+
+E E`);
+
+var hangul_qso_3_caption = "※ QSO Sample from : <a href='https://hl5ky.tistory.com/107' target='_blank'>https://hl5ky.tistory.com/107</a>";
+var hangul_qso_3 = (`CQ CQ CQ DE HL2BCW HL2BCW K
+
+HL2BCW DE HL5MP <KN>
+
+HL5MP DE HL2BCW <KA> 아이구 이오엠님 이거 얼마만입니까?  조영보 조영보입니다. 잘 지내십니까? 신호는 589 58N으로 잘 들어옵니다. 저는 지금 원주 원주에 살고 있습니다 <AR> HL5MP DE HL2BCW <KN>
+
+HL2BCW DE HL5MP <KA> 예 조오엠 오랜만입니다. 신호는 599 5NN입니다. 정말 오랜만이네요. 아마 얼굴 본 지가 20년은 넘었을겁니다. 저는 덕분에 잘 지내고 있습니다. 오래전에 퇴직해서 지금은 양산 양산에 살고 있습니다. 요즘은 주로 낚시를 많이 다니고 건강을 위해서 운동도 꾸준히 하고 있습니다. 단파 운용을 다시 시작한 지는 얼마 되지 않습니다. 베란다에 조그만 안테나를 설치해서 운용하고 있습니다. HL2BCW DE HL5MP <KN>
+
+HL5MP DE HL2BCW <KA> 그러시군요. 저도 곧 퇴직을 앞두고 있습니다. 퇴직후에 고향에 갈까 하는 생각도 해 보았지만 오랫동안 객지에서 지내다보니 결정이 쉽지 않습니다. 저도 다른 쪽에 관심을 두고 있어서 햄활동은 많이 하지 않았습니다. 최근에 단파 상태가 좋아졌다고 해서 요즘은 가끔 무전기의 전원을 넣어 보고 있습니다. 앞으로 종종 뵙도록 하겠습니다. HL5MP DE HL2BCW <KN>
+
+HL2BCW DE HL5MP <KA> 예 다들 나이가 드니 이전에 즐기던 취미로 돌아오는 모양입니다. 기회가 되면 음성 교신도 기대하겠습니다. 즐거운 주말 보내시기 바라며 이만 73 <AR> HL2BCW DE HL5MP <KN>
+
+R <BT> 예 자주 나오도록 하겠습니다. 항상 건강하십시오 73 <SK> E E
+
+73 TU <SK> E E
+
+E E`);
+
+var hangul_qso_4_caption = "※ QSO Sample from : <a href='https://www.youtube.com/watch?v=TkbhZqdAPdw' target='_blank'>https://www.youtube.com/watch?v=TkbhZqdAPdw</a>";
+var hangul_qso_4 = (`HL2LKL DE HL1SB K
+
+HL1SB DE HL2LKL <BT> <KA> 유 오엠님 <BT> 안녕하세요? 신호는 599 599 입니다. <AR> HL1SB DE HL2LKL K
+
+HL2LKL DE HL1SB <BT> <KA> <KA> <BT> 전 오엠님 또 만나뵙게 되어 반갑습니다, 신호 역시 599 좋습니다, 지금 저의 출력은 20와트 20와트 입니다, 공간상태가 좋아서 저출력인데도 신호가 잘 들어가는 것 같아서 다행입니다. <AR> HL2LKL DE HL1SB K
+
+HL1SB DE HL2LKL <BT> <KA> 예, 오엠님 몇일만에 만나서 반갑습니다 <BT> 예, 오늘은 공간상태가 좋아서 <BT> 저 출력인 20왓트로 송신하시는 데도 <BT> 안산에 아주 강력하게 신호가 들어옵니다 <BT> 저는 현재 출력이 백왓트입니다. <AR> HL1SB DE HL2LKL K
+
+R HL2LKL DE HL1SB <BT> <KA> <BT> 예, 전 오엠님 잘 수신했습니다, 오엠님 신호는 언제나 이곳에서 잘 수신되고 있습니다 HI HI <BT> 제가 지금 사용하고 있는 장비는 메인 장비가 아니고, 포터블용 저출력 장비라서, 최대출력이 20왓트밖에 안 됩니다, 주로 이 장비를 전신 교신에 사용하고 있습니다. <AR> HL2LKL DE HL1SB K
+
+HL1SB DE HL2LKL <BT> <KA> 예, 오엠님 말씀 잘 수신했습니다 <BT> 오엠님께서는 아주 예전 장비를 사용하시네요 <BT> 출력이 최대가 20왓트 장비이시네요 <BT> 그러나 음질도 아주 좋습니다 <BT> 예전 장비를 사용하시는 오엠님을 만나면 부럽습니다 <BT> 저는 아이콤 IC7300 IC7300 장비를 사용하고 있습니다 <BT> 안테나는 십오층 옥상에 다이폴을 사용하고 있습니다 <BT> 다행히 관리사무소에서 승인하여서요 <BT> 안테나는 안산 오엠님들이 오셔서 설치해 주었습니다. <AR> HL1SB DE HL2LKL K
+
+HL2LKL DE HL1SB <BT> <KA> <BT> 예, 전 오엠님 잘 수신했습니다, 제 장비는 옛날 장비는 아니고요, 비교적 최신 장비이긴 한데, 중국제 소형 SDR SDR 장비입니다, 오엠님께서 사용하시는 장비도 SDR 장비죠 HI HI <BT> 오엠님의 안테나도 15층 옥상에 설치한 다이폴이군요, 저도 15층 옥상에 안테나를 설치했습니다, 삼점오와 칠메가 용 다이폴입니다 HI HI <BT> 전 오엠님, 오늘 이렇게 또 다시 만나서 롱큐에스오 하게 되어 즐거웠습니다, 무더운 날씨에 무탈하게 계시기 바랍니다, 다음에 뵐 때까지 안녕히 계시기 바랍니다. <AR> HL2LKL DE HL1SB K
+
+HL1SB DE HL2LKL <BT> <KA> 예, 오엠님께서 사용하시는 장비는 최근 장비이시군요 <BT> 중국의 SDR 장비이시라고 수신하였습니다 <BT> 안테나도 15층에 설치하셨고요 <BT> 오엠님 무더운 날씨에 건강 조심하시고요 <BT> 또 만날 때까지 안녕히 계십시요. <AR> HL1SB DE HL2LKL GL GB TU <VA> E E
+
+R FB HL2LKL DE HL1SB <BT> <KA> 예, 전 오엠님 오늘 교신 정말 감사했습니다, 그럼 이만 실례합니다, 안녕히 계세요 73 HL2LKL DE HL1SB 73 TU TU E E
+
+OK <BT> <KA> 예, 오엠님 제가 더 교신을 할 수가 있어서 영광이었습니다 <BT> 앞으로 자주 만나뵙겠습니다 <BT> 또 만나면 아마추어에 대해 한수를 가르쳐주세요 HI HI <BT> 안녕히 계세요. <AR> HL1SB DE HL2LKL GL GB 73 TU TU E E
+
+OK DE HL1SB <BT> <KA> <BT> 아이고 오엠님, 가르쳐 드리다뇨 HI 오엠님께서는 이미 고수이신데요 HI HI 73 HL2LKL DE HL1SB 73 TU TU E E
+
+QSL DR OM TNX FB QSO HPE CUAGN <BT> <AR> HL1SB DE HL2LKL 73 TU E E
+
+73 GB TU TU E E
+
+TU
+
+E
+
+E`);
+
+var english_qso_1_caption = "※ QSO Sample from : DS1TZE";
+var english_qso_1 = (`CQ CQ CQ DE DS1TWO DS1TWO <AR>
+DS1TWO DE 6K2KXY 6K2KXY <KN>
+6K2KXY DE DS1TWO GM DR OM ES TKS FER CALL <BT> UR RST RST 599 5NN <BT> NAME NAME CHOI CHOI <BT> QTH QTH SEONGNAM SEONGNAM <AR> 6K2KXY DE DS1TWO <KN>
+R R DS1TWO DE 6K2KXY GM DR CHOI OM <BT> UR RST RST 599 5NN <BT> NAME NAME SEO SEO <BT> QTH QTH ANYANG ANYANG <AR> DS1TWO DE 6K2KXY <KN>
+R R 6K2KXY DE DS1TWO <BT> TKS FER FB QSO DR SEO OM ES HPE CUAGN <AR> 6K2KXY DE DS1TWO 73 SK TU E E
+R R DS1TWO DE 6K2KXY <BT> TKS FER FB QSO DR CHOI OM ES HPE CUAGN <AR> DS1TWO DE 6K2KXY 73 SK TU E E
+E
+E`);
+
+var english_qso_2_caption = "※ QSO Sample from : <a href='https://hl5ky.tistory.com/99' target='_blank'>https://hl5ky.tistory.com/99</a>";
+var english_qso_2  = (`CQ CQ CQ DE HL1ABC HL1ABC PSE K
+
+HL1ABC DE DS5XYZ DS5XYZ <KN>
+
+DS5XYZ DE HL1ABC <BT> GA ES TNX FER CALL <BT> UR RST 569 56N <BT> NAME IS LEE LEE QTH SEOUL SEOUL <BT> HW? <AR> DS5XYZ DE HL1ABC <KN>
+
+HL1ABC DE DS5XYZ <BT> GA DR LEE TNX FB RPT UR RST 599 5NN <BT> OP PARK PARK ES QTH MASAN MASAN <BT> HW? <AR> HL1ABC DE DS5XYZ <KN>
+
+DS5XYZ DE HL1ABC <BT> R PARK TNX RPT ES INFO OM PARK <BT> RIG IS IC7300 ANT IS DP <BT> WX IS WARM 28DC <BT> HW? <AR> DS5XYZ DE HL1ABC <KN>
+
+HL1ABC DE DS5XYZ <BT> RIG IS FT817 ANT IS INV <BT> WX IS RAINY AND COOL <AR> HL1ABC DE DS5XYZ <KN>
+
+DS5XYZ DE HL1ABC <BT> MNI TNX INFO ES FB QSO <BT> QSL VIA BURO <BT> 73 ES CUAGN <AR> DS5XYZ DE HL1ABC <SK>
+
+HL1ABC DE DS5XYZ <BT> FB LEE TNX FER NICE QSO 73 ES BCNU <AR> HL1ABC DE DS5XYZ <SK>
+
+TU 73 E E
+
+TU E E`);
+
+var doc_str = "";
+if(qso_name=="hangul_qso_1"){
+    doc_str  = hangul_qso_1;
+    document.getElementById('user_txt_caption').innerHTML  = hangul_qso_1_caption;
+}else if(qso_name=="hangul_qso_2"){
+    doc_str  = hangul_qso_2;
+    document.getElementById('user_txt_caption').innerHTML  = hangul_qso_2_caption;
+}else if(qso_name=="hangul_qso_3"){
+    doc_str  = hangul_qso_3;
+    document.getElementById('user_txt_caption').innerHTML  = hangul_qso_3_caption;
+}else if(qso_name=="hangul_qso_4"){
+    doc_str  = hangul_qso_4;
+    document.getElementById('user_txt_caption').innerHTML  = hangul_qso_4_caption;
+}else if(qso_name=="english_qso_1"){
+    doc_str  = english_qso_1;
+    document.getElementById('user_txt_caption').innerHTML  = english_qso_1_caption;
+}else if(qso_name=="english_qso_2"){
+    doc_str  = english_qso_2;
+    document.getElementById('user_txt_caption').innerHTML  = english_qso_2_caption;
+}
+if(document.getElementById('add_vvv').checked) doc_str = add_vvv_text.value + doc_str;
+if(document.getElementById('add_ar').checked) doc_str = doc_str + add_ar_text.value;
+changeQsoSample(doc_str);
+}
+
+function getDeviceInfo() {
+  var userAgent = navigator.userAgent.toLowerCase();
+  if (/iphone|ipad|ipod/.test(userAgent)) {
+    var connected_macine = "Apple Mobile";
+  } else if (/android/.test(userAgent)) {
+    var connected_macine = "Android Mobile";
+  } else {
+    var connected_macine = "Personal Computer";
+  }
+
+  if (userAgent.indexOf('chrome') > -1) {
+    var connected_browser = 'Chrome Browser';
+  } else if (userAgent.indexOf('firefox') > -1) {
+    var connected_browser = 'Firefox Browser';
+  } else if (userAgent.indexOf('safari') > -1) {
+    var connected_browser = 'Safari Browser';
+  } else if (userAgent.indexOf('trident') > -1) {
+    var connected_browser = 'Internet Explorer Browser';
+  } else {
+    var connected_browser = 'Unknown Browser';
+  }
+  document.getElementById('user_txt_caption').innerHTML = 'Connected To ' + connected_macine + ' & ' + connected_browser;
+}
+
+if(!isAndroid && !isIOS){
+    document.getElementById("keyer_setting").style.display = 'inline-block'; 
+    var width = '850';
+    var height = '300'
+    const allelements = document.querySelectorAll('fieldset');
+    allelements.forEach(element => {
+        element.style.width = width + 'px';
+    });
+    const allelements2 = document.querySelectorAll('.main_button');
+    allelements2.forEach(element => {
+        element.style.width = '135px';
+        element.style.fontSize = '20px';
+    });
+    document.querySelector('.CodeMirror').style.width = width + 'px';
+    document.querySelector('.CodeMirror').style.height = height + 'px';
+    document.querySelector('.log_container_ditdah').style.width = width + 'px';
+    document.getElementById('layer').style.width =  width + 'px';
+    document.getElementById('layer').style.height = height + 'px';
+    document.getElementById('textarea_select_char').style.width = '852px';
+    document.getElementById('textarea_select_char').style.height = '302px';
+    document.querySelector('.progress-bar').style.width = width + 'px';
+    font_resize('18');
+}
+
+if(localStorage.getItem('textarea_fontsize')){
+    document.getElementById('user_txt').style.fontSize = localStorage.getItem('textarea_fontsize');
+    document.getElementById('font_text').innerHTML = localStorage.getItem('textarea_fontsize');
+} else{
+    document.getElementById('user_txt').style.fontSize = '21px';
+    document.getElementById('font_text').innerHTML = '21px';
+}
+
+function resize(element,size){
+    const allelements = document.querySelectorAll(element);
+    allelements.forEach(element => {
+        element.style.fontSize = size + 'px';
+    });
+}
+
+function font_resize(size){
+    resize('label',size);
+    resize('label',size);
+    resize('input',size);
+    resize('select',size);
+    resize('span',size);
+}
+
+getDeviceInfo();
+</script>
+<script>
+    function updateLayerPosition() {
+        const rect = targetDiv.getBoundingClientRect();
+        layer.style.top = `${rect.top + window.scrollY}px`;
+        layer.style.left = `${rect.left + window.scrollX}px`;
+    }
+    const toggleButton = document.getElementById('textarea_play_char');
+    const layer = document.getElementById('layer');
+    const targetDiv = document.getElementById('user_txt');
+    const rect = targetDiv.getBoundingClientRect(); 
+    toggleButton.addEventListener('click', function() {
+        if (layer.style.display === 'none' || layer.style.display === '') {
+            updateLayerPosition();
+            layer.style.display = 'block';
+            layer.focus();
+        } else {
+            layer.style.display = 'none';
+            // cm.focus();
+        }
+    });
+
+document.getElementById('textarea_select_char').addEventListener('click', function() {
+    play_control();
+});
+
+function view_toggle(){
+    if(document.getElementById('view1').checked && document.getElementById('view2').checked)
+    {
+        document.getElementById('view1').checked = false;
+        document.getElementById('view2').checked = false;
+        toggleSetting1(false);
+        toggleSetting2(false);
+    }else{
+        document.getElementById('view1').checked = true;
+        document.getElementById('view2').checked = true;
+        toggleSetting1(true);
+        toggleSetting2(true);
+    }
+
+}
+
+document.getElementById('ditdah').addEventListener('click', function() {
+    document.getElementById('textarea_play_char').click();
+});
+
+document.querySelector('.progress-bar').addEventListener('click', function() {
+    play_control();
+});
+
+function play_control(){
+    if (paused) {
+        play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
+        paused = false;
+        ac.resume();
+        return;
+    } else if (stopped == false && repeatId == -1) {
+        play.replaceChild(document.createTextNode("RESUME"), play.firstChild);
+        paused = true;
+        ac.suspend();
+        return;
+    } else {
+        play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
+        paused = false;
+    }
+}
+
+function setProgressBar(percent) {
+  const progressBar = document.querySelector('.progress');
+  progressBar.style.width = percent + '%';
+}
+setProgressBar(0);
+</script>
+</BODY>
+</HTML> 
