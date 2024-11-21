@@ -419,7 +419,8 @@
                 <div id="layer"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
             </div>
             <script>
-                function downloadPDF(filename) {
+                function downloadPDF() {
+                    const filename = document.getElementById('morsecode_download').value;
                     const str = '\nDownload the ' + filename + '?';
                     if (confirm(str)) {
                         const newWindow = window.open();
@@ -558,13 +559,20 @@
         <div class="log_container_ditdah"><span id="ditdah" align="center" title="Click to see the text you are playing in a Larger View 🎵"></span></div>
         <div style="text-align:center;vertical-align:top;">
             <div id="user_txt_caption" style="display:block;"></div>
-            <div style="vertical-align:bottom;">
+            <!-- <div style="vertical-align:bottom;">
                 <div id="setting_bold" style="display:inline-block;">💾 MORSE:</div>
                 <button onclick="downloadPDF('MORSE_CODE.pdf');" title="Morse Code Chart Download" style="font-size:12px;height:20px;">Chart</button>
                 <button onclick="downloadPDF('MORSE_CODE_TREE_HAN.pdf');" title="Morse Code Englich Tree Chart Download" style="font-size:12px;height:20px;">Tree Han</button>
                 <button onclick="downloadPDF('MORSE_CODE_TREE_ENG.pdf');" title="Morse Code Hangul Tree Chart Download" style="font-size:12px;height:20px;">Tree Eng</button>
                 <a href='https://hits.seeyoufarm.com'><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a>
-            </div>
+            </div> -->
+            <select id="morsecode_download" style="width:200px;color:blue;" onchange="downloadPDF();">
+                <option value="" title="Morse Code Chart Download">Morse Code Download</option>
+                <option value="MORSE_CODE.pdf" title="Morse Code Chart Download">Morse Chart</option>
+                <option value="MORSE_CODE_TREE_HAN.pdf" title="Morse Code Hangul Tree Chart Download">Morse Tree Hangul</option>
+                <option value="MORSE_CODE_TREE_ENG.pdf" title="Morse Code Englich Tree Chart Download">Morse Tree English</option>
+            </select>
+            <a href='https://hits.seeyoufarm.com'><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a>
         </div>
     </fieldset>
 </div>
