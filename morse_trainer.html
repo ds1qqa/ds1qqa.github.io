@@ -408,11 +408,26 @@
                 <button id="textarea_select_percent" style="text-align:center;width:40px;color:red;text-align:right;" title="Now Playing Percent">0</button>%
                 <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
                 <button id="textarea_play_char" style="width:60px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to see the text you are playing in a Larger View 🎵">Char</button>
-                <button id='flash_button' style="border-radius:12px;width:24px;height:24px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
+                <button id='cwport_signal' style="border-radius:12px;width:24px;height:24px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
                 <div class="progress-bar"><div class="progress"></div></div>
                 <div id="layer"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
             </div>
             <script>
+                function sos_start(){
+                    if(document.getElementById('sos_check').checked == true){
+                        document.getElementById('speed').value = '10';
+                        document.getElementById('repeat').checked = true;
+                        changeQsoSample('SOS');
+                        document.getElementById('layer').style.display = 'block';
+                        document.getElementById('textarea_select_char').style.fontSize = '200px';
+                        document.getElementById('play').click();
+                    }else{
+                        document.getElementById('repeat').checked = false;
+                        document.getElementById('main_table').style.backgroundColor = 'white';
+                        document.getElementById('stop').click();
+                        document.getElementById('layer').style.display = 'none';
+                    }
+                }
                 function downloadPDF() {
                     const filename = document.getElementById('morsecode_download').value;
                     const str = '\nDownload the ' + filename + '?';
@@ -553,6 +568,7 @@
         <div class="log_container_ditdah"><span id="ditdah" align="center" title="Click to see the text you are playing in a Larger View 🎵"></span></div>
         <div style="text-align:center;vertical-align:top;">
             <div id="user_txt_caption" style="display:block;"></div>
+            <font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font><input type="checkbox" id="sos_check" style="width:24px;height:24px;" onchange="sos_start();" title="SOS START">
             <select id="morsecode_download" style="color:black;border-color:white;background-color: white;" onchange="downloadPDF();">
                 <option value="" title="Morse Code Chart Download">Morse Code Download</option>
                 <option value="MORSE_CODE.pdf" title="Morse Code Chart Download">Morse Code Chart</option>
@@ -956,7 +972,7 @@ var DELAY_AMOUNT = 1; // seconds
 stop.onclick = function() {
     try { clearTimeout(repeatId); repeatId = -1;}
     catch (e) {}
-    document.getElementById('layer').style.display = 'none';
+    // document.getElementById('layer').style.display = 'none';
     renewMorse();
     if (noiseNode) noiseGain.disconnect();
     morse.playString(false, ac.currentTime, " ", vol, document.getElementById('selectkey').value, fading.checked);
@@ -1302,7 +1318,8 @@ function addDitdah(bar, len) {
     lastWidth = len;
 	
 	if (cwPortOpen) cwPort.setSignals({dataTerminalReady:bar});
-    document.getElementById('flash_button').style.backgroundColor = bar ? 'red' : 'white';
+    document.getElementById('cwport_signal').style.backgroundColor = bar ? 'red' : 'white';
+    if(document.getElementById('sos_check').checked) document.getElementById('main_table').style.backgroundColor = bar ? 'red' : 'white';
 }
 
 function clearDitdah() {
