@@ -410,11 +410,10 @@
                 <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button> 
                 <button id="textarea_select_percent" style="text-align:center;width:40px;color:red;text-align:right;" title="Now Playing Percent">0</button>%
                 <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
-                <button id="textarea_play_char" style="width:60px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to see the text you are playing in a Larger View 🎵">Char</button>
-                <input id="layer_display" type="checkbox" style="width:26px;height:26px;" title="Play on the Character displayed">
-                <button id='cwport_signal' style="border-radius:14px;width:28px;height:28px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
-                <span style="font-size: 1.2em;">🕓</span>
-                <div id="timerDisplay_total" style="font-size: 1.2em;display: inline-block;">00:00:00</div> / <div id="timerDisplay" style="font-size: 1.2em;display: inline-block;">00:00:00</div>
+                <button id="textarea_play_char" style="width:40px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to see the text you are playing in a Larger View 🎵"></button>
+                <input id="layer_display" type="checkbox" style="width:24px;height:24px;" title="Play on the Character displayed">
+                <button id='cwport_signal' style="border-radius:14px;width:24px;height:24px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
+                <div id="timerDisplay_total" style="font-size: 1.3em;display: inline-block;">00:00:00</div>/<div id="timerDisplay" style="font-size: 1.2em;display: inline-block;">00:00:00</div>
                 <div class="progress-bar"><div class="progress"></div></div>
                 <div id="layer"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
             </div>
@@ -1881,7 +1880,7 @@ function changeQsoSample(data) {
     window.localStorage.setItem('user_txt', doc.getValue());
     clearDitdah();
     setProgressBar(0)
-    document.getElementById('textarea_play_char').innerHTML = 'Char';
+    document.getElementById('textarea_play_char').innerHTML = '';
     document.getElementById('textarea_select_count').innerHTML = '0';
     document.getElementById('textarea_select_percent').innerHTML = '0';
 }
