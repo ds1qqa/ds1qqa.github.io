@@ -16,8 +16,8 @@
 <link rel='stylesheet' href='script/style.css'>
 </HEAD>
 <BODY>
-<Table id="main_table" cellspacing=0 cellpadding=0 bordercolor="#F2F2F2" bgcolor="white" border=0 align="left" valign="top">
-    <tr><td align="left" valign="middle" class="sticky-row" bgcolor="white" width="500" height="60">
+<Table id="main_table" cellspacing=0 cellpadding=0 bordercolor="#F2F2F2" bgcolor="white" border=0 align="center" valign="top">
+    <tr><td align="center" valign="middle" class="sticky-row" bgcolor="white" width="500" height="60">
         <div id="main_button">
             <fieldset id="main_control" style="text-align:center;">
             <legend> 🐣 Main Menu 🐣 </legend>
@@ -297,7 +297,7 @@
             <input type="checkbox" id="random"/><label for="random">Random</label>
             <input type="checkbox" id="extend"/><label for="extend">Extend</label>
             <select id="gen_syllables_option" style="width:200px;color:blue;">
-                <option value="" style="text-align:center;">HANGU LETTER</option>
+                <option value="" style="text-align:center;">HANGUL LETTER</option>
                 <option value="hangul_initial_consonants">1. HANGUL INITIAL CONSONANT</option>
                 <option value="hangul_simple_vowels">2. HANGUL SIMPLE VOWELS</option>
                 <option value="hangul_simple_syllables">3. HANGUL SIMPLE SYLLABLES</option>
@@ -2452,7 +2452,7 @@ function getDeviceInfo() {
 
 if(!isAndroid && !isIOS){
     document.getElementById("keyer_setting").style.display = 'inline-block'; 
-    var width = 960;
+    var width = 950;
     var height = 300;
     const allelements = document.querySelectorAll('fieldset');
     allelements.forEach(element => {
@@ -2629,7 +2629,6 @@ const observer = new MutationObserver(mutations => {
     }
     });
 });
-
 const config = { attributes: true };
 observer.observe(targetElement, config);
 </script>
