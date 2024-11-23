@@ -190,10 +190,11 @@
             <span class="setting_bold">Play:</span>
             <input type="checkbox" id="selection_only" /><label for='selection_only'>Select only</label>
             <input type="checkbox" id="repeat" /><label for='repeat'>🔁Repeat</label>
-
+            &nbsp;
             <span class="setting_bold">Highlight:</span>
             <input type="checkbox" id="highlight_slowly" /><label for='highlight_slowly'>Slowly</label>
             <input type="checkbox" id="hide_text" /><label for="hide_text">Hide</label>
+            &nbsp;
             <span class="setting_bold">Effect:</span>
             <input type="checkbox" id="flute"><label for="flute">Flute</label>
             <input type="checkbox" id="noise"><label for="noise">Noise</label>
@@ -231,6 +232,7 @@
                     <option value="9">9</option>
                     <option value="10">10</option>
                 </select>
+                &nbsp;
             <span class="setting_bold">Num:</span>
             <select id="gen_number" style="width: 65px;">
                 <option value="5">5</option>
@@ -258,35 +260,39 @@
                 <option value="900">900</option>
                 <option value="1000">1,000</option>
             </select>
+            <select id="gen_random_option" style="width:130px;color:blue;">
+                <option value="" style="text-align:center;">RANDOM</option>
+                <option value="random_hl_callsigns">1. HL Callsign</option>
+                <option value="random_ja_callsigns">2. JA Callsign</option>
+                <option value="random_babv_callsigns">3. BA/BV Callsign</option>
+                <option value="random_hlja_callsigns">4. HL/JA Callsign</option>
+                <option value="random_hlbabv_callsigns">5. HL/BA/BV Callsign</option>
+                <option value="random_jababv_callsigns">6. JA/BA/BV Callsign</option>
+                <option value="random_hljababv_callsigns">7. HL/JA/BA/BV Callsign</option>
+                <option value="random_itu_callsigns" title="data source: https://en.wikipedia.org/wiki/ITU_prefix">8. WORLD Callsign</option>
+                <option value="">--------------------</option>
+                <option value="random_qso_elements">9. Qso Elements</option>
+                <option value="random_qso_basic_elements">10. Basic Elements</option>
+                <option value="random_stamp_qso">11. Stamp Qso</option>
+                <option value="random_hl_words">12. Han Words</option>
+                <option value="random_hl_phrases">13. Han Phrases</option>
+                <option value="random_qso2_elements">14. General Word</option>
+                <option value="random_kdn">15. Kdn NO</option>
+                <option value="random_kdn_city">16. Kdn City Name</option>
+                <option value="">--------------------</option>
+                <option value="random_qcode">17. Q Code</option>
+                <option value="random_number">18. Number</option>
+                <option value="random_alphabat">19. Alphabat</option>
+                <option value="random_specialchar">20. Special Character</option>
+                <option value="random_number_alphabat">21. Number, Alphabat</option>
+                <option value="random_alphabat_specialchar">22. Alphabat, Special Character</option>
+                <option value="random_number_alphabat_specialchar">23. Number, Alphabat, Special Character</option>
+                <option value="">--------------------</option>
+                <option value="random_jaum">24. 자음</option>
+                <option value="random_moum">25. 모음</option>
+                <option value="random_jaummoum">26. 자음, 모음</option>
             </select>
-                <select id="gen_random_option" style="width:130px;color:blue;">
-                    <option value="" style="text-align:center;">RANDOM</option>
-                    <option value="random_hl_callsigns">1. HL Callsign</option>
-                    <option value="random_ja_callsigns">2. JA Callsign</option>
-                    <option value="random_babv_callsigns">3. BA/BV Callsign</option>
-                    <option value="random_hlja_callsigns">4. HL/JA Callsign</option>
-                    <option value="random_hlbabv_callsigns">5. HL/BA/BV Callsign</option>
-                    <option value="random_jababv_callsigns">6. JA/BA/BV Callsign</option>
-                    <option value="random_hljababv_callsigns">7. HL/JA/BA/BV Callsign</option>
-                    <option value="random_itu_callsigns" title="data source: https://en.wikipedia.org/wiki/ITU_prefix">8. WORLD Callsign</option>
-                    <option value="">--------------------</option>
-                    <option value="random_qso_elements">9. Qso Elements</option>
-                    <option value="random_qso_basic_elements">10. Basic Elements</option>
-                    <option value="random_stamp_qso">11. Stamp Qso</option>
-                    <option value="random_hl_words">12. Han Words</option>
-                    <option value="random_hl_phrases">13. Han Phrases</option>
-                    <option value="random_qso2_elements">14. General Word</option>
-                    <option value="random_kdn">15. Kdn NO</option>
-                    <option value="random_kdn_city">16. Kdn City Name</option>
-                    <option value="">--------------------</option>
-                    <option value="random_qcode">17. Q Code</option>
-                    <option value="random_number">18. Number</option>
-                    <option value="random_alphabat">19. Alphabat</option>
-                    <option value="random_specialchar">20. Special Character</option>
-                    <option value="random_number_alphabat">21. Number, Alphabat</option>
-                    <option value="random_alphabat_specialchar">22. Alphabat, Special Character</option>
-                    <option value="random_number_alphabat_specialchar">23. Number, Alphabat, Special Character</option>
-                </select>
+            &nbsp;
             <span class="setting_bold">Hangul Letter:</span>
             <input type="checkbox" id="random"/><label for="random">Random</label>
             <input type="checkbox" id="extend"/><label for="extend">Extend</label>
@@ -313,6 +319,7 @@
                 <option value="english_qso_2">6. ENGLISH QSO1</option>
             </select>
         </span>
+        &nbsp;
         <span class="setting_bold">Num:</span>
             <select id="loadScript_getcount" style="width: 60px;">
                 <option value="5">5</option>
@@ -352,6 +359,7 @@
                 <option value="national_anthem.dat">8. 애국가</option>
                 <option value="shorteng.dat">9. SHORT ENGLISH</option>
             </select>
+            &nbsp;
             <span class="setting_bold">File Open:</span>
             <input type="file" id="fileInput" accept=".txt" style="width:175px;text-align:center;height:30px;" title="Text File Open(Limit 30,000 Characters) ALT+O" accesskey="o"></span>
             <span class="setting_bold">Add: </span>
@@ -400,10 +408,10 @@
     <div class="class_view3">
         <fieldset id="user_text"><legend> 🎵 PLAY MONITER 🎵 </legend>
             <div id="play_moniter_top" style="width:100%;text-align:center;">
-                <button id="copy_text" onclick="copy_text();" title="Copy to Clipboard ALT+C" accesskey="c">📋 COPY</button>
-                <button id="copy_text" onclick="print_text();" title="Text to Print">🖨️ PRINT</button>
-                <button id="save_as_file" title="Text Save as File ALT+V" accesskey="v">💾 SAVE</button>
-                <button onclick="user_txt_del();" title="Text Clear ALT+N" accesskey="n">❌ DEL</button>
+                <button id="copy_text" onclick="copy_text();" title="Copy to Clipboard ALT+C" accesskey="c">📋 Copy</button>
+                <button id="copy_text" onclick="print_text();" title="Text to Print">🖨️ Print</button>
+                <button id="save_as_file" title="Text Save as File ALT+V" accesskey="v">💾 Save</button>
+                <button onclick="user_txt_del();" title="Text Clear ALT+N" accesskey="n">❌ Del</button>
                 <button onclick="resetFontSize()" id="font_text" title="Click to Font Size Reset">21px</button>
                 <button onclick="increaseFontSize()" title="Font Size Up ALT+Q" accesskey="q">➕</button>
                 <button onclick="decreaseFontSize()" title="Font Size Down ALT+W" accesskey="w">➖</button>
@@ -411,11 +419,11 @@
                 <button id="textarea_select_percent" style="text-align:center;width:40px;color:red;text-align:right;" title="Now Playing Percent">0</button>%
                 <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
                 <button id="textarea_play_char" style="width:40px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to see the text you are playing in a Larger View 🎵"></button>
-                <input id="layer_display" type="checkbox" style="width:24px;height:24px;" title="Play on the Character displayed">
+                <input id="layer_display" type="checkbox" style="width:28px;height:28px;" title="Play on the Character displayed">
                 <button id='cwport_signal' style="border-radius:14px;width:24px;height:24px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
-                <div id="timerDisplay_total" style="font-size: 1.3em;display: inline-block;">00:00:00</div>/<div id="timerDisplay" style="font-size: 1.2em;display: inline-block;">00:00:00</div>
+                <div id="timerDisplay_total" style="font-size: 1.2em;display: inline-block;">00:00:00</div>/<div id="timerDisplay" style="font-size: 1.2em;display: inline-block;">00:00:00</div>
                 <div class="progress-bar"><div class="progress"></div></div>
-                <div id="layer"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
+                <div id="char_layer" style="display:none;"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
             </div>
             <script>
                 function sos_start(){
@@ -424,14 +432,13 @@
                         document.getElementById('repeat').checked = true;
                         document.getElementById('layer_display').checked = true;
                         changeQsoSample('SOS');
-                        document.getElementById('layer').style.display = 'block';
-                        // document.getElementById('textarea_select_char').style.fontSize = '200px';
+                        document.getElementById('char_layer').style.display = 'block';
                         document.getElementById('play').click();
                     }else{
                         document.getElementById('repeat').checked = false;
                         document.getElementById('main_table').style.backgroundColor = 'white';
                         document.getElementById('stop').click();
-                        document.getElementById('layer').style.display = 'none';
+                        document.getElementById('char_layer').style.display = 'none';
                     }
                 }
                 function downloadPDF() {
@@ -571,15 +578,16 @@
                 });
             </script>
         <div align="left"><textarea id="user_txt"></textarea></div>
-        <div class="log_container_ditdah"><span id="ditdah" align="center" title="Click to see the text you are playing in a Larger View 🎵"></span></div>
+        <div class="log_container_ditdah"><span id="ditdah" align="center" title="Click to see the text you are playing in a Larger View 🎵"> </span></div>
         <div style="text-align:center;vertical-align:top;">
             <div id="user_txt_caption" style="display:block;"></div>
-            <font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font><input type="checkbox" id="sos_check" style="width:24px;height:24px;" onchange="sos_start();" title="SOS START">
+            <font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font><input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
             <select id="morsecode_download" style="color:black;border-color:white;background-color: white;" onchange="downloadPDF();">
-                <option value="" title="Morse Code Chart Download">Morse Code Download</option>
-                <option value="MORSE_CODE.pdf" title="Morse Code Chart Download">Morse Code Chart</option>
+                <option value="" title="Morse Code Chart Download">💾 Morse Code Chart</option>
+                <option value="MORSE_CODE.pdf" title="Morse Code Chart Download">Morse Code Chart Chart</option>
                 <option value="MORSE_CODE_TREE_HAN.pdf" title="Morse Code Hangul Tree Chart Download">Morse Tree Hangul</option>
                 <option value="MORSE_CODE_TREE_ENG.pdf" title="Morse Code Englich Tree Chart Download">Morse Tree English</option>
+                <option value="morse_trainer_user_manual.pdf" title="Morse Trainer User Manual Download">Morse Trainer User Manual</option>
             </select>&nbsp;&nbsp;
             <a href='https://hits.seeyoufarm.com'><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a>
         </div>
@@ -979,7 +987,7 @@ var DELAY_AMOUNT = 1; // seconds
 stop.onclick = function() {
     try { clearTimeout(repeatId); repeatId = -1;}
     catch (e) {}
-    document.getElementById('layer').style.display = 'none';
+    document.getElementById('char_layer').style.display = 'none';
     renewMorse();
     if (noiseNode) noiseGain.disconnect();
     morse.playString(false, ac.currentTime, " ", vol, document.getElementById('selectkey').value, fading.checked);
@@ -1009,7 +1017,11 @@ play.onclick = function() {
         alert("There are no characters to play.");
         return  false;
     }
-    if(document.getElementById('layer_display').checked) document.getElementById('layer').style.display = 'block';updateLayerPosition();
+    if(document.getElementById('layer_display').checked){
+        document.getElementById('char_layer').style.display = 'block';
+    }
+    updateLayerPosition();
+
     if (paused) {
         timer_start();
         play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
@@ -1027,7 +1039,7 @@ play.onclick = function() {
         play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
         paused = false;
     }
-   
+
     try { clearTimeout(repeatId); repeatId = -1;}
     catch (e) {}
 
@@ -1614,23 +1626,36 @@ gen_random_option.addEventListener('change', function() {
         data = resultArray_repeat.join(add_spacer());
         let newStr = data.replace(/0/g, "Ø");
         changeQsoSample(newStr);
+    }else if(selectedValue=="random_moum"){
+        const resultArray = random_moum();
+        resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat);
+        var data = resultArray_repeat.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_jaum"){
+        const resultArray = random_jaum();
+        resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat);
+        var data = resultArray_repeat.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_jaummoum"){
+        var resultArray = random_jaummoum();
+        resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat);
+        var data = resultArray_repeat.join(add_spacer());
+        changeQsoSample(data);
     }
 });
 
 function array_shuffle_slice(array_data, count){
-        // 1차원 배열로 분해
-        let charArray = array_data.join('').split('');  // 모든 문자를 한 배열에 저장
-
-        // 배열을 랜덤하게 섞기 (Fisher-Yates Shuffle 알고리즘)
+        let charArray = array_data.join('').split('');
         for (let i = charArray.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [charArray[i], charArray[j]] = [charArray[j], charArray[i]];
         }
-
-        // 5개씩 다시 자르고 새로운 배열로 저장
         let resultArray = [];
         for (let i = 0; i < charArray.length; i += 5) {
-            resultArray.push(charArray.slice(i, i + 5).join('')); // 다시 문자열로 변환하여 배열에 저장
+            resultArray.push(charArray.slice(i, i + 5).join(''));
         }
         result = resultArray.slice(0, count);
         return result;
@@ -1663,6 +1688,53 @@ function random_alphabat(){
     }
     return resultArray;
 }
+
+function random_moum(){
+    count = gen_number.value;
+    const alphabet = 'ㅏㅑㅓㅕㅗㅛㅜㅠㅢㅔㅒ';
+    const resultArray = [];
+    for (let i = 0; i < count; i++) {
+        const randomLetters = [];
+        for (let j = 0; j < 5; j++) {
+            const randomIndex = Math.floor(Math.random() * alphabet.length);
+            randomLetters.push(alphabet[randomIndex]);
+        }
+        resultArray.push(randomLetters.join(''));
+    }
+    return resultArray;
+}
+
+function random_jaum(){
+    count = gen_number.value;
+    const alphabet = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
+    const resultArray = [];
+    for (let i = 0; i < count; i++) {
+        const randomLetters = [];
+        for (let j = 0; j < 5; j++) {
+            const randomIndex = Math.floor(Math.random() * alphabet.length);
+            randomLetters.push(alphabet[randomIndex]);
+        }
+        resultArray.push(randomLetters.join(''));
+    }
+    return resultArray;
+}
+
+function random_jaummoum(){
+    count = gen_number.value;
+    const alphabet = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅔㅒ';
+    const resultArray = [];
+    for (let i = 0; i < count; i++) {
+        const randomLetters = [];
+        for (let j = 0; j < 5; j++) {
+            const randomIndex = Math.floor(Math.random() * alphabet.length);
+            randomLetters.push(alphabet[randomIndex]);
+        }
+        resultArray.push(randomLetters.join(''));
+    }
+    return resultArray;
+}
+
+
 
 function random_specialchar(){
     count = gen_number.value;
@@ -2380,24 +2452,26 @@ function getDeviceInfo() {
 
 if(!isAndroid && !isIOS){
     document.getElementById("keyer_setting").style.display = 'inline-block'; 
-    var width = '850';
-    var height = '300'
+    var width = 960;
+    var height = 300;
     const allelements = document.querySelectorAll('fieldset');
     allelements.forEach(element => {
         element.style.width = width + 'px';
     });
     const allelements2 = document.querySelectorAll('.main_button');
     allelements2.forEach(element => {
-        element.style.width = '135px';
+        element.style.width = '145px';
+        element.style.height = '40px';
         element.style.fontSize = '20px';
+        element.style.margin = '0px 5px 0px 5px'; 
     });
     document.querySelector('.CodeMirror').style.width = width + 'px';
     document.querySelector('.CodeMirror').style.height = height + 'px';
     document.querySelector('.log_container_ditdah').style.width = width + 'px';
-    document.getElementById('layer').style.width =  width + 'px';
-    document.getElementById('layer').style.height = height + 'px';
-    document.getElementById('textarea_select_char').style.width = '852px';
-    document.getElementById('textarea_select_char').style.height = '302px';
+    document.getElementById('char_layer').style.width = `${width + 2}px`;
+    document.getElementById('char_layer').style.height = `${height + 2}px`;
+    document.getElementById('textarea_select_char').style.width = `${width + 2}px`;
+    document.getElementById('textarea_select_char').style.height = `${height + 2}px`;
     document.querySelector('.progress-bar').style.width = width + 'px';
     font_resize('18');
 }
@@ -2430,20 +2504,20 @@ getDeviceInfo();
 <script>
     function updateLayerPosition() {
         const rect = targetDiv.getBoundingClientRect();
-        layer.style.top = `${rect.top + window.scrollY}px`;
-        layer.style.left = `${rect.left + window.scrollX}px`;
+        char_layer.style.top = `${rect.top + window.scrollY}px`;
+        char_layer.style.left = `${rect.left + window.scrollX}px`;
     }
     const toggleButton = document.getElementById('textarea_play_char');
-    const layer = document.getElementById('layer');
+    const char_layer = document.getElementById('char_layer');
     const targetDiv = document.getElementById('user_txt');
     const rect = targetDiv.getBoundingClientRect(); 
     toggleButton.addEventListener('click', function() {
-        if (layer.style.display === 'none' || layer.style.display === '') {
+        if (char_layer.style.display === 'none' || char_layer.style.display === '') {
+            char_layer.style.display = 'block';
             updateLayerPosition();
-            layer.style.display = 'block';
-            layer.focus();
+            char_layer.focus();
         } else {
-            layer.style.display = 'none';
+            char_layer.style.display = 'none';
             // cm.focus();
         }
     });
@@ -2465,7 +2539,6 @@ function view_toggle(){
         toggleSetting1(true);
         toggleSetting2(true);
     }
-
 }
 
 document.getElementById('ditdah').addEventListener('click', function() {
@@ -2478,16 +2551,19 @@ document.querySelector('.progress-bar').addEventListener('click', function() {
 
 function play_control(){
     if (paused) {
+        timer_start();
         play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
         paused = false;
         ac.resume();
         return;
     } else if (stopped == false && repeatId == -1) {
+        timer_stop();
         play.replaceChild(document.createTextNode("RESUME"), play.firstChild);
         paused = true;
         ac.suspend();
         return;
     } else {
+        timer_start();
         play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
         paused = false;
     }
@@ -2501,23 +2577,21 @@ setProgressBar(0);
 </script>
 
 <script>
-    // 요소 가져오기
     let timerDisplay = 0;
     let secondsElapsed = 0;
 
-    let timer = null; // 타이머 저장 변수
-    let running = false; // 실행 상태 확인 변수
+    let timer = null;
+    let running = false;
 
     if(window.localStorage.getItem('timerDisplay_total')){
         var timerDisplay_total = window.localStorage.getItem('timerDisplay_total');
     }else{
-        var timerDisplay_total = 0; // 경과 시간 (초 단위)
+        var timerDisplay_total = 0; 
     }
 
     window.localStorage.setItem('timerDisplay_total', timerDisplay_total);
     document.getElementById('timerDisplay_total').innerHTML = formatTime(timerDisplay_total);
 
-    // 시간 포맷팅 함수 (초를 시:분:초 형태로 변환)
     function formatTime(seconds) {
         const hours = String(Math.floor(seconds / 3600)).padStart(2, '0');
         const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
@@ -2525,30 +2599,39 @@ setProgressBar(0);
         return `${hours}:${minutes}:${secondsLeft}`;
     }
 
-    // 타이머 업데이트 함수
     function updateTimer() {
-        secondsElapsed++; // 초 증가
-        timerDisplay_total++; // 초 증가
-        document.getElementById('timerDisplay').innerHTML = formatTime(secondsElapsed); // 화면에 표시
-        document.getElementById('timerDisplay_total').innerHTML = formatTime(timerDisplay_total); // 화면에 표시
+        secondsElapsed++;
+        timerDisplay_total++;
+        document.getElementById('timerDisplay').innerHTML = formatTime(secondsElapsed);
+        document.getElementById('timerDisplay_total').innerHTML = formatTime(timerDisplay_total);
         window.localStorage.setItem('timerDisplay_total', timerDisplay_total);
     }
 
-    // 버튼 클릭 이벤트 설정
     function timer_stop(){
-        // 타이머 정지
-        clearInterval(timer); // 타이머 중지
-        running = false; // 실행 상태 변경
+        clearInterval(timer);
+        running = false;
     }
     function timer_start(){
-        // 타이머 시작
-        timer = setInterval(updateTimer, 1000); // 1초마다 updateTimer 호출
-        running = true; // 실행 상태 변경
+        timer = setInterval(updateTimer, 1000);
+        running = true;
     }
     function timer_reset(){
         timer_stop();
+        secondsElapsed = 0;
         document.getElementById('timerDisplay').innerHTML = '00:00:00';
     }
+
+const targetElement = document.getElementById('user_txt');
+const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+    if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+        updateLayerPosition();
+    }
+    });
+});
+
+const config = { attributes: true };
+observer.observe(targetElement, config);
 </script>
 </BODY>
 </HTML> 
