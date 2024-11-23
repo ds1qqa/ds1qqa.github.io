@@ -15,7 +15,6 @@
 	font-family:'EBSR';
 	src: url('/font/EBSR.woff') format('woff');
 }
-
 @font-face {
 	font-family:'EBSSL';
 	src: url('/font/EBSSL.woff') format('woff');
@@ -24,7 +23,6 @@
 	font-family:'EBSSSB';
 	src: url('/font/EBSSSB.woff') format('woff');
 }
-
 @font-face {
 	font-family:'LOTTEMARTHBMedium';
 	src: url('/font/LOTTEMARTHBMedium.woff') format('woff');
@@ -45,23 +43,6 @@
 	font-family:'netmarbleB';
 	src: url('/font/netmarbleB.woff') format('woff');
 }
-
-@font-face {
-	font-family:'CJONLYONENEWbodyLight';
-	src: url('/font/CJONLYONENEWbodyLight.woff') format('woff');
-}
-@font-face {
-	font-family:'CJONLYONENEWbodyRegular';
-	src: url('/font/CJONLYONENEWbodyRegular.woff') format('woff');
-}
-@font-face {
-	font-family:'CJONLYONENEWtitleMedium';
-	src: url('/font/CJONLYONENEWtitleMedium.woff') format('woff');
-}
-@font-face {
-	font-family:'CJONLYONENEWtitleBold';
-	src: url('/font/CJONLYONENEWtitleBold.woff') format('woff');
-}
 @font-face {
 	font-family:'JalnanGothic';
 	src: url('/font/yg-jalnan.woff') format('woff');
@@ -73,10 +54,6 @@
 @font-face {
 	font-family:'HS봄바람체2.0';
 	src: url('/font/HSbombaramche2.woff') format('woff');
-}
-@font-face {
-	font-family:'wade_sans_light_plain';
-	src: url('/font/wade_sans_light_plain.woff') format('woff');
 }
 @font-face {
 	font-family:'Binggrae-Bold';
@@ -113,7 +90,14 @@
 @font-face {
 	font-family:'sdmisaeng';
 	src: url('/font/sdmisaeng.woff') format('woff');
-    font-weight: 600;
+}
+@font-face {
+	font-family:'IropkeBatangM';
+	src: url('/font/IropkeBatangM.woff') format('woff');
+}
+@font-face {
+	font-family:'Hankyoreh_Font';
+	src: url('/font/Hankyoreh_Font.woff') format('woff');
 }
 @media (max-width: 768px) {
     table th, table td {
@@ -130,7 +114,7 @@ body {
     line-height: 2;
     font-family: 'Helvetica', 'sans serif';
 }
-  .progress-bar {
+.progress-bar {
     text-align: center;
     width: 494px;
     height: 10px;
@@ -138,31 +122,31 @@ body {
     border-radius: 10px;
 }
 .progress {
-  width: 494px;
-  height: 10px;
-  background-color: #4CAF50;
-  border-radius: 5px;
+    width: 494px;
+    height: 10px;
+    background-color: #4CAF50;
+    border-radius: 5px;
 }
- #layer {
+#char_layer {
     width: 494px;
     height: 280px;
     margin: 0px 3px 0px 0px;
-    z-index: 9999;
     position: absolute;
     display: none;
     font-family: inherit;
-    vertical-align:middle;
-    text-align:center;
+    vertical-align: middle;
+    text-align: center;
+    z-index: 9999;
 }
 #textarea_select_char {
     background-color: white;
     color:red;
-    vertical-align: middle;
+    vertical-align: top;
     text-align: center;
     width: 494px;
     height:283px;
     font-family: inherit;
-    font-size: 13em;
+    font-size: 15em;
     border-radius: 15px;
 }
 table{
@@ -348,7 +332,7 @@ fieldset {
     text-align: left;
 }
 legend {
-  padding: 0px;
-  font-size: 15px;
-  text-align: center;
+    padding: 0px;
+    font-size: 15px;
+    text-align: center;
 }
