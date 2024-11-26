@@ -1165,7 +1165,7 @@ function highlight() {
             cm.focus();
             doc.setSelection(cursorTempFrom, cursorTempTo);
             document.getElementById('textarea_select_char').innerHTML = doc.getSelection();
-            document.getElementById('textarea_play_char').innerHTML = doc.getSelection();
+            if(!(document.getElementById('hide_text').checked==true)) document.getElementById('textarea_play_char').innerHTML = doc.getSelection();
             document.getElementById('textarea_select_count').innerHTML = highlightEnd;
             var now_percent = parseInt(highlightEnd/txtValue.length*100);
             document.getElementById('textarea_select_percent').innerHTML = now_percent;
