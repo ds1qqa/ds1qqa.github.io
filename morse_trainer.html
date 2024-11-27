@@ -21,15 +21,15 @@
         <div id="main_button">
             <fieldset id="main_control" style="text-align:center;">
             <legend> 🐣 Main Menu 🐣 </legend>
-            <button id="play" class="main_button" title="PLAY, PAUSE ALT+P" accesskey="p">PLAY</button>
+            <button id="play" class="main_button" style="width:80px;" title="PLAY, PAUSE ALT+P" accesskey="p">PLAY</button>
             <button id="stop" class="main_button" title="STOP ALT+S" accesskey="s">STOP</button>
             <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾 MP3</button>
             <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾 1TZE</button>
             <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">RESET</button>
-            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" accesskey="k" style="width:25px;height:25px;margin: 0px 0px 0px 2px;">
-            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" accesskey="l" style="width:25px;height:25px;margin: 0px 0px 0px 2px;">
-            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" accesskey=";" style="width:25px;height:25px;margin: 0px 0px 0px 2px;">
-            <button onclick="qrcode_toggle();" style="width:25px;height:25px;margin: 0px 0px 0px 2px;">Q</button>
+            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" accesskey="k" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
+            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" accesskey="l" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
+            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" accesskey=";" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
+            <button onclick="qrcode_toggle();" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">Q</button>
             <script>
                 function qrcode_toggle(){
                     const qrcode = document.getElementById('qrcodeImage');
