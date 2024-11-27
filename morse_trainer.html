@@ -29,7 +29,7 @@
             <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="k">
             <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="l">
             <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey=";">
-            <button  style="width:24px;height:24px;margin: 0px 0px 0px 2px;" onclick="qrcode_toggle();" title="Qrcode view">Q</button>
+            <button  style="width:28px;height:24px;margin: 0px 0px 0px 2px;" onclick="qrcode_toggle();" title="Qrcode Link View">Q</button>
             <script>
                 function qrcode_toggle(){
                     const qrcode = document.getElementById('qrcodeImage');
@@ -428,7 +428,7 @@
                 <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button> 
                 <button id="textarea_select_percent" style="text-align:center;width:40px;color:red;text-align:right;" title="Now Playing Percent">0</button>%
                 <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
-                <button id="textarea_play_char" style="width:40px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to see the text you are playing in a Larger View 🎵"></button>
+                <button id="textarea_play_char" style="width:40px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to Larger View ALT+B" accesskey="b"></button>
                 <input id="layer_display" type="checkbox" style="width:28px;height:28px;" title="Play on the Character displayed">
                 <button id='cwport_signal' style="border-radius:14px;width:24px;height:24px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
                 <div id="timerDisplay_total" style="font-size: 1.2em;display: inline-block;">00:00:00</div>/<div id="timerDisplay" style="font-size: 1.2em;display: inline-block;">00:00:00</div>
@@ -2538,11 +2538,11 @@ getDeviceInfo();
         if (char_layer.style.display === 'none' || char_layer.style.display === '') {
             char_layer.style.display = 'block';
             updateLayerPosition();
-            char_layer.focus();
         } else {
             char_layer.style.display = 'none';
-            // cm.focus();
         }
+        char_layer.focus();
+        // cm.focus();
     });
 
 document.getElementById('textarea_select_char').addEventListener('click', function() {
