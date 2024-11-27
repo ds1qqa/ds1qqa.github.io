@@ -26,10 +26,25 @@
             <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾 MP3</button>
             <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾 1TZE</button>
             <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">RESET</button>
-            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" accesskey="k" style="width:22px;height:22px;">
-            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" accesskey="l" style="width:22px;height:22px;">
-            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" accesskey=";" style="width:22px;height:22px;">
+            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" accesskey="k" style="width:25px;height:25px;margin: 0px 0px 0px 2px;">
+            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" accesskey="l" style="width:25px;height:25px;margin: 0px 0px 0px 2px;">
+            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" accesskey=";" style="width:25px;height:25px;margin: 0px 0px 0px 2px;">
+            <button onclick="qrcode_toggle();" style="width:25px;height:25px;margin: 0px 0px 0px 2px;">Q</button>
             <script>
+                function qrcode_toggle(){
+                    const qrcode = document.getElementById('qrcodeImage');
+                    if (qrcode.style.display === 'none') {
+                        qrcode.style.display = 'block';
+                        qrcode.style.position = absolute;
+                        qrcode.style.top = '100px';
+                        qrcode.style.left = '100px';
+                        qrcode.style.padding = '10px';
+                        qrcode.style.width = '300px';
+                        qrcode.style.height = '300px';
+                    }else{
+                        qrcode.style.display = 'none';
+                    } 
+                }
                 function toggleSetting1(check_value) {
                     const settingElements = document.querySelectorAll('.setting');
                     if(check_value==true){
@@ -74,8 +89,9 @@
                     updateLayerPosition()
                 };
             </script>
-            </fieldset>
-        </div>
+        </fieldset>
+        <img id="qrcodeImage" src="qrcode.png" style="display:none;position:relative;">
+    </div>
 </td></tr>
 <tr><td align="center"><span id="mp3" style="display:none;"> </span> <a id="tze"> </a></td></tr>
 <tr><td align=left>
@@ -429,13 +445,23 @@
             <script>
                 function sos_start(){
                     if(document.getElementById('sos_check').checked == true){
+                        window.localStorage.setItem('speed_temp', document.getElementById('speed').value);
+                        window.localStorage.setItem('doc_temp', doc.getValue());
+                        window.localStorage.setItem('freq_temp', document.getElementById('freq').value);
+                        window.localStorage.setItem('volume_temp', document.getElementById('volume').value);
                         document.getElementById('speed').value = '10';
+                        document.getElementById('volume').value = '100';
+                        document.getElementById('freq').value = '700';
                         document.getElementById('repeat').checked = true;
                         document.getElementById('layer_display').checked = true;
                         changeQsoSample('SOS');
                         document.getElementById('char_layer').style.display = 'block';
                         document.getElementById('play').click();
                     }else{
+                        document.getElementById('speed').value = window.localStorage.getItem('speed_temp')
+                        document.getElementById('freq').value = window.localStorage.getItem('freq_temp')
+                        document.getElementById('volume').value = window.localStorage.getItem('volume_temp')
+                        changeQsoSample(window.localStorage.getItem('doc_temp'))
                         document.getElementById('repeat').checked = false;
                         document.getElementById('main_table').style.backgroundColor = 'white';
                         document.getElementById('stop').click();
@@ -592,7 +618,7 @@
                 <option value="MORSE_CODE_TREE_ENG.png" title="Morse Code Englich Tree Chart Download png">Morse Tree English png</option>
                 <option value="MORSE_CODE_TREE_ENG.pdf" title="Morse Code Englich Tree Chart Download pdf">Morse Tree English pdf</option>
                 <option value="morse_trainer_simple_manual.pdf" title="Morse trainer simple manual Download pdf">Morse Trainer Simple Manual pdf</option>
-            </select>&nbsp;&nbsp;
+            </select>
             <a href='https://hits.seeyoufarm.com'><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a>
         </div>
     </fieldset>
@@ -2431,27 +2457,26 @@ changeQsoSample(doc_str);
 }
 
 function getDeviceInfo() {
-  var userAgent = navigator.userAgent.toLowerCase();
-  if (/iphone|ipad|ipod/.test(userAgent)) {
-    var connected_macine = "Apple Mobile";
-  } else if (/android/.test(userAgent)) {
-    var connected_macine = "Android Mobile";
-  } else {
-    var connected_macine = "Personal Computer";
-  }
-
-  if (userAgent.indexOf('chrome') > -1) {
-    var connected_browser = 'Chrome Browser';
-  } else if (userAgent.indexOf('firefox') > -1) {
-    var connected_browser = 'Firefox Browser';
-  } else if (userAgent.indexOf('safari') > -1) {
-    var connected_browser = 'Safari Browser';
-  } else if (userAgent.indexOf('trident') > -1) {
-    var connected_browser = 'Internet Explorer Browser';
-  } else {
-    var connected_browser = 'Unknown Browser';
-  }
-  document.getElementById('user_txt_caption').innerHTML = 'Connected To ' + connected_macine + ' & ' + connected_browser;
+    var userAgent = navigator.userAgent.toLowerCase();
+    if (/iphone|ipad|ipod/.test(userAgent)) {
+        var connected_macine = "Apple Mobile";
+    } else if (/android/.test(userAgent)) {
+        var connected_macine = "Android Mobile";
+    } else {
+        var connected_macine = "Personal Computer";
+    }
+    if (userAgent.indexOf('chrome') > -1) {
+        var connected_browser = 'Chrome Browser';
+    } else if (userAgent.indexOf('firefox') > -1) {
+        var connected_browser = 'Firefox Browser';
+    } else if (userAgent.indexOf('safari') > -1) {
+        var connected_browser = 'Safari Browser';
+    } else if (userAgent.indexOf('trident') > -1) {
+        var connected_browser = 'Internet Explorer Browser';
+    } else {
+        var connected_browser = 'Unknown Browser';
+    }
+    document.getElementById('user_txt_caption').innerHTML = 'Connected To ' + connected_macine + ' & ' + connected_browser;
 }
 
 if(!isAndroid && !isIOS){
@@ -2575,8 +2600,8 @@ function play_control(){
 }
 
 function setProgressBar(percent) {
-  const progressBar = document.querySelector('.progress');
-  progressBar.style.width = percent + '%';
+    const progressBar = document.querySelector('.progress');
+    progressBar.style.width = percent + '%';
 }
 setProgressBar(0);
 </script>
