@@ -26,10 +26,10 @@
             <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾 MP3</button>
             <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾 1TZE</button>
             <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">RESET</button>
-            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" accesskey="k" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
-            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" accesskey="l" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
-            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" accesskey=";" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
-            <button onclick="qrcode_toggle();" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">Q</button>
+            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="k">
+            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="l">
+            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey=";">
+            <button  style="width:24px;height:24px;margin: 0px 0px 0px 2px;" onclick="qrcode_toggle();" title="Qrcode view">Q</button>
             <script>
                 function qrcode_toggle(){
                     const qrcode = document.getElementById('qrcodeImage');
@@ -2657,4 +2657,4 @@ const config = { attributes: true };
 observer.observe(targetElement, config);
 </script>
 </BODY>
-</HTML> 
+</HTML>  
