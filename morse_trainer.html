@@ -533,13 +533,17 @@
                     }
             </script>
             <script>
-                function download(filename, text) {
+                function download(SaveContents) {
                     const now = new Date();
-                    const formattedDate = now.toISOString().replace(/[-T:]/g, '').substring(0, 12); 
-                    timestampedFilename = Filename = filename + '_' + formattedDate + '_' + freq.value + 'Hz_' + speed.value + 'wpm.txt';
+                    const year = now.getFullYear();
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const hour = String(now.getHours()).padStart(2, '0');
+                    const minute = String(now.getMinutes()).padStart(2, '0');
+                    const filename = 'Morse_' + year + month + day + hour + minute + '_' + freq.value + 'Hz_' + speed.value + 'wpm.txt';
                     const element = document.createElement('a');
-                    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-                    element.setAttribute('download', timestampedFilename);
+                    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(SaveContents));
+                    element.setAttribute('download', filename);
                     element.style.display = 'none';
                     document.body.appendChild(element);
                     element.click();
@@ -556,7 +560,7 @@
                         SaveContents = SaveContents.replace(/[^가-힣a-zA-Z0-9!@$&*()-+=,.;:'"?]/g, ' ');
                         SaveContents = SaveContents.replace(/\r\n|\r|\n/g, '\n')
                         SaveContents = SaveContents.toUpperCase();
-                        download('Morse', SaveContents);
+                        download(SaveContents);
                     }
                 );
                 function truncate(str, maxLength) {
@@ -612,7 +616,7 @@
                 <option value="MORSE_CODE_TREE_ENG.pdf" title="Morse Code Englich Tree Chart Download pdf">Morse Tree English pdf</option>
                 <option value="morse_trainer_simple_manual.pdf" title="Morse trainer simple manual Download pdf">Morse Trainer Simple Manual pdf</option>
             </select>
-            <a href='https://hits.seeyoufarm.com'><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a>
+            <!-- <a href='https://hits.seeyoufarm.com'><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a> -->
         </div>
     </fieldset>
 </div>
@@ -1298,8 +1302,15 @@ function saveRecording(blob, duration) {
 	var link = document.createElement("A");
 	link.href = url;
 	link.appendChild(document.createTextNode(" 💾 MP3 "));
-	var filename = 'Morse_' + (new Date()).toISOString().replace(/[\-\:T]/ig, '').substring(0, 12);
-	filename += "_" + freq.value + 'Hz_' + wpm.value + "wpm_" + parseInt(duration + 2) + "sec_" + MP3_SAMPLE_RATE.toLocaleString('en-US') + "rate_" + MP3_BIT_RATE + "kbps";
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+    const time_str = year + month + day + hour + minute;
+	filename = "Morse_" + time_str + "_" + freq.value + 'Hz_' + wpm.value + "wpm_" + parseInt(duration + 2) + "sec_" + MP3_SAMPLE_RATE.toLocaleString('en-US') + "rate_" + MP3_BIT_RATE + "kbps";
 	link.download = filename + ".mp3";
 	
 	var div = document.createElement("DIV");
