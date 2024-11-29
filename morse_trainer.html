@@ -372,12 +372,16 @@
             &nbsp;
             <span class="setting_bold">File Open:</span>
             <input type="file" id="fileInput" accept=".txt" style="width:175px;text-align:center;height:30px;" title="Text File Open(Limit 30,000 Characters) ALT+O" accesskey="o"></span>
-            <span class="setting_bold">Add:</span> 
+            <span class="setting_bold"><a onclick="add_str();">Add:</a></a></span> 
             <input type="checkbox" id="add_vvv" title="To add a character to the beginning"><label for="add_vvv">Start</label>
             <input type=text id="add_vvv_text" style="width:140px;text-align:center;" size="10" max=100 value="VVV VVV <BT>" title="Type characters to add to the beginning">
             <input type="checkbox" id="add_ar" title="To add a text at the end"><label for="add_ar">End</label>
             <input type=text id="add_ar_text" style="width:130px;text-align:center;" size="10" max=100 value="<AR>" title="Type a character to add to the end">
             <script>
+                function add_str(){
+                    const add_string = document.getElementById('add_vvv_text').value + ' ' + doc.getValue() + ' ' + document.getElementById('add_ar_text').value;
+                    changeQsoSample(add_string);
+                }
                 const loadButton = document.getElementById('loadScript_src');
                 loadButton.addEventListener('change', () => {
                     const script = document.createElement('script');
