@@ -297,9 +297,12 @@
                 <option value="random_alphabat_specialchar">22. Alphabat, Special Character</option>
                 <option value="random_number_alphabat_specialchar">23. Number, Alphabat, Special Character</option>
                 <option value="">--------------------</option>
-                <option value="random_jaum">24. 자음</option>
-                <option value="random_moum">25. 모음</option>
-                <option value="random_jaummoum">26. 자음, 모음</option>
+                <option value="random_jaum">24. 한글 자음</option>
+                <option value="random_moum">25. 한글 모음</option>
+                <option value="random_jaummoum">26. 한글 자음,모음</option>
+                <option value="">--------------------</option>
+                <option value="random_hiragana">27. Wabun code(hiragana)</option>
+                <option value="random_katakana">28. Wabun code(Katakana)</option>
             </select>
             &nbsp;
             <span class="setting_bold">Hangul Letter:</span>
@@ -610,7 +613,7 @@
         <div class="log_container_ditdah"><span id="ditdah" align="center" title="Click to see the text you are playing in a Larger View 🎵"> </span></div>
         <div style="text-align:center;vertical-align:top;">
             <div id="user_txt_caption" style="display:block;"></div>
-            <font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font><input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
+            <label for="sos_check"><font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font></label><input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
             <select id="morsecode_download" style="color:black;border-color:white;background-color: white;margin: 0px 10px 0px 10px;" onchange="download_document();">
                 <option value="" title="Morse Code Chart Download" style="text-align:center;">💾 Morse Code Chart</option>
                 <option value="MORSE_CODE.png" title="Morse Code Chart Download">Morse Code Chart PNG 그림파일</option>
@@ -619,7 +622,7 @@
                 <option value="MORSE_CODE_TREE_HAN.pdf" title="Morse Code Hangul Tree Chart Download PDF 문서">Morse Tree Hangul PDF 문서</option>
                 <option value="MORSE_CODE_TREE_ENG.png" title="Morse Code Englich Tree Chart Download PNG 그림파일">Morse Tree English PNG 그림파일</option>
                 <option value="MORSE_CODE_TREE_ENG.pdf" title="Morse Code Englich Tree Chart Download PDF 문서">Morse Tree English PDF 문서</option>
-                <option value="morse_trainer_user_manual.html" title="Morse trainer User Manual Download HTML 문서">Morse Trainer User Manual HTML</option>
+                <option value="morse_trainer_user_manual.html" title="Morse trainer User Manual Download HTML 웹문서">Morse Trainer User Manual HTML 웹문서</option>
                 <option value="morse_trainer_simple_manual.pdf" title="Morse trainer User Manual Download PDF 문서">Morse Trainer User Manual PDF 문서</option>
             </select>
             <a onclick="play.click();"><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a>
@@ -711,13 +714,216 @@
         return node;
     };
 })(window.AudioContext);
-
 </script>
 <script type="text/javascript">
-MorseNode.prototype.MORSE = {"A": ".-","B": "-...","C": "-.-.","D": "-..","E": ".","F": "..-.","G": "--.","H": "....","I": "..","J": ".---","K": "-.-","L": ".-..","M": "--","N": "-.","O": "---","P": ".--.","Q": "--.-","R": ".-.","S": "...","T": "-","U": "..-","V": "...-","W": ".--","X": "-..-","Y": "-.--","Z": "--..","1": ".----","2": "..---","3": "...--","4": "....-","5": ".....","6": "-....","7": "--...","8": "---..","9": "----.","0": "-----","Ø": "-----",".": ".-.-.-",",": "--..--","?": "..--..","/": "-..-.","+": ".-.-.","-": "-....-","=": "-...-",":": "---...",";": "-.-.-.","(": "-.--.",")": "-.--.-","'": ".----.","\"": ".-..-.","@": ".--.-.","ㄱ": ".-..","ㄴ": "..-.","ㄷ": "-...","ㄹ": "...-","ㅁ": "--","ㅂ": ".--","ㅅ": "--.","ㅇ": "-.-","ㅈ": ".--.","ㅊ": "-.-.","ㅋ": "-..-","ㅌ": "--..","ㅍ": "---","ㅎ": ".---","ㅏ": ".","ㅑ": "..","ㅓ": "-","ㅕ": "...","ㅗ": ".-","ㅛ": "-.","ㅜ": "....","ㅠ": ".-.","ㅡ": "-..","ㅣ": "..-","ㅔ": "-.--","ㅐ": "--.-","&" : ".-...","[" : "-...-.-","]" : "...-.-","^" : "-.-.-","$" : "...-..-","※" : "........"};
-MorseNode.prototype.PROSIGN = {"<AR>" : "+","<KN>" : "(","<AS>" : "&","<BT>" : "=","<SN>" : "?","<BK>" : "[","<SK>" : "]","<VA>" : "]","<KA>" : "^","<HH>" : "※"};
+    MorseNode.prototype.MORSE = {
+    "A": ".-",
+    "B": "-...",
+    "C": "-.-.",
+    "D": "-..",
+    "E": ".",
+    "F": "..-.",
+    "G": "--.",
+    "H": "....",
+    "I": "..",
+    "J": ".---",
+    "K": "-.-",
+    "L": ".-..",
+    "M": "--",
+    "N": "-.",
+    "O": "---",
+    "P": ".--.",
+    "Q": "--.-",
+    "R": ".-.",
+    "S": "...",
+    "T": "-",
+    "U": "..-",
+    "V": "...-",
+    "W": ".--",
+    "X": "-..-",
+    "Y": "-.--",
+    "Z": "--..",
 
-function MorseNode(ac, rate) {
+    "1": ".----",
+    "2": "..---",
+    "3": "...--",
+    "4": "....-",
+    "5": ".....",
+    "6": "-....",
+    "7": "--...",
+    "8": "---..",
+    "9": "----.",
+    "0": "-----",
+    
+    ".": ".-.-.-",
+    ",": "--..--",
+    "?": "..--..",
+    "/": "-..-.",
+    "+": ".-.-.",
+    "-": "-....-",
+    "=": "-...-",
+    ":": "---...",
+    ";": "-.-.-.",
+    "(": "-.--.",
+    ")": "-.--.-",
+    "'": ".----.",
+    "\"": ".-..-.",
+    "@": ".--.-.",
+    "$" : "...-..-",
+    
+    "ㄱ": ".-..",
+    "ㄴ": "..-.",
+    "ㄷ": "-...",
+    "ㄹ": "...-",
+    "ㅁ": "--",
+    "ㅂ": ".--",
+    "ㅅ": "--.",
+    "ㅇ": "-.-",
+    "ㅈ": ".--.",
+    "ㅊ": "-.-.",
+    "ㅋ": "-..-",
+    "ㅌ": "--..",
+    "ㅍ": "---",
+    "ㅎ": ".---",
+    "ㅏ": ".",
+    "ㅑ": "..",
+    "ㅓ": "-",
+    "ㅕ": "...",
+    "ㅗ": ".-",
+    "ㅛ": "-.",
+    "ㅜ": "....",
+    "ㅠ": ".-.",
+    "ㅡ": "-..",
+    "ㅣ": "..-",
+    "ㅔ": "-.--",
+    "ㅐ": "--.-",
+
+    //https://en.wikipedia.org/wiki/Wabun_code
+    "あ": "--.--",
+    "い": ".-",
+    "う": "..-",
+    "え": "-.---",
+    "お": ".-...",
+    "か": ".-..",
+    "き": "-.-..",
+    "く": "...-",
+    "け": "-.--",
+    "こ": "----",
+    "さ": "-.-.-",
+    "し": "--.-.",
+    "す": "---.-",
+    "せ": ".---.",
+    "そ": "---.",
+    "た": "-.",
+    "ち": "..-.",
+    "つ": ".--.",
+    "て": ".-.--",
+    "と": "..-..",
+    "な": ".-.",
+    "に": "-.-.",
+    "ぬ": "....",
+    "ね": "--.-",
+    "の": "..--",
+    "は": "-...",
+    "ひ": "--..-",
+    "ふ": "--..",
+    "へ": ".",
+    "ほ": "-..",
+    "ま": "-..-",
+    "み": "..-.-",
+    "む": "-",
+    "め": "-...-",
+    "も": "-..-.",
+    "や": ".--",
+    "ゆ": "-..--",
+    "よ": "--",
+    "ら": "...",
+    "り": "--.",
+    "る": "-.--.",
+    "れ": "---",
+    "ろ": ".-.-",
+    "わ": "-.-",
+    "ゐ": ".-..-",
+    "ゑ": ".--..",
+    "を": ".---",
+    "ん": ".-.-.",
+
+    "ア": "--.--",
+    "イ": ".-",
+    "ウ": "..-",
+    "エ": "-.---",
+    "オ": ".-...",
+    "カ": ".-..",
+    "キ": "-.-..",
+    "ク": "...-",
+    "ケ": "-.--",
+    "コ": "----",
+    "サ": "-.-.-",
+    "シ": "--.-.",
+    "ス": "---.-",
+    "セ": ".---.",
+    "ソ": "---.",
+    "タ": "-.",
+    "ち": "..-.",
+    "チ": "..-.",
+    "ツ": ".--.",
+    "ト": "..-..",
+    "ナ": ".-.",
+    "ニ": "-.-.",
+    "ヌ": "....",
+    "ネ": "--.-",
+    "ノ": "..--",
+    "ハ": "-...",
+    "ヒ": "--..-",
+    "フ": "--..",
+    "ヘ": ".",
+    "ホ": "-..",
+    "マ": "-..-",
+    "ミ": "..-.-",
+    "ム": "-",
+    "メ": "-...-",
+    "モ": "-..-.",
+    "ヤ": ".--",
+    "ユ": "-..--",
+    "ヨ": "--",
+    "ラ": "...",
+    "リ": "--.",
+    "ル": "-.--.",
+    "レ": "---",
+    "ロ": ".-.-",
+    "ワ": "-.-",
+    "ヰ": ".-..-",
+    "ヱ": ".--..",
+    "ヲ": ".---",
+    "ン": ".-.-.",
+    "、": ".-.-.-",
+    "。": ".-.-..",
+
+    // for prosign
+    "&" : ".-...",
+    "Ŝ" : "...-.",
+    // non-standard
+    "[" : "-...-.-",
+    "]" : "...-.-",
+    "^" : "-.-.-",
+    "※" : "........"
+};
+
+MorseNode.prototype.PROSIGN = {
+    "<AR>" : "+",
+    "<KN>" : "(",
+    "<AS>" : "&",
+    "<BT>" : "=",
+    "<SN>" : "Ŝ",
+    // non-standard
+    "<BK>" : "[",
+    "<SK>" : "]",
+    "<VA>" : "]",
+    "<KA>" : "^",
+    "<HH>" : "※"
+};
+
+    function MorseNode(ac, rate) {
     // ac is an audio context.
     this._oscillator = ac.createOscillator();
     this._gain = ac.createGain();
@@ -1191,11 +1397,11 @@ function highlight() {
         }
 
         if (!stopped && cursorTempTo.ch != 0) {
-            cm.focus();
+            // cm.focus();
             doc.setSelection(cursorTempFrom, cursorTempTo);
             document.getElementById('textarea_select_char').innerHTML = doc.getSelection();
             if(!(document.getElementById('hide_text').checked==true)) document.getElementById('textarea_play_char').innerHTML = doc.getSelection();
-            document.getElementById('textarea_select_count').innerHTML = highlightEnd;
+            document.getElementById('textarea_select_count').innerHTML = highlightEnd.toLocaleString('en-US');
             var now_percent = parseInt(highlightEnd/txtValue.length*100);
             document.getElementById('textarea_select_percent').innerHTML = now_percent;
             setProgressBar(now_percent);
@@ -1684,6 +1890,18 @@ gen_random_option.addEventListener('change', function() {
         add_string(resultArray_repeat);
         var data = resultArray_repeat.join(add_spacer());
         changeQsoSample(data);
+    }else if(selectedValue=="random_hiragana"){
+        const resultArray = random_hiragana();
+        resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat);
+        var data = resultArray_repeat.join(add_spacer());
+        changeQsoSample(data);
+    }else if(selectedValue=="random_katakana"){
+        const resultArray = random_katakana();
+        resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
+        add_string(resultArray_repeat);
+        var data = resultArray_repeat.join(add_spacer());
+        changeQsoSample(data);
     }
 });
 
@@ -1717,6 +1935,36 @@ function random_number(){
 function random_alphabat(){
     count = gen_number.value;
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const resultArray = [];
+    for (let i = 0; i < count; i++) {
+        const randomLetters = [];
+        for (let j = 0; j < 5; j++) {
+            const randomIndex = Math.floor(Math.random() * alphabet.length);
+            randomLetters.push(alphabet[randomIndex]);
+        }
+        resultArray.push(randomLetters.join(''));
+    }
+    return resultArray;
+}
+
+function random_hiragana(){
+    count = gen_number.value;
+    const alphabet = "あいうえおかきくけこさしすせたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわゐゑをん";
+    const resultArray = [];
+    for (let i = 0; i < count; i++) {
+        const randomLetters = [];
+        for (let j = 0; j < 5; j++) {
+            const randomIndex = Math.floor(Math.random() * alphabet.length);
+            randomLetters.push(alphabet[randomIndex]);
+        }
+        resultArray.push(randomLetters.join(''));
+    }
+    return resultArray;
+}
+
+function random_katakana(){
+    count = gen_number.value;
+    const alphabet = "アイウエオカキクケコサシスセソタちチツトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヰヱヲンをん、。";
     const resultArray = [];
     for (let i = 0; i < count; i++) {
         const randomLetters = [];
@@ -1773,8 +2021,6 @@ function random_jaummoum(){
     }
     return resultArray;
 }
-
-
 
 function random_specialchar(){
     count = gen_number.value;
@@ -1971,7 +2217,6 @@ editor.on("change", function(instance, changeObj) {
         strcnt_character_enUS = strcnt_character.toLocaleString('en-US');
         strcnt_space_enUS = strcnt_space.toLocaleString('en-US');
         document.getElementById('textarea_count').innerHTML = strcnt_total_enUS + '(' + strcnt_space_enUS + '+' + strcnt_character_enUS + ')';
-        // document.getElementById('textarea_count').innerHTML = strcnt_character_enUS + ' / ' + strcnt_total_enUS;
         window.localStorage.setItem('user_txt', doc.getValue());
     });
 }
@@ -2625,6 +2870,7 @@ setProgressBar(0);
         document.getElementById('timerDisplay').innerHTML = formatTime(secondsElapsed);
         document.getElementById('timerDisplay_total').innerHTML = formatTime(timerDisplay_total);
         window.localStorage.setItem('timerDisplay_total', timerDisplay_total);
+        updateLayerPosition();
     }
 
     function timer_stop(){
