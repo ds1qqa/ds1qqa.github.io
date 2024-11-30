@@ -465,13 +465,14 @@
                         document.getElementById('char_layer').style.display = 'none';
                     }
                 }
-                function downloadPDF() {
+                function download_document() {
                     const filename = document.getElementById('morsecode_download').value;
                     const str = '\nDownload the ' + filename + '?';
                     if (confirm(str)) {
                         const newWindow = window.open();
                         newWindow.location.href = filename;
                     }
+                    document.getElementById('morsecode_download').value = '';
                 }
                 function copy_text(){
                     c_text = doc.getValue();
@@ -610,17 +611,18 @@
         <div style="text-align:center;vertical-align:top;">
             <div id="user_txt_caption" style="display:block;"></div>
             <font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font><input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
-            <select id="morsecode_download" style="color:black;border-color:white;background-color: white;margin: 0px 10px 0px 10px;" onchange="downloadPDF();">
+            <select id="morsecode_download" style="color:black;border-color:white;background-color: white;margin: 0px 10px 0px 10px;" onchange="download_document();">
                 <option value="" title="Morse Code Chart Download" style="text-align:center;">💾 Morse Code Chart</option>
-                <option value="MORSE_CODE.png" title="Morse Code Chart Download">Morse Code Chart png</option>
-                <option value="MORSE_CODE.pdf" title="Morse Code Chart Download pdf">Morse Code Chart pdf</option>
-                <option value="MORSE_CODE_TREE_HAN.png" title="Morse Code Hangul Tree Chart Download png">Morse Tree Hangul png</option>
-                <option value="MORSE_CODE_TREE_HAN.pdf" title="Morse Code Hangul Tree Chart Download pdf">Morse Tree Hangul pdf</option>
-                <option value="MORSE_CODE_TREE_ENG.png" title="Morse Code Englich Tree Chart Download png">Morse Tree English png</option>
-                <option value="MORSE_CODE_TREE_ENG.pdf" title="Morse Code Englich Tree Chart Download pdf">Morse Tree English pdf</option>
-                <option value="morse_trainer_simple_manual.pdf" title="Morse trainer simple manual Download pdf">Morse Trainer Simple Manual pdf</option>
+                <option value="MORSE_CODE.png" title="Morse Code Chart Download">Morse Code Chart PNG 그림파일</option>
+                <option value="MORSE_CODE.pdf" title="Morse Code Chart Download pdf">Morse Code Chart PDF 문서</option>
+                <option value="MORSE_CODE_TREE_HAN.png" title="Morse Code Hangul Tree Chart Download PNG 그림파일">Morse Tree Hangul PNG 그림파일</option>
+                <option value="MORSE_CODE_TREE_HAN.pdf" title="Morse Code Hangul Tree Chart Download PDF 문서">Morse Tree Hangul PDF 문서</option>
+                <option value="MORSE_CODE_TREE_ENG.png" title="Morse Code Englich Tree Chart Download PNG 그림파일">Morse Tree English PNG 그림파일</option>
+                <option value="MORSE_CODE_TREE_ENG.pdf" title="Morse Code Englich Tree Chart Download PDF 문서">Morse Tree English PDF 문서</option>
+                <option value="morse_trainer_user_manual.html" title="Morse trainer User Manual Download HTML 문서">Morse Trainer User Manual HTML</option>
+                <option value="morse_trainer_simple_manual.pdf" title="Morse trainer User Manual Download PDF 문서">Morse Trainer User Manual PDF 문서</option>
             </select>
-            <a onclick="play.click();"><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a>
+            <!-- <a onclick="play.click();"><img src='https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false' style='vertical-align:middle;'  title="Counter: https://hits.seeyoufarm.com"></a> -->
         </div>
     </fieldset>
 </div>
