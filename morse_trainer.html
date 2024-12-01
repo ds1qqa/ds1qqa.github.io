@@ -365,7 +365,7 @@
                 <option value="shorteng.dat">10. SHORT ENGLISH</option>
             </select>
             &nbsp;
-            <span class="setting_bold">File Open:</span>
+            <span class="setting_bold"><label for="fileInput">File Open:</label></span>
             <input type="file" id="fileInput" accept=".txt" style="width:175px;text-align:center;height:30px;" title="Text File Open(Limit 30,000 Characters) ALT+O" accesskey="o"></span>
             <span class="setting_bold"><a onclick="add_str();">Add:</a></a></span> 
             <input type="checkbox" id="add_vvv" title="To add a character to the beginning"><label for="add_vvv">Start</label>
@@ -615,7 +615,7 @@
                 <option value="morse_trainer_user_manual.html" title="Morse trainer User Manual Download HTML 웹문서">Morse Trainer User Manual HTML 웹문서</option>
                 <option value="morse_trainer_simple_manual.pdf" title="Morse trainer User Manual Download PDF 문서">Morse Trainer User Manual PDF 문서</option>
             </select>
-            <!-- <a onclick="play.click();"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" style="height:23px;vertical-align:middle;cursor: pointer;" title="Counter: https://hits.seeyoufarm.com"></a> -->
+            <a onclick="play.click();"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" style="height:23px;vertical-align:middle;cursor: pointer;" title="Counter: https://hits.seeyoufarm.com"></a>
         </div>
     </fieldset>
 </div>
@@ -1967,7 +1967,7 @@ function random_katakana(){
 
 function random_moum(){
     count = gen_number.value;
-    const alphabet = 'ㅏㅑㅓㅕㅗㅛㅜㅠㅢㅔㅐ';
+    const alphabet = 'ㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅔㅐ';
     const resultArray = [];
     for (let i = 0; i < count; i++) {
         const randomLetters = [];
@@ -2231,7 +2231,6 @@ function changeQsoSample(data) {
 }
 
 var RANDOM_GEN_NUMBER = gen_number.value;
-
 function generateSuffix(length) {
     var ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     var result = ALPHABET[Math.floor(Math.random() * ALPHABET.length)];
