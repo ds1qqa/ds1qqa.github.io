@@ -92,7 +92,7 @@
     <div class="setting" style="text-align:center;">
         <fieldset id="option"><legend> ▶️ Play Setup ▶️</legend>
             <span class="setting_bold">Font:</span>
-            <select id="font_select" style="width:10px;text-align:left;color:blue;" title="https://brunch.co.kr/@jade/203">
+            <select id="font_select" style="width:150px;text-align:left;color:blue;" title="https://brunch.co.kr/@jade/203">
                 <option value="Helvetica" style="font-family: 'Helvetica';" Selected>Helvetica</option>
                 <option value="sanserif" style="font-family: 'sanserif';">Sanserif</option>
                 <option value="MaruBuriExtraLight" style="font-family: 'MaruBuriExtraLight';">마루부리 ExtraLight</option>
@@ -161,7 +161,7 @@
                 <option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option>
             </select>Wpm
             &nbsp;
-            <span class="setting_bold">Vol:</span>
+            <span class="setting_bold">Volume:</span>
             <select id="volume" name="volume" style="width:60px;text-align:center;">
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -549,6 +549,17 @@
                         const hour = String(now.getHours()).padStart(2, '0');
                         const minute = String(now.getMinutes()).padStart(2, '0');
                         const filename = 'Morse_' + year + month + day + hour + minute + '_' + freq.value + 'Hz_' + speed.value + 'wpm.txt';
+
+                        // const blob = new Blob([SaveContents], { type: "text/plain" });
+
+                        // // Blob 데이터를 파일로 바로 저장
+                        // const link = document.createElement("a");
+                        // link.href = URL.createObjectURL(blob);
+                        // link.download = filename; // 저장될 파일 이름 지정
+                        // link.style.display = "none"; // 화면에 표시하지 않음
+                        // document.body.appendChild(link);
+                        // link.click(); // 클릭하여 파일 다운로드 실행
+                        // document.body.removeChild(link); // 사용 후 제거
 
                         const element = document.createElement('a');
                         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(SaveContents));
