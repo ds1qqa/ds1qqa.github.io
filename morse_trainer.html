@@ -486,8 +486,8 @@
                             alert("There's no contents!");
                             return  false;
                         }
-                        if(!confirm("Contents to Print?") === true) return false;
-                        SaveContents = SaveContents.replace(/[^a-zA-Z0-9가-힣ぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r]/g, ' ');
+                        if(!confirm("Contents to Print?")==true) return false;
+                        printContents = printContents.replace(/[^a-zA-Z0-9가-힣ぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r]/g, ' ');
                         printContents = printContents.toUpperCase();
                         var printWindow = window.open('', '', 'width=600,height=800');
                         printWindow.document.write('<html><head><title>Print</title>');
@@ -538,7 +538,7 @@
                             alert("There's no Contents");
                             return  false;
                         }
-                        if(!confirm("Save the Contents?") === true) return false;
+                        if(!confirm("Save the Contents?")==true) return false;
                         console.log(SaveContents);
                         SaveContents = SaveContents.replace(/[^a-zA-Z0-9가-힣ぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r]/g, ' ');
                         SaveContents = SaveContents.toUpperCase();
