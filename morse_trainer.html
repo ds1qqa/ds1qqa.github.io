@@ -92,7 +92,7 @@
     <div class="setting" style="text-align:center;">
         <fieldset id="option"><legend> ▶️ Play Setup ▶️</legend>
             <span class="setting_bold">Font:</span>
-            <select id="font_select" style="width:150px;text-align:left;color:blue;" title="https://brunch.co.kr/@jade/203">
+            <select id="font_select" style="width:10px;text-align:left;color:blue;" title="https://brunch.co.kr/@jade/203">
                 <option value="Helvetica" style="font-family: 'Helvetica';" Selected>Helvetica</option>
                 <option value="sanserif" style="font-family: 'sanserif';">Sanserif</option>
                 <option value="MaruBuriExtraLight" style="font-family: 'MaruBuriExtraLight';">마루부리 ExtraLight</option>
@@ -487,10 +487,8 @@
                             return  false;
                         }
                         if(!confirm("Contents to Print?") === true) return false;
-                        printContents = printContents.replace(/[^가-힣a-zA-Z0-9!@$&*()-+=,.;:'"?]/g, ' ');
-                        printContents = printContents.replace(/\r\n|\r|\n/g, '\n')
+                        SaveContents = SaveContents.replace(/[^a-zA-Z0-9가-힣ぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r]/g, ' ');
                         printContents = printContents.toUpperCase();
-                        var originalContents = document.body.innerHTML;
                         var printWindow = window.open('', '', 'width=600,height=800');
                         printWindow.document.write('<html><head><title>Print</title>');
                         printWindow.document.write('</head><body>');
@@ -534,34 +532,31 @@
                     }
             </script>
             <script>
-                function download(SaveContents) {
-                    const now = new Date();
-                    const year = now.getFullYear();
-                    const month = String(now.getMonth() + 1).padStart(2, '0');
-                    const day = String(now.getDate()).padStart(2, '0');
-                    const hour = String(now.getHours()).padStart(2, '0');
-                    const minute = String(now.getMinutes()).padStart(2, '0');
-                    const filename = 'Morse_' + year + month + day + hour + minute + '_' + freq.value + 'Hz_' + speed.value + 'wpm.txt';
-                    const element = document.createElement('a');
-                    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(SaveContents));
-                    element.setAttribute('download', filename);
-                    element.style.display = 'none';
-                    document.body.appendChild(element);
-                    element.click();
-                    document.body.removeChild(element);
-                }
                 document.getElementById('save_as_file').addEventListener('click', function() {
                         var SaveContents =  doc.getValue();
                         if(!SaveContents){
                             alert("There's no Contents");
                             return  false;
                         }
-                        let isTrue = confirm("Save the Contents?");
-                        if(!isTrue === true) return false;
-                        SaveContents = SaveContents.replace(/[^가-힣a-zA-Z0-9!@$&*()-+=,.;:'"?]/g, ' ');
-                        SaveContents = SaveContents.replace(/\r\n|\r|\n/g, '\n')
+                        if(!confirm("Save the Contents?") === true) return false;
+                        console.log(SaveContents);
+                        SaveContents = SaveContents.replace(/[^a-zA-Z0-9가-힣ぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r]/g, ' ');
                         SaveContents = SaveContents.toUpperCase();
-                        download(SaveContents);
+                        const now = new Date();
+                        const year = now.getFullYear();
+                        const month = String(now.getMonth() + 1).padStart(2, '0');
+                        const day = String(now.getDate()).padStart(2, '0');
+                        const hour = String(now.getHours()).padStart(2, '0');
+                        const minute = String(now.getMinutes()).padStart(2, '0');
+                        const filename = 'Morse_' + year + month + day + hour + minute + '_' + freq.value + 'Hz_' + speed.value + 'wpm.txt';
+
+                        const element = document.createElement('a');
+                        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(SaveContents));
+                        element.setAttribute('download', filename);
+                        element.style.display = 'none';
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
                     }
                 );
                 function truncate(str, maxLength) {
@@ -586,8 +581,8 @@
                                     const parser = new DOMParser();
                                     const doc = parser.parseFromString(str, 'text/html');
                                     const textOnly = doc.body.textContent;
-                                    let result = str.replace(/[^가-힣a-zA-Z0-9!@$&*()-+=,.;:'"?]/g, ' ');
-                                    result = result.split(/ +/).join(' ');
+                                    let result = str.replace(/[^a-zA-Z0-9가-힣ぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r]/g, ' ');
+                                    result = result.split(/ +/).join('\n');
                                     const data = truncate(result, 30000);
                                     var datas = data.replace(/0/g, 'Ø');
                                     if(document.getElementById('add_vvv').checked) datas = "VVV VVV <BT> " + datas;
