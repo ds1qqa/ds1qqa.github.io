@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width">
-<title>Morse Trainer</title>
+<title>CW Trainer</title>
 <link rel='stylesheet' href='script/codemirror.css'>
 <script>window.console = window.console || function(t) {};</script>
 <script src='script/codemirror.js'></script>
@@ -29,6 +29,7 @@
             <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="k">
             <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="l">
             <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey=";">
+            <input type="checkbox" id="filesave_view_toggle" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
             <button  style="width:28px;height:24px;margin: 0px 0px 0px 2px;" onclick="qrcode_toggle();" title="Qrcode Link View">Q</button>
             <script>
                 function qrcode_toggle(){
@@ -84,10 +85,10 @@
                 };
             </script>
         </fieldset>
-        <img id="qrcodeImage" src="qrcode.png" style="display:none;position:relative;">
+        <img id="qrcodeImage" src="ds1qqa.github.io.png" onclick="qrcode_toggle();" style="display:none;position:relative;">
     </div>
 </td></tr>
-<tr><td align="center"><span id="mp3" style="display:none;"> </span> <a id="tze"> </a></td></tr>
+<tr><td align="center"><div id="filesave_view"><span id="mp3" style="display:none;"> </span> <a id="tze"> </a></div></td></tr>
 <tr><td align=left>
     <div class="setting" style="text-align:center;">
         <fieldset id="option"><legend> ▶️ Play Setup ▶️</legend>
@@ -152,13 +153,17 @@
             Hz
             &nbsp;
             <span class="setting_bold">Speed:</span>
-            <select id="speed" name="speed" style="width:50px;text-align:center;">
+            <select id="speed" name="speed" style="width:60px;text-align:center;">
                 <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
                 <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20" selected>20</option>
                 <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option>
                 <option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option>
                 <option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option>
                 <option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option>
+                <option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option>
+                <option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option>
+                <option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option>
+                <option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option>
             </select>Wpm
             &nbsp;
             <span class="setting_bold">Vol:</span>
@@ -744,6 +749,7 @@
     "8": "---..",
     "9": "----.",
     "0": "-----",
+    "Ø": "-----",
     
     ".": ".-.-.-",
     ",": "--..--",
@@ -1432,6 +1438,7 @@ make_mp3.onclick = function() {
 	mp3.replaceChild(document.createTextNode("Generating.. Please wait a few minutes."), mp3.firstChild);
     mp3.style="display: inline-block;";
     setTimeout(makeMp3, 1);
+    document.getElementById('filesave_view_toggle').style.display = 'inline-block';
 };
 async function makeMp3() {
 	morse.playString(true, DELAY_AMOUNT, doc.getValue(), vol, document.getElementById('selectkey').value, fading.checked);
@@ -1527,7 +1534,9 @@ makeTze.onclick = function() {
 	morse.playString(true, DELAY_AMOUNT, doc.getValue(), 1.0, document.getElementById('selectkey').value, false);
 	queue.push([queue[queue.length - 1][0] + 1, 0]);
 	saveTzeFile();
+    document.getElementById('filesave_view_toggle').style.display = 'inline-block';
 }
+
 function saveTzeFile() {
     var str =  doc.getValue();
     if(!str){
@@ -2213,6 +2222,14 @@ document.getElementById('textarea_count').addEventListener('click', (event) => {
     alert(document.getElementById('textarea_count').title);
 });
 
+document.getElementById('filesave_view_toggle').addEventListener('click', (event) => {
+    if(document.getElementById('filesave_view').style.display == 'none'){
+        document.getElementById('filesave_view').style.display = 'inline-block';
+    }else{
+        document.getElementById('filesave_view').style.display = 'none';
+    }
+});
+
 function changeQsoSample(data) {
     if (!stopped) stop.click();
     cursorFrom = null;
@@ -2731,7 +2748,7 @@ if(!isAndroid && !isIOS){
     });
     const allelements2 = document.querySelectorAll('.main_button');
     allelements2.forEach(element => {
-        element.style.width = '145px';
+        element.style.width = '135px';
         element.style.height = '40px';
         element.style.fontSize = '20px';
         element.style.margin = '0px 5px 0px 5px'; 
@@ -2883,6 +2900,7 @@ const observer = new MutationObserver(mutations => {
 });
 const config = { attributes: true };
 observer.observe(targetElement, config);
+document.getElementById('filesave_view_toggle').style.display = 'none';
 </script>
 </BODY>
 </HTML>  
