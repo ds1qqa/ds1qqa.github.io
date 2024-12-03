@@ -29,7 +29,7 @@
             <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="k">
             <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="l">
             <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey=";">
-            <input type="checkbox" id="filesave_view_toggle" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
+            <input type="checkbox" id="filesave_view_toggle" title="FILE SAVE VIEW TOGGLE" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
             <button  style="width:28px;height:24px;margin: 0px 0px 0px 2px;" onclick="qrcode_toggle();" title="Qrcode Link View">Q</button>
             <script>
                 function qrcode_toggle(){
@@ -180,8 +180,8 @@
                 <option value="100">100</option>
             </select>%
             &nbsp;
-            <span class="setting_bold">Extra Gap:</span>
-            <select id="selectkey" name="key" style="width:120px;text-align:center;">
+            <span class="setting_bold">Gap:</span>
+            <select id="selectkey" name="key" style="width:100px;text-align:center;">
                 <option id="selectkey1" value="computer" selected>None(1.0)</option>
                 <option value="hangul_smaller">Small(2.0)</option>
                 <option value="hangul_small">Smaller(1.5)</option>
@@ -205,7 +205,7 @@
             <input type="checkbox" id="flute"><label for="flute">Flute</label>
             <input type="checkbox" id="noise"><label for="noise">Noise</label>
             <input type="checkbox" id="fading"><label for="fading">Fading</label>&nbsp;
-            <div id="keyer_setting">✅ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button> (IC-7300, 7610 USB Keying(CW)-DTR</div>
+            <div id="keyer_setting">✅ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button></div>
         </fieldset>
     </div>
 </td></tr>
@@ -435,7 +435,7 @@
                 <button id="textarea_play_char" style="width:50px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to Larger View ALT+B" accesskey="b"></button>
                 <input id="layer_display" type="checkbox" style="width:24px;height:24px;" title="Play on the Character displayed">
                 <button id='cwport_signal' style="border-radius:14px;width:24px;height:24px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
-                <span class="setting_bold">Time:</span>
+                <span class="setting_bold">Timer:</span>
                 <div id="timerDisplay_total" style="font-size: 1.2em;display: inline-block;" title="Total Record">00:00:00</div> / <div id="timerDisplay" style="font-size: 1.2em;display: inline-block;" title="Current Time">00:00:00</div>
                 <div class="progress-bar" style="margin: 3px 0px 3px 0px;"><div class="progress"></div></div>
                 <div id="char_layer" style="display:none;"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
@@ -609,8 +609,10 @@
             <div id="user_txt_caption" style="display:block;"></div>
             <label for="sos_check"><font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font></label>
             <input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
-            <select id="morsecode_download" style="width:200px;color:black;border-color:white;background-color: white;margin: 0px 5px 0px 5px;" onchange="download_document();">
-                <option value="" title="Morse Code Chart Download" style="text-align:center;">💾 Morse Code Chart</option>
+            <button id="play_sub" onclick="play.click();" style="width:90px;height:33px;margin: 0px 5px 0px 5px;color:blue;">PLAY</button>
+            <button id="stop_sub" onclick="stop.click();" style="width:80px;height:33px;margin: 0px 5px 0px 5px;color:red;">STOP</button>
+            <select id="morsecode_download" style="width:140px;color:black;border-color:white;background-color: white;margin: 0px 5px 0px 5px;" onchange="download_document();">
+                <option value="" title="Morse Code Chart Download" style="text-align:center;">💾 Morse Chart</option>
                 <option value="MORSE_CODE.png" title="Morse Code Chart Download">Morse Code Chart PNG 그림파일</option>
                 <option value="MORSE_CODE.pdf" title="Morse Code Chart Download pdf">Morse Code Chart PDF 문서</option>
                 <option value="MORSE_CODE_TREE_HAN.png" title="Morse Code Hangul Tree Chart Download PNG 그림파일">Morse Tree Hangul PNG 그림파일</option>
@@ -620,7 +622,6 @@
                 <option value="morse_trainer_user_manual.html" title="Morse trainer User Manual Download HTML 웹문서">Morse Trainer User Manual HTML 웹문서</option>
                 <option value="morse_trainer_user_manual.pdf" title="Morse trainer User Manual Download PDF 문서">Morse Trainer User Manual PDF 문서</option>
             </select>
-            <a onclick="play.click();"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fds1qqa.github.io%2Fmorse_trainer.html&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false" style="height:23px;vertical-align:middle;cursor: pointer;" title="Counter: https://hits.seeyoufarm.com"></a>
         </div>
     </fieldset>
 </div>
@@ -1240,6 +1241,7 @@ stop.onclick = function() {
     stopped = true;
 
     play.replaceChild(document.createTextNode("PLAY"), play.firstChild);
+    document.getElementById('play_sub').innerHTML = 'PLAY';
     paused = false;
     timer_reset();
 }
@@ -1254,25 +1256,27 @@ play.onclick = function() {
     if(document.getElementById('layer_display').checked){
         document.getElementById('char_layer').style.display = 'block';
     }
-    updateLayerPosition();
-
     if (paused) {
         timer_start();
         play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
+        document.getElementById('play_sub').innerHTML = 'PAUSE';
         paused = false;
         ac.resume();
         return;
     } else if (stopped == false && repeatId == -1) {
         timer_stop();
         play.replaceChild(document.createTextNode("RESUME"), play.firstChild);
+        document.getElementById('play_sub').innerHTML = 'RESUME';
         paused = true;
         ac.suspend();
         return;
     } else {
         timer_start();
         play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
+        document.getElementById('play_sub').innerHTML = 'PAUSE';
         paused = false;
     }
+    updateLayerPosition();
 
     try { clearTimeout(repeatId); repeatId = -1;}
     catch (e) {}
