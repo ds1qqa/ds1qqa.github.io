@@ -4,7 +4,7 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width">
-<title>CW Trainer</title>
+<title>Morse Trainer</title>
 <link rel='stylesheet' href='script/codemirror.css'>
 <script>window.console = window.console || function(t) {};</script>
 <script src='script/codemirror.js'></script>
@@ -15,7 +15,7 @@
 <link href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css" rel="stylesheet">
 <link rel='stylesheet' href='script/style.css'>
 </HEAD>
-<BODY>
+<BODY id="html_body">
 <Table id="main_table" cellspacing=0 cellpadding=0 bordercolor="#F2F2F2" bgcolor="white" border=0 align="center" valign="top">
     <tr><td align="center" valign="middle" class="sticky-row" bgcolor="white" width="500" height="60">
         <div id="main_button">
@@ -2766,6 +2766,8 @@ if(!isAndroid && !isIOS){
     document.getElementById('textarea_select_char').style.width = `${width + 2}px`;
     document.getElementById('textarea_select_char').style.height = `${height + 2}px`;
     document.querySelector('.progress-bar').style.width = width + 'px';
+    document.getElementById('html_body').style.marginLeft = '10px';
+    document.getElementById('html_body').style.marginTop = '5px';
     font_resize('18');
 }
 
