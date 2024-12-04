@@ -423,7 +423,7 @@
         <fieldset id="user_text"><legend> 🎵 PLAY MONITER 🎵 </legend>
             <div id="play_moniter_top" style="width:100%;text-align:center;vertical-align:top;">
                 <a id="copy_text" onclick="copy_text();" title="Copy to Clipboard ALT+C" accesskey="c" style="font-size:25px;cursor: pointer;">📋</a>
-                <a onclick="paste_text();" title="Paste clipboard content" style="font-size:25px;cursor: pointer;">✔️</a>
+                <a onclick="paste_text();" title="Paste Clipboard to Contents" style="font-size:25px;cursor: pointer;">✔️</a>
                 <a id="copy_text" onclick="print_text();" title="Text to Print" style="font-size:25px;cursor: pointer;">🖨️</a>
                 <a id="save_as_file" title="Text Save as File ALT+V" accesskey="v" style="font-size:22px;cursor: pointer;">💾</a>
                 <a onclick="user_txt_del();" title="Text Clear ALT+N" accesskey="n" style="font-size:22px;cursor: pointer;">❌</a>
@@ -514,10 +514,8 @@
                             return  false;
                         }
                         if(!confirm("Contents to Print?")==true) return false;
-                        printContents = printContents.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r\x20]/g, ' ');
-                        printContents = printContents.replace(/(\r\n|\r|\n)/g, '\n<br>');
-                        printContents = printContents.replace(/0/g, 'Ø');
-                        printContents = printContents.toUpperCase();
+                        const result_str = check_str(printContents);
+                        printContents = result_str.replace(/(\r\n|\r|\n)/g, '\n<br>');
                         var printWindow = window.open('', '', 'width=600,height=800');
                         printWindow.document.write('<html><head><title>Print</title>');
                         printWindow.document.write('</head><body>');
@@ -568,9 +566,7 @@
                             return  false;
                         }
                         if(!confirm("Save the Contents?")==true) return false;
-                        SaveContents = SaveContents.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r\x20]/g, ' ');
-                        SaveContents = SaveContents.replace(/0/g, 'Ø');
-                        SaveContents = SaveContents.toUpperCase();
+                        const result_str = check_str(SaveContents);
                         const now = new Date();
                         const year = now.getFullYear();
                         const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -579,7 +575,7 @@
                         const minute = String(now.getMinutes()).padStart(2, '0');
                         const filename = 'Morse_' + year + month + day + hour + minute + '_' + freq.value + 'Hz_' + speed.value + 'wpm.txt';
                         const element = document.createElement('a');
-                        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(SaveContents));
+                        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(result_str));
                         element.setAttribute('download', filename);
                         element.style.display = 'none';
                         document.body.appendChild(element);
@@ -609,10 +605,8 @@
                                     const parser = new DOMParser();
                                     const doc = parser.parseFromString(str, 'text/html');
                                     const textOnly = doc.body.textContent;
-                                    let result = str.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r\x20]/g, ' ');
-                                    result = result.replace(/0/g, 'Ø');
-                                    result = result.toUpperCase();
-                                    const datas = truncate(result, 30000);
+                                    const result_str = check_str(textOnly);
+                                    const datas = truncate(result_str, 30000);
                                     if(document.getElementById('add_vvv').checked) datas = "VVV VVV <BT> " + datas;
                                     if(document.getElementById('add_ar').checked) datas = datas + " <AR>";
                                     window.localStorage.setItem('user_txt', datas);
