@@ -166,7 +166,7 @@
                 <option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option>
             </select>Wpm
             &nbsp;
-            <span class="setting_bold">Vol:</span>
+            <span class="setting_bold">🔈</span>
             <select id="volume" name="volume" style="width:60px;text-align:center;">
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -205,7 +205,7 @@
             <input type="checkbox" id="flute"><label for="flute">Flute</label>
             <input type="checkbox" id="noise"><label for="noise">Noise</label>
             <input type="checkbox" id="fading"><label for="fading">Fading</label>&nbsp;
-            <div id="keyer_setting">✅ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button> (IC-7300, 7610 USB Keying(CW)-DTR</div>
+            <div id="keyer_setting">※ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button> (IC-7300, 7610 USB Keying(CW)-DTR</div>
         </fieldset>
     </div>
 </td></tr>
@@ -213,7 +213,7 @@
     <div id="word">
         <fieldset id="option"><legend> 💦 Generate Setup 💦 </legend>
             <span class="setting_bold">Repeat:</span>
-                <select id="repeat_count" name="repeat_count" style="width:40px;">
+                <select id="repeat_count" name="repeat_count" style="width:40px;text-align:center;">
                     <option value="1" selected>1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -226,7 +226,7 @@
                     <option value="10">10</option>
                 </select>&nbsp;
                 <span class="setting_bold">Space:</span>
-                <select id="word_space" style="width:50px;">
+                <select id="word_space" style="width:50px;text-align:center;">
                     <option value="1" selected>1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -240,7 +240,7 @@
                 </select>
                 &nbsp;
             <span class="setting_bold">Count:</span>
-            <select id="gen_number" style="width: 70px;">
+            <select id="gen_number" style="width: 70px;text-align:center;">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -374,9 +374,9 @@
             <input type="file" id="fileInput" accept=".txt" style="width:175px;text-align:center;height:30px;" title="Text File Open(Limit 30,000 Characters) ALT+O" accesskey="o"></span>
             <span class="setting_bold"><a onclick="add_str();">Add:</a></a></span> 
             <input type="checkbox" id="add_vvv" title="To add a character to the beginning"><label for="add_vvv">Start</label>
-            <input type=text id="add_vvv_text" style="width:140px;text-align:center;" size="10" max=100 value="VVV VVV <BT>" title="Type characters to add to the beginning">
+            <input type=text id="add_vvv_text" style="width: 150px;text-align:center;" size="10" max=100 value="VVV VVV <BT>" title="Type characters to add to the beginning">
             <input type="checkbox" id="add_ar" title="To add a text at the end"><label for="add_ar">End</label>
-            <input type=text id="add_ar_text" style="width:130px;text-align:center;" size="10" max=100 value="<AR>" title="Type a character to add to the end">
+            <input type=text id="add_ar_text" style="width: 150px;text-align:center;" size="10" max=100 value="<AR>" title="Type a character to add to the end">
             <script>
                 function add_str(){
                     const add_string = document.getElementById('add_vvv_text').value + ' ' + doc.getValue() + ' ' + document.getElementById('add_ar_text').value;
@@ -422,22 +422,24 @@
     <div class="class_view3">
         <fieldset id="user_text"><legend> 🎵 PLAY MONITER 🎵 </legend>
             <div id="play_moniter_top" style="width:100%;text-align:center;vertical-align:top;">
-                <a id="copy_text" onclick="copy_text();" title="Copy to Clipboard ALT+C" accesskey="c" style="font-size:25px;cursor: pointer;">📋</a>
-                <a onclick="paste_text();" title="Paste Clipboard to Contents" style="font-size:25px;cursor: pointer;">✔️</a>
-                <a id="copy_text" onclick="print_text();" title="Text to Print" style="font-size:25px;cursor: pointer;">🖨️</a>
+                <a id="copy_text" onclick="copy_text();" title="Copy to Clipboard ALT+C" accesskey="c" style="font-size:22px;cursor: pointer;">📋</a>
+                <a onclick="paste_text();" title="Paste Clipboard to Contents" style="font-size:22px;cursor: pointer;">✔️</a>
+                <a id="copy_text" onclick="print_text();" title="Text to Print" style="font-size:22px;cursor: pointer;">🖨️</a>
                 <a id="save_as_file" title="Text Save as File ALT+V" accesskey="v" style="font-size:22px;cursor: pointer;">💾</a>
                 <a onclick="user_txt_del();" title="Text Clear ALT+N" accesskey="n" style="font-size:22px;cursor: pointer;">❌</a>
                 <button id="font_text" onclick="resetFontSize()" title="Click to Font Size Reset">20px</button>
                 <button onclick="increaseFontSize()" title="Font Size Up ALT+Q" accesskey="q">➕</button>
                 <button onclick="decreaseFontSize()" title="Font Size Down ALT+W" accesskey="w">➖</button>
-                <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button> 
-                <button id="textarea_select_percent" style="width:40px;text-align:center;color:red;text-align:right;" title="Now Playing Percent">0</button>%
-                <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
                 <button id="textarea_play_char" style="width:50px;color:red;text-align:center;font-size:1.2em;" title="Now Playing Character, Click to Larger View ALT+B" accesskey="b"></button>
                 <input id="layer_display" type="checkbox" style="width:24px;height:24px;" title="Play on the Character displayed">
                 <button id='cwport_signal' style="border-radius:14px;width:24px;height:24px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
-                <span class="setting_bold">Timer:</span>
-                <div id="timerDisplay_total" style="font-size: 1.2em;display: inline-block;" title="Total Record">00:00:00</div> / <div id="timerDisplay" style="font-size: 1.2em;display: inline-block;" title="Current Time">00:00:00</div>
+                <div id="new_line" style="display: inline-block;"></div>
+                <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button> 
+                <button id="textarea_select_percent" style="text-align:center;color:red;text-align:right;" title="Now Playing Percent">0</button>%
+                <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
+                <span class="setting_bold">Total: <div id="timerDisplay_total" style="display: inline-block;" title="Total Record">00:00:00</span></div></span>
+                &nbsp;
+                <span class="setting_bold">Now: <div id="timerDisplay" style="display: inline-block;" title="Current Time">00:00:00</div></span>
                 <div class="progress-bar" style="margin: 3px 0px 3px 0px;"><div class="progress"></div></div>
                 <div id="char_layer" style="display:none;"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
             </div>
@@ -491,7 +493,7 @@
                         }else{
                             const checked_text = check_str(text);
                             changeQsoSample(checked_text);
-                            alert('\ncontents pasted complete\n');
+                            alert('\nPaste Content completed!\n');
                         }
                     } catch (err) {
                         console.error('Failed to read clipboard contents: ', err);
@@ -627,7 +629,7 @@
             <input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
             <button id="play_sub" onclick="play.click();" style="width:90px;height:33px;margin: 0px 5px 0px 5px;color:blue;">PLAY</button>
             <button id="stop_sub" onclick="stop.click();" style="width:80px;height:33px;margin: 0px 5px 0px 5px;color:red;">STOP</button>
-            <select id="morsecode_download" style="width:160px;color:black;border-color:white;background-color: white;margin: 0px 5px 0px 5px;" onchange="download_document();">
+            <select id="morsecode_download" style="width:155px;color:black;border-color:white;background-color: white;margin: 0px 2px 0px 2px;" onchange="download_document();">
                 <option value="" title="Morse Code Chart Download" style="text-align:center;">💾 Morse Chart</option>
                 <option value="MORSE_CODE.png" title="Morse Code Chart Download">Morse Code Chart PNG 그림파일</option>
                 <option value="MORSE_CODE.pdf" title="Morse Code Chart Download pdf">Morse Code Chart PDF 문서</option>
@@ -2739,8 +2741,10 @@ function getDeviceInfo() {
     var userAgent = navigator.userAgent.toLowerCase();
     if (/iphone|ipad|ipod/.test(userAgent)) {
         var connected_macine = "Apple Mobile";
+        document.getElementById('new_line').style.display = 'block';
     } else if (/android/.test(userAgent)) {
         var connected_macine = "Android Mobile";
+        document.getElementById('new_line').style.display = 'block';
     } else {
         var connected_macine = "Personal Computer";
     }
