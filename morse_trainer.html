@@ -1294,6 +1294,7 @@ play.onclick = function() {
         document.getElementById('play_sub').innerHTML = 'PAUSE';
         paused = false;
     }
+    document.getElementById('timerDisplay').innerHTML = '00:00:00';
     updateLayerPosition();
 
     try { clearTimeout(repeatId); repeatId = -1;}
@@ -2267,6 +2268,7 @@ function changeQsoSample(data) {
     document.getElementById('textarea_play_char').innerHTML = '';
     document.getElementById('textarea_select_count').innerHTML = '0';
     document.getElementById('textarea_select_percent').innerHTML = '0';
+    document.getElementById('timerDisplay').innerHTML = '00:00:00';
 }
 
 var RANDOM_GEN_NUMBER = gen_number.value;
@@ -2913,7 +2915,6 @@ setProgressBar(0);
     function timer_reset(){
         timer_stop();
         secondsElapsed = 0;
-        document.getElementById('timerDisplay').innerHTML = '00:00:00';
     }
 
 const targetElement = document.getElementById('user_txt');
