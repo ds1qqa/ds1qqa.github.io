@@ -13,7 +13,354 @@
 <script src="script/hangul.js"></script>
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
 <link href="https://hangeul.pstatic.net/hangeul_static/css/maru-buri.css" rel="stylesheet">
-<link rel='stylesheet' href='script/style.css'>
+<STYLE>
+@font-face {
+	font-family:'EBSSR';
+	src: url('/font/EBSSR.woff') format('woff');
+}
+@font-face {
+	font-family:'EBSSB';
+	src: url('/font/EBSSB.woff') format('woff');
+}
+@font-face {
+	font-family:'EBSL';
+	src: url('/font/EBSL.woff') format('woff');
+}
+@font-face {
+	font-family:'EBSR';
+	src: url('/font/EBSR.woff') format('woff');
+}
+@font-face {
+	font-family:'EBSSL';
+	src: url('/font/EBSSL.woff') format('woff');
+}
+@font-face {
+	font-family:'EBSSSB';
+	src: url('/font/EBSSSB.woff') format('woff');
+}
+@font-face {
+	font-family:'LOTTEMARTHBMedium';
+	src: url('/font/LOTTEMARTHBMedium.woff') format('woff');
+}
+@font-face {
+	font-family:'LOTTEMARTDRMedium';
+	src: url('/font/LOTTEMARTDRMedium.woff') format('woff');
+}
+@font-face {
+	font-family:'LOTTEMARTDRLight';
+	src: url('/font/LOTTEMARTDRLight.woff') format('woff');
+}
+@font-face {
+	font-family:'LOTTEMARTDRBold';
+	src: url('/font/LOTTEMARTDRBold.woff') format('woff');
+}
+@font-face {
+	font-family:'netmarbleB';
+	src: url('/font/netmarbleB.woff') format('woff');
+}
+@font-face {
+	font-family:'JalnanGothic';
+	src: url('/font/yg-jalnan.woff') format('woff');
+}
+@font-face {
+	font-family:'HMKMOLD';
+	src: url('/font/HMKMOLD.woff') format('woff');
+}
+@font-face {
+	font-family:'HS봄바람체2.0';
+	src: url('/font/HSbombaramche2.woff') format('woff');
+}
+@font-face {
+	font-family:'Binggrae-Bold';
+	src: url('/font/Binggrae-Bold.woff') format('woff');
+}
+@font-face {
+	font-family:'BinggraeMelona-Bold';
+	src: url('/font/BinggraeMelona-Bold.woff') format('woff');
+}
+@font-face {
+	font-family:'BinggraeSamanco-Bold';
+	src: url('/font/BinggraeSamanco-Bold.woff') format('woff');
+}
+@font-face {
+	font-family:'BinggraeTaom-Bold';
+	src: url('/font/BinggraeTaom-Bold.woff') format('woff');
+}
+@font-face {
+	font-family:'BusanFont_Provisional';
+	src: url('/font/BusanFont_Provisional.woff') format('woff');
+}
+@font-face {
+	font-family:'JejuHallasan';
+	src: url('/font/JejuHallasan.woff') format('woff');
+}
+@font-face {
+	font-family:'BusanFont_Provisional';
+	src: url('/font/BusanFont_Provisional.woff') format('woff');
+}
+@font-face {
+	font-family:'youth';
+	src: url('/font/Youth.woff') format('woff');
+}
+@font-face {
+	font-family:'sdmisaeng';
+	src: url('/font/sdmisaeng.woff') format('woff');
+}
+@font-face {
+	font-family:'IropkeBatangM';
+	src: url('/font/IropkeBatangM.woff') format('woff');
+}
+@font-face {
+	font-family:'Hankyoreh_Font';
+	src: url('/font/Hankyoreh_Font.woff') format('woff');
+}
+@media (max-width: 768px) {
+    table th, table td {
+      /* font-size: 14px; */
+      padding: 0px;
+      resize: none;
+    }
+ }
+body {
+    width: 500px;
+    margin: 0px 0px 0px 0px;
+    background-color: white ;
+    font-size: 14px;
+    line-height: 2;
+    font-family: 'Helvetica', 'sans serif';
+}
+.progress-bar {
+    text-align: center;
+    width: 494px;
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 5px;
+}
+.progress {
+    width: 494px;
+    height: 10px;
+    background-color: #4CAF50;
+    border-radius: 5px;
+}
+#char_layer {
+    width: 494px;
+    height: 260px;
+    margin: 0px 3px 0px 0px;
+    position: absolute;
+    display: none;
+    font-family: inherit;
+    vertical-align: middle;
+    text-align: center;
+    z-index: 99;
+}
+#textarea_select_char {
+    background-color: white;
+    color:red;
+    vertical-align: top;
+    text-align: center;
+    width: 494px;
+    height: 263px;
+    font-family: inherit;
+    font-size: 15em;
+    border-radius: 15px;
+}
+table{
+    width: 500px;
+    padding: 0px;
+    resize: none;
+}
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0px 2px 0px 2px;
+    font-family: inherit;
+    font-size: inherit;
+}
+input{
+    color: red;
+    text-align: center;
+    font-family: inherit;
+    font-size: inherit;
+    vertical-align: middle;
+}
+select {
+    color:red;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: center;
+    vertical-align: middle;
+}
+.select2 {
+    color: blue;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
+    vertical-align: middle;
+}
+button {
+    color: black;
+    margin: 0px 2px 5px 2px;
+    height: 30px;
+    font-weight: bold;
+    font-family: inherit;
+    font-size: inherit;
+    vertical-align: middle;
+}
+.main_button {
+    color: black;
+    text-align: center;
+    vertical-align: middle;
+    height: 40px;
+    font-weight: bold;
+    margin: 0px 0px 0px 0px;
+    font-family: inherit;
+    font-size: inherit;
+}
+textarea {
+    width : 494px;
+    height : 280px;
+    padding: 0px;
+    border: 1px solid lightsalmon;
+    transition: box-shadow 0.3s;
+    background: lightyellow;
+    border-radius: 15px;
+    color: black;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 5px 0px 5px 0px;
+    resize: none;
+}
+#play {
+    color: blue;
+    width: 100px;
+    font-family: inherit;
+}
+#stop {
+    color: red;
+    font-family: inherit;
+}
+#freq { 
+    width: 18px;
+    font-family: inherit;
+}
+#speed {
+    width: 18px;
+    font-family: inherit;
+}
+#volume {
+    width: 18px;
+    font-family: inherit;
+}
+.CodeMirror {
+    width: 494px;
+    height: 260px;
+    padding: 0px;
+    border: 1px solid lightsalmon;
+    transition: box-shadow 0.3s;
+    background: lightyellow;
+    border-radius: 15px;
+    color: black;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 5px 0px 5px 0px;
+    resize: none;
+}
+.CodeMirror-focused .CodeMirror-selected { background-color: rgba(255, 0, 0, 0.5); }
+.hide_markText { background-color: black; }
+.show_markText { background-color: inherit; }
+.log_container_ditdah {
+    width: 494px;
+    height: 25px;
+    overflow: hidden;
+    padding: 0px;
+    border: 1px solid lightsalmon;
+    transition: box-shadow 0.3s;
+    background: lightyellow;
+    border-radius: 10px;
+    color: black;
+    font-size: inherit;
+    white-space: nowrap;
+    margin: 0px 0px 0px 0px;
+}
+#ditdah{
+    height:25px;
+    float: right;
+}
+.ditdah_bar {
+    background: #04B45F;
+    height: 25px;
+    display: inline-block;
+}
+.ditdah_gap {
+    height: 10px;
+    display: inline-block;
+}
+#keyer_setting {
+    display: none;
+    line-height: 1;
+}
+#connect {
+    color: blue;
+}
+#disconnect {
+    color: red;
+}
+#mp3 {
+    vertical-align: middle;
+    display: inline-block;
+    margin: auto;
+    padding-left: 10px;
+}
+audio {
+    height: 18px;
+    margin-bottom: -3px;
+}
+.font_medium {
+    font-size : medium;
+}
+.setting {
+    line-height: 2;
+}
+.setting_bold {
+    font-weight: 600;
+}
+.setting_group {
+    padding: 4px 0px 4px 10px;
+    margin-right: 10px;
+    border: 1px dotted teal;
+    white-space: nowrap;
+}
+::selection {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+.sticky-row {
+    position: sticky;
+    top: 0;
+}
+fieldset {
+    width: 494px;
+    padding-top: 0px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 6px;
+    border-style: solid;
+    border-radius: 15px;
+    border-color: gray;
+    text-align: left;
+}
+legend {
+    padding: 0px;
+    font-size: 15px;
+    text-align: center;
+}
+
+</STYLE>
 </HEAD>
 <BODY id="html_body">
 <Table id="main_table" cellspacing=0 cellpadding=0 bordercolor="#F2F2F2" bgcolor="white" border=0 align="center" valign="top">
