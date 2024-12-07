@@ -1,4 +1,3 @@
-
 @font-face {
 	font-family:'EBSSR';
 	src: url('/font/EBSSR.woff') format('woff');
@@ -101,16 +100,16 @@
 }
 @media (max-width: 768px) {
     table th, table td {
-      font-size: 14px;
+      /* font-size: 14px; */
       padding: 0px;
       resize: none;
     }
-  }
+ }
 body {
     width: 500px;
     margin: 0px 0px 0px 0px;
     background-color: white ;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 2;
     font-family: 'Helvetica', 'sans serif';
 }
@@ -119,7 +118,7 @@ body {
     width: 494px;
     height: 10px;
     background-color: #ddd;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 .progress {
     width: 494px;
@@ -129,14 +128,14 @@ body {
 }
 #char_layer {
     width: 494px;
-    height: 280px;
+    height: 260px;
     margin: 0px 3px 0px 0px;
     position: absolute;
     display: none;
     font-family: inherit;
     vertical-align: middle;
     text-align: center;
-    z-index: 9999;
+    z-index: 99;
 }
 #textarea_select_char {
     background-color: white;
@@ -144,14 +143,13 @@ body {
     vertical-align: top;
     text-align: center;
     width: 494px;
-    height:283px;
+    height: 263px;
     font-family: inherit;
     font-size: 15em;
     border-radius: 15px;
 }
 table{
     width: 500px;
-    font-size: 14px;
     padding: 0px;
     resize: none;
 }
@@ -162,38 +160,47 @@ input[type="checkbox"] {
     vertical-align: middle;
     margin: 0px 2px 0px 2px;
     font-family: inherit;
+    font-size: inherit;
 }
 input{
     color: red;
     text-align: center;
     font-family: inherit;
+    font-size: inherit;
     vertical-align: middle;
 }
 select {
     color:red;
     font-family: inherit;
-    font-size: 16px;
+    font-size: inherit;
+    text-align: center;
+    vertical-align: middle;
+}
+.select2 {
+    color: blue;
+    font-family: inherit;
+    font-size: inherit;
     text-align: left;
     vertical-align: middle;
 }
 button {
     color: black;
     margin: 0px 2px 5px 2px;
-    font-size: inherit;
     height: 30px;
     font-weight: bold;
     font-family: inherit;
+    font-size: inherit;
     vertical-align: middle;
 }
 .main_button {
     color: black;
-    font-size: 14px;
     text-align: center;
     vertical-align: middle;
     height: 40px;
     font-weight: bold;
     margin: 0px 0px 0px 0px;
     font-family: inherit;
+    font-size: inherit;
 }
 textarea {
     width : 494px;
@@ -205,7 +212,7 @@ textarea {
     border-radius: 15px;
     color: black;
     font-family: inherit;
-    font-size: x-large;
+    font-size: inherit;
     font-weight: bold;
     line-height: 1.5;
     margin: 5px 0px 5px 0px;
@@ -234,7 +241,7 @@ textarea {
 }
 .CodeMirror {
     width: 494px;
-    height: 280px;
+    height: 260px;
     padding: 0px;
     border: 1px solid lightsalmon;
     transition: box-shadow 0.3s;
@@ -242,7 +249,7 @@ textarea {
     border-radius: 15px;
     color: black;
     font-family: inherit;
-    font-size: large;
+    font-size: inherit;
     font-weight: bold;
     line-height: 1.5;
     margin: 5px 0px 5px 0px;
@@ -261,7 +268,7 @@ textarea {
     background: lightyellow;
     border-radius: 10px;
     color: black;
-    font-size: small;
+    font-size: inherit;
     white-space: nowrap;
     margin: 0px 0px 0px 0px;
 }
