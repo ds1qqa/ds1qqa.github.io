@@ -236,12 +236,13 @@ textarea {
 }
 #play {
     color: blue;
-    width: 100px;
     font-family: inherit;
+    font-size: inherit;
 }
 #stop {
     color: red;
     font-family: inherit;
+    font-size: inherit;
 }
 #freq { 
     width: 18px;
@@ -294,7 +295,7 @@ textarea {
 }
 .ditdah_bar {
     background: #04B45F;
-    height: 25px;
+    height: 35px;
     display: inline-block;
 }
 .ditdah_gap {
@@ -359,20 +360,19 @@ legend {
     font-size: 15px;
     text-align: center;
 }
-
 </STYLE>
 </HEAD>
 <BODY id="html_body">
 <Table id="main_table" cellspacing=0 cellpadding=0 bordercolor="#F2F2F2" bgcolor="white" border=0 align="center" valign="top">
-    <tr><td align="center" valign="middle" class="sticky-row" bgcolor="white" width="500" height="60">
+    <tr class="sticky-row"><td align="center" valign="middle" bgcolor="white" width="500" height="60">
         <div id="main_button">
             <fieldset id="main_control" style="text-align:center;">
             <legend> 🐣 Main Menu 🐣 </legend>
-            <button id="play" class="main_button" style="width:80px;" title="PLAY, PAUSE ALT+P" accesskey="p">PLAY</button>
+            <button id="play" class="main_button" style="width:90px;" title="PLAY, PAUSE ALT+P" accesskey="p">PLAY</button>
             <button id="stop" class="main_button" title="STOP ALT+S" accesskey="s">STOP</button>
             <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾 MP3</button>
             <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾 TZE</button>
-            <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">RESET</button>
+            <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">🔄</button>
             <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="k">
             <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="l">
             <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey=";">
@@ -440,7 +440,7 @@ legend {
     <div class="setting" style="text-align:center;">
         <fieldset id="option"><legend> ▶️ Play Setup ▶️</legend>
             <span class="setting_bold">Font:</span>
-            <select id="font_select" style="width:120px;text-align:left;"  class="select2" title="https://brunch.co.kr/@jade/203">
+            <select id="font_select" style="width:100px;text-align:left;"  class="select2" title="https://brunch.co.kr/@jade/203">
                 <option value="Helvetica" style="font-family: 'Helvetica';" Selected>Helvetica</option>
                 <option value="sanserif" style="font-family: 'sanserif';">Sanserif</option>
                 <option value="MaruBuriExtraLight" style="font-family: 'MaruBuriExtraLight';">마루부리 ExtraLight</option>
@@ -478,7 +478,6 @@ legend {
                 <option value="IropkeBatangM" style="font-family: 'IropkeBatangM';">이롭게 바탕체</option>
                 <option value="Hankyoreh_Font" style="font-family: 'Hankyoreh_Font';">한겨레 결체</option>
             </select>
-            &nbsp;
             <select id="display_font" name="display_font" style="width:60px;">
                 <option value="12">12</option>
                 <option value="13">13</option>
@@ -489,7 +488,11 @@ legend {
                 <option value="18">18</option>
                 <option value="19">19</option>
                 <option value="20">20</option>
-
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
             </select>
             <script>
                 document.getElementById('font_select').addEventListener('change', function() {
@@ -499,15 +502,19 @@ legend {
                     updateLayerPosition();
                 });
                 document.getElementById('display_font').addEventListener('change', function() {
+                    resize_layer();
+                });
+                function resize_layer(){
                     var display_font_value = document.getElementById('display_font').value;
                     document.body.style.fontSize = display_font_value + 'px';
                     localStorage.setItem('display_font', display_font_value)
+                    char_layer_height = display_font_value*15;
+                    document.getElementById('user_txt').style.height = char_layer_height + 'px';
+                    document.getElementById('textarea_select_char').style.height = (char_layer_height+2) + 'px';
                     updateLayerPosition();
-                });
+                }
             </script>
-
-            <span class="setting_bold">Freq:</span>
-            <select id="freq" name="freq" style="width:80px;">
+            <span class="setting_bold">Freq:</span><select id="freq" name="freq" style="width:80px;">
                 <option value="100">100</option><option value="150">150</option><option value="200">200</option><option value="250">250</option><option value="300">300</option><option value="350">350</option><option value="400">400</option><option value="450">450</option>
                 <option value="500">500</option><option value="510">510</option><option value="520">520</option><option value="530">530</option><option value="540">540</option><option value="550">550</option><option value="560">560</option><option value="570">570</option><option value="580">580</option><option value="590">590</option><option value="600" selected>600</option>
                 <option value="610">610</option><option value="620">620</option><option value="630">630</option><option value="640">640</option><option value="650">650</option><option value="660">660</option><option value="670">670</option><option value="680">680</option><option value="690">690</option><option value="700">700</option>
@@ -518,8 +525,7 @@ legend {
             </select>
             Hz
             &nbsp;
-            <span class="setting_bold">Speed:</span>
-            <select id="speed" name="speed" style="width:60px;">
+            <span class="setting_bold">Speed:</span><select id="speed" name="speed" style="width:55px;">
                 <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
                 <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20" selected>20</option>
                 <option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option>
@@ -532,8 +538,7 @@ legend {
                 <option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option>
             </select>Wpm
             &nbsp;
-            <span class="setting_bold">🔈</span>
-            <select id="volume" name="volume" style="width:60px;">
+            <span class="setting_bold">Vol:</span><select id="volume" name="volume" style="width:55px;">
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
@@ -546,8 +551,7 @@ legend {
                 <option value="100">100</option>
             </select>%
             &nbsp;
-            <span class="setting_bold">Gap:</span>
-            <select id="selectkey" name="key" style="width:150px;">
+            <span class="setting_bold">Gap:</span><select id="selectkey" name="key" style="width:140px;">
                 <option id="selectkey1" value="computer" selected>None(1.0)</option>
                 <option value="hangul_smaller">Small(2.0)</option>
                 <option value="hangul_small">Smaller(1.5)</option>
@@ -559,16 +563,13 @@ legend {
                 <option value="straightvbad">Random Very Bad</option>
             </select>
             &nbsp;
-            <span class="setting_bold">Play:</span>
-            <input type="checkbox" id="selection_only" /><label for='selection_only'>Select Only</label>
+            <span class="setting_bold">Play:</span><input type="checkbox" id="selection_only" /><label for='selection_only'>Select Only</label>
             <input type="checkbox" id="repeat" /><label for='repeat'>🔁Repeat</label>
             &nbsp;
-            <span class="setting_bold">Highlight:</span>
-            <input type="checkbox" id="highlight_slowly" /><label for='highlight_slowly'>Slowly</label>
+            <span class="setting_bold">Highlight:</span><input type="checkbox" id="highlight_slowly" /><label for='highlight_slowly'>Slowly</label>
             <input type="checkbox" id="hide_text" /><label for="hide_text">Hide</label>
             &nbsp;
-            <span class="setting_bold">Effect:</span>
-            <input type="checkbox" id="flute"><label for="flute">Flute</label>
+            <span class="setting_bold">Effect:</span><input type="checkbox" id="flute"><label for="flute">Flute</label>
             <input type="checkbox" id="noise"><label for="noise">Noise</label>
             <input type="checkbox" id="fading"><label for="fading">Fading</label>&nbsp;
             <div id="keyer_setting">✅ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button> (IC-7300, 7610 USB Keying(CW)-DTR</div>
@@ -578,21 +579,7 @@ legend {
 <tr><td align="left">
     <div id="word">
         <fieldset id="option"><legend> 💦 Generate Setup 💦 </legend>
-            <span class="setting_bold">Repeat:</span>
-                <select id="repeat_count" name="repeat_count" style="width:40px;">
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>&nbsp;
-                <span class="setting_bold">Space:</span>
-                <select id="word_space" name="word_space" style="width:50px;">
+            <span class="setting_bold">Repeat:</span><select id="repeat_count" name="repeat_count" style="width:40px;">
                     <option value="1" selected>1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -605,8 +592,20 @@ legend {
                     <option value="10">10</option>
                 </select>
                 &nbsp;
-            <span class="setting_bold">Count:</span>
-            <select id="gen_number" style="width:60px;">
+                <span class="setting_bold">Space:</span><select id="word_space" name="word_space" style="width:50px;">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                &nbsp;
+            <span class="setting_bold">Count:</span><select id="gen_number" style="width:80px;">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -788,7 +787,7 @@ legend {
     <div class="class_view3">
         <fieldset id="user_text"><legend> 🎵 PLAY MONITER 🎵 </legend>
             <div id="play_moniter_top" style="width:100%;text-align:center;vertical-align:top;">
-                <a id="copy_text" onclick="copy_text();" title="Copy Contents To Clipboard ALT+C" accesskey="c" style="font-size:22px;cursor: pointer;">📋</a>
+                <a id="copy_text" onclick="copy_text();" title="Copy Contents To Clipboard ALT+C" accesskey="c" style="font-size:24px;cursor: pointer;">📋</a>
                 <a onclick="paste_text();" title="paste the contents of the clipboard" style="font-size:22px;cursor: pointer;">✔️</a>
                 <a id="copy_text" onclick="print_text();" title="Text to Print" style="font-size:22px;cursor: pointer;">🖨️</a>
                 <a id="save_as_file" title="Text Save as File ALT+V" accesskey="v" style="font-size:22px;cursor: pointer;">💾</a>
@@ -800,12 +799,15 @@ legend {
                 <input id="layer_display" type="checkbox" style="width:28px;height:28px;" title="Play on the Character displayed">
                 <button id='cwport_signal' style="border-radius:14px;width:28px;height:28px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
                 <div id="new_line" style="display: inline-block;"></div>
-                <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button> 
+                <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button>
                 <button id="textarea_select_percent" style="text-align:center;color:red;text-align:right;" title="Now Playing Percent">0</button>%
                 <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
-                <div id="timerDisplay_total" style="display: inline-block;" title="Total Record">00:00:00</span></div> / <div id="timerDisplay" style="display: inline-block;" title="Current Time">00:00:00</div>
-                <div class="progress-bar" style="margin: 3px 0px 3px 0px;"><div class="progress"></div></div>
-                <div id="char_layer" style="display:none;"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
+                    <span class="setting_bold">⏰
+                        <div id="timerDisplay_total" style="display: inline-block;" title="Total Record">00:00:00</span></div>
+                        <div id="timerDisplay" style="display: inline-block;" title="Current Time">00:00:00</div>
+                        <div class="progress-bar" style="margin: 3px 0px 3px 0px;"><div class="progress"></div></div>
+                        <div id="char_layer" style="display:none;"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
+                </span>
             </div>
             <script>
                 function check_str(str){
@@ -988,7 +990,7 @@ legend {
         <div align="left"><textarea id="user_txt"></textarea></div>
         <div class="log_container_ditdah"><span id="ditdah" align="center" title="Click to see the text you are playing in a Larger View 🎵"> </span></div>
         <div style="text-align:center;vertical-align:top;">
-            <div id="user_txt_caption" style="display:block;"></div>
+            <div id="user_txt_caption" style="display:block;font-size:14px;"></div>
             <label for="sos_check"><font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font></label>
             <input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
             <button id="play_sub" onclick="play.click();" style="width:95px;height:33px;margin: 0px 5px 0px 5px;color:blue;">PLAY</button>
@@ -1009,7 +1011,7 @@ legend {
 </div>
 </td></tr>
 <tr><td align="center">
-    <div id="original_author">Original Author: DS1TZE(<a href="https://shingiru.github.io/hangul_cw_trainer.html" target="_blank" title="Hangul CW Trainer by DS1TZE">https://shingiru.github.io</a>)</div>
+    <div id="original_author" style="font-size:14px;">Original Author: DS1TZE(<a href="https://shingiru.github.io/hangul_cw_trainer.html" target="_blank" title="Hangul CW Trainer by DS1TZE">https://shingiru.github.io</a>)</div>
 </td></tr>
 </table>
 <script>Mp3LameEncoderConfig = { memoryInitializerPrefixURL: "" };</script>
@@ -1678,7 +1680,7 @@ play.onclick = function() {
         noiseGain.gain.value = vol * 0.5;
         noiseGain.connect(ac.destination);
     }
-    
+
     clearMarker();
     // cm.focus();
     if (cursorFrom != null && !stopped) {
@@ -2578,6 +2580,7 @@ window.addEventListener('DOMContentLoaded', function() {
             document.body.style.fontSize = window.localStorage.getItem('display_font') + 'px';
         }
         changeQsoSample(localStorage.getItem('user_txt'));
+        resize_layer();
     } catch (e) {
     }
 }, true);
@@ -3170,17 +3173,21 @@ function personal_computer_setup(){
         if(window.localStorage.getItem('display_font')){
             document.getElementById('display_font').value = window.localStorage.getItem('display_font'); 
         }else{
-            document.getElementById('display_font').value = '18';
-            window.localStorage.setItem('display_font', '18')
+            document.getElementById('display_font').value = '17';
+            window.localStorage.setItem('display_font', '17')
         }
-    }
+        document.getElementById('make_mp3').innerHTML = '💾 MP3';
+        document.getElementById('make_tze').innerHTML = '💾 1TZE';
+        document.getElementById('reset').innerHTML = '🔄 RESET';
 
-    if(localStorage.getItem('textarea_fontsize')){
+        if(localStorage.getItem('textarea_fontsize')){
         document.getElementById('user_txt').style.fontSize = localStorage.getItem('textarea_fontsize');
         document.getElementById('font_text').innerHTML = localStorage.getItem('textarea_fontsize');
     } else{
         document.getElementById('user_txt').style.fontSize = '20px';
         document.getElementById('font_text').innerHTML = '20px';
+    }
+
     }
 }
 
