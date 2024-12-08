@@ -507,7 +507,7 @@ legend {
             </script>
 
             <span class="setting_bold">Freq:</span>
-            <select id="freq" name="freq" style="width:70px;">
+            <select id="freq" name="freq" style="width:80px;">
                 <option value="100">100</option><option value="150">150</option><option value="200">200</option><option value="250">250</option><option value="300">300</option><option value="350">350</option><option value="400">400</option><option value="450">450</option>
                 <option value="500">500</option><option value="510">510</option><option value="520">520</option><option value="530">530</option><option value="540">540</option><option value="550">550</option><option value="560">560</option><option value="570">570</option><option value="580">580</option><option value="590">590</option><option value="600" selected>600</option>
                 <option value="610">610</option><option value="620">620</option><option value="630">630</option><option value="640">640</option><option value="650">650</option><option value="660">660</option><option value="670">670</option><option value="680">680</option><option value="690">690</option><option value="700">700</option>
@@ -547,7 +547,7 @@ legend {
             </select>%
             &nbsp;
             <span class="setting_bold">Gap:</span>
-            <select id="selectkey" name="key" style="width:120px;">
+            <select id="selectkey" name="key" style="width:150px;">
                 <option id="selectkey1" value="computer" selected>None(1.0)</option>
                 <option value="hangul_smaller">Small(2.0)</option>
                 <option value="hangul_small">Smaller(1.5)</option>
@@ -592,7 +592,7 @@ legend {
                     <option value="10">10</option>
                 </select>&nbsp;
                 <span class="setting_bold">Space:</span>
-                <select id="word_space" name="word_space" style="width:40px;">
+                <select id="word_space" name="word_space" style="width:50px;">
                     <option value="1" selected>1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -796,16 +796,14 @@ legend {
                 <button id="font_text" onclick="resetFontSize()" title="Click to Font Size Reset">20px</button>
                 <button onclick="increaseFontSize()" title="Font Size Up ALT+Q" accesskey="q">➕</button>
                 <button onclick="decreaseFontSize()" title="Font Size Down ALT+W" accesskey="w">➖</button>
-                <button id="textarea_play_char" style="font-size: 1.5em;width:50px;color:red;text-align:center;vertical-align:middle;" title="Now Playing Character, Click to Larger View ALT+B" accesskey="b"></button>
+                <button id="textarea_play_char" style="font-size: 1.3em;width:40px;color:red;text-align:center;vertical-align:middle;" title="Now Playing Character, Click to Larger View ALT+B" accesskey="b"></button>
                 <input id="layer_display" type="checkbox" style="width:28px;height:28px;" title="Play on the Character displayed">
                 <button id='cwport_signal' style="border-radius:14px;width:28px;height:28px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
                 <div id="new_line" style="display: inline-block;"></div>
                 <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button> 
                 <button id="textarea_select_percent" style="text-align:center;color:red;text-align:right;" title="Now Playing Percent">0</button>%
                 <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
-                <span class="setting_bold">Sum: <div id="timerDisplay_total" style="display: inline-block;" title="Total Record">00:00:00</span></div></span>
-                &nbsp;
-                <span class="setting_bold">Now: <div id="timerDisplay" style="display: inline-block;" title="Current Time">00:00:00</div></span>
+                <div id="timerDisplay_total" style="display: inline-block;" title="Total Record">00:00:00</span></div> / <div id="timerDisplay" style="display: inline-block;" title="Current Time">00:00:00</div>
                 <div class="progress-bar" style="margin: 3px 0px 3px 0px;"><div class="progress"></div></div>
                 <div id="char_layer" style="display:none;"><button id="textarea_select_char" style="margin: 0px 0px 0px 0px;" title="Now Playing Char"></button></div>
             </div>
@@ -2677,7 +2675,7 @@ function generateITUCallsigns(count, repeatCount) {
         }
         callsign = prefix1 + randoNnum + randomChars;
         callsign = callsign.replace('0','Ø');
-        callsigns.push(Array(repeatCount).fill(callsign).join(" "));
+        callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
     return callsigns;
@@ -2695,7 +2693,7 @@ function generateJACallsigns(count, repeatCount) {
         var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
         var callsign = prefix + generateSuffix(3);
         callsign = callsign.replace('0','Ø');
-        callsigns.push(Array(repeatCount).fill(callsign).join(" "));
+        callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
     return callsigns;
@@ -2712,7 +2710,7 @@ function generateBABVCallsigns(count, repeatCount) {
         var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
         var callsign = prefix + generateSuffix(3);
         callsign = callsign.replace('0','Ø');
-        callsigns.push(Array(repeatCount).fill(callsign).join(" "));
+        callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
     return callsigns;
@@ -3277,10 +3275,12 @@ function timer_stop(){
     clearInterval(timer);
     running = false;
 }
+
 function timer_start(){
     timer = setInterval(updateTimer, 1000);
     running = true;
 }
+
 function timer_reset(){
     timer_stop();
     secondsElapsed = 0;
@@ -3300,4 +3300,4 @@ observer.observe(targetElement, config);
 document.getElementById('filesave_view_toggle').style.display = 'none';
 </script>
 </BODY>
-</HTML>  
+</HTML>
