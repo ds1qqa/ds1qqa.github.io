@@ -370,8 +370,8 @@ legend {
             <legend> 🐣 Main Menu 🐣 </legend>
             <button id="play" class="main_button" title="PLAY, PAUSE ALT+P" style="width:95px;" accesskey="p">▶ PLAY</button>
             <button id="stop" class="main_button" title="STOP ALT+S" accesskey="s">⏹️ STOP</button>
-            <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾 MP3</button>
-            <!-- <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾TZE</button> -->
+            <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾MP3</button>
+            <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">TZE</button>
             <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">🔄</button>
             <button id="qrcode" onclick="qrcode_toggle();" class="main_button" title="Qrcode Link View">🧭</button>
             <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="k">
@@ -1513,7 +1513,7 @@ var volume = document.querySelector("#volume");
 var play = document.querySelector("#play");
 var stop = document.querySelector("#stop");
 var make_mp3 = document.querySelector("#make_mp3");
-// var makeTze = document.querySelector("#make_tze");
+var makeTze = document.querySelector("#make_tze");
 var keyComputer = document.getElementById('selectkey');
 var keyHangulSmaller = document.getElementById('selectkey');
 var keyHangulSmall = document.getElementById('selectkey');
@@ -1917,44 +1917,44 @@ function saveRecording(blob, duration) {
 	mp3.replaceChild(div, mp3.firstChild);
 }
 
-// makeTze.onclick = function() {
-//     if(!confirm('Save as 1TZE file?')==true) return false;
-// 	stop.click();
-// 	morse.playString(true, DELAY_AMOUNT, doc.getValue(), 1.0, document.getElementById('selectkey').value, false);
-// 	queue.push([queue[queue.length - 1][0] + 1, 0]);
-// 	saveTzeFile();
-//     document.getElementById('filesave_view_toggle').style.display = 'inline-block';
-// }
+makeTze.onclick = function() {
+    if(!confirm('Save as 1TZE file?')==true) return false;
+	stop.click();
+	morse.playString(true, DELAY_AMOUNT, doc.getValue(), 1.0, document.getElementById('selectkey').value, false);
+	queue.push([queue[queue.length - 1][0] + 1, 0]);
+	saveTzeFile();
+    document.getElementById('filesave_view_toggle').style.display = 'inline-block';
+}
 
-// function saveTzeFile() {
-//     var str =  doc.getValue();
-//     if(!str){
-//         alert("There is nothing to convert.");
-//         return  false;
-//     }
-// 	var data = packTzeFile();
-// 	var blob = new Blob([JSON.stringify(data)], {type:"application/json"});
-// 	var url = URL.createObjectURL(blob);
+function saveTzeFile() {
+    var str =  doc.getValue();
+    if(!str){
+        alert("There is nothing to convert.");
+        return  false;
+    }
+	var data = packTzeFile();
+	var blob = new Blob([JSON.stringify(data)], {type:"application/json"});
+	var url = URL.createObjectURL(blob);
 	
-// 	var link = document.createElement("A");
-// 	link.href = url;
-// 	link.appendChild(document.createTextNode(" 💾 1TZE "));
-// 	var filename = (new Date()).toISOString().replace(/[\-\:T]/ig, '').substring(0, 14);
-// 	link.download = filename + ".tze";
+	var link = document.createElement("A");
+	link.href = url;
+	link.appendChild(document.createTextNode(" 💾 1TZE "));
+	var filename = (new Date()).toISOString().replace(/[\-\:T]/ig, '').substring(0, 14);
+	link.download = filename + ".tze";
 	
-// 	var anchor = document.querySelector("#tze");
-//     link.id = anchor.id;
-//     anchor.parentNode.replaceChild(link, anchor);
-// }
-// function packTzeFile() {
-// 	return {
-// 		version: 1,
-// 		creatdAt: (new Date()).toISOString(),
-// 		wpm: parseInt(wpm.value),
-// 		hangul: hasHangul,
-// 		queue: queue.map(x => [x[0].toFixed(3),parseInt(x[1])])
-// 	};
-// }
+	var anchor = document.querySelector("#tze");
+    link.id = anchor.id;
+    anchor.parentNode.replaceChild(link, anchor);
+}
+function packTzeFile() {
+	return {
+		version: 1,
+		creatdAt: (new Date()).toISOString(),
+		wpm: parseInt(wpm.value),
+		hangul: hasHangul,
+		queue: queue.map(x => [x[0].toFixed(3),parseInt(x[1])])
+	};
+}
 
 var ditdah = document.querySelector("#ditdah");
 var last = false, lastWidth = 0;
@@ -3154,10 +3154,10 @@ function personal_computer_setup(){
         });
         const allelements2 = document.querySelectorAll('.main_button');
         allelements2.forEach(element => {
-            element.style.width = '130px';
+            element.style.width = '125px';
             element.style.height = '40px';
             element.style.fontSize = '20px';
-            element.style.margin = '0px 10px 0px 10px';
+            element.style.margin = '0px 5px 0px 5px';
         });
         document.getElementById('font_select').style.width = '200px';
         document.querySelector('.CodeMirror').style.width = width + 'px';
@@ -3180,7 +3180,7 @@ function personal_computer_setup(){
         document.getElementById('play').style.width = '140px';
         document.getElementById('stop').innerHTML = '⏹️ STOP';
         document.getElementById('make_mp3').innerHTML = '💾 MP3';
-        // document.getElementById('make_tze').innerHTML = '💾 1TZE';
+        document.getElementById('make_tze').innerHTML = '💾 1TZE';
         document.getElementById('reset').innerHTML = '🔄 RESET';
         document.getElementById('qrcode').innerHTML = '🧭 LINK';
 
