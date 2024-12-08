@@ -368,15 +368,15 @@ legend {
         <div id="main_button">
             <fieldset id="main_control" style="text-align:center;">
             <legend> 🐣 Main Menu 🐣 </legend>
-            <button id="play" class="main_button" title="PLAY, PAUSE ALT+P" accesskey="p">▶ PLAY</button>
+            <button id="play" class="main_button" title="PLAY, PAUSE ALT+P" style="width:95px;" accesskey="p">▶ PLAY</button>
             <button id="stop" class="main_button" title="STOP ALT+S" accesskey="s">⏹️ STOP</button>
             <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾 MP3</button>
-            <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾 TZE</button>
+            <!-- <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾TZE</button> -->
             <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">🔄</button>
             <button id="qrcode" onclick="qrcode_toggle();" class="main_button" title="Qrcode Link View">🧭</button>
-            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 1px;" accesskey="k">
-            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" style="width:24px;height:24px;margin: 0px 0px 0px 1px;" accesskey="l">
-            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" style="width:24px;height:24px;margin: 0px 0px 0px 1px;" accesskey=";">
+            <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="k">
+            <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="l">
+            <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey=";">
             <input type="checkbox" id="filesave_view_toggle" title="FILE SAVE VIEW TOGGLE" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
             <script>
                 function qrcode_toggle(){
@@ -993,7 +993,7 @@ legend {
             <div id="user_txt_caption" style="display:block;font-size:15px;"></div>
             <label for="sos_check"><font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font></label>
             <input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
-            <button id="play_sub" onclick="play.click();" style="font-size:14px;">▶ PLAY</button>
+            <button id="play_sub" onclick="play.click();" style="font-size:14px;width:95px;">▶ PLAY</button>
             <button id="stop_sub" onclick="stop.click();" style="font-size:14px;">⏹️ STOP</button>
             <select id="morsecode_download" style="font-size:20px;width:180px;color:black;border-color:white;background-color: white;margin: 0px 2px 0px 2px;" onchange="download_document();">
                 <option value="" title="Morse Code Chart Download" style="text-align:center;">💾 Morse Chart</option>
@@ -1513,7 +1513,7 @@ var volume = document.querySelector("#volume");
 var play = document.querySelector("#play");
 var stop = document.querySelector("#stop");
 var make_mp3 = document.querySelector("#make_mp3");
-var makeTze = document.querySelector("#make_tze");
+// var makeTze = document.querySelector("#make_tze");
 var keyComputer = document.getElementById('selectkey');
 var keyHangulSmaller = document.getElementById('selectkey');
 var keyHangulSmall = document.getElementById('selectkey');
@@ -1917,44 +1917,44 @@ function saveRecording(blob, duration) {
 	mp3.replaceChild(div, mp3.firstChild);
 }
 
-makeTze.onclick = function() {
-    if(!confirm('Save as 1TZE file?')==true) return false;
-	stop.click();
-	morse.playString(true, DELAY_AMOUNT, doc.getValue(), 1.0, document.getElementById('selectkey').value, false);
-	queue.push([queue[queue.length - 1][0] + 1, 0]);
-	saveTzeFile();
-    document.getElementById('filesave_view_toggle').style.display = 'inline-block';
-}
+// makeTze.onclick = function() {
+//     if(!confirm('Save as 1TZE file?')==true) return false;
+// 	stop.click();
+// 	morse.playString(true, DELAY_AMOUNT, doc.getValue(), 1.0, document.getElementById('selectkey').value, false);
+// 	queue.push([queue[queue.length - 1][0] + 1, 0]);
+// 	saveTzeFile();
+//     document.getElementById('filesave_view_toggle').style.display = 'inline-block';
+// }
 
-function saveTzeFile() {
-    var str =  doc.getValue();
-    if(!str){
-        alert("There is nothing to convert.");
-        return  false;
-    }
-	var data = packTzeFile();
-	var blob = new Blob([JSON.stringify(data)], {type:"application/json"});
-	var url = URL.createObjectURL(blob);
+// function saveTzeFile() {
+//     var str =  doc.getValue();
+//     if(!str){
+//         alert("There is nothing to convert.");
+//         return  false;
+//     }
+// 	var data = packTzeFile();
+// 	var blob = new Blob([JSON.stringify(data)], {type:"application/json"});
+// 	var url = URL.createObjectURL(blob);
 	
-	var link = document.createElement("A");
-	link.href = url;
-	link.appendChild(document.createTextNode(" 💾 1TZE "));
-	var filename = (new Date()).toISOString().replace(/[\-\:T]/ig, '').substring(0, 14);
-	link.download = filename + ".tze";
+// 	var link = document.createElement("A");
+// 	link.href = url;
+// 	link.appendChild(document.createTextNode(" 💾 1TZE "));
+// 	var filename = (new Date()).toISOString().replace(/[\-\:T]/ig, '').substring(0, 14);
+// 	link.download = filename + ".tze";
 	
-	var anchor = document.querySelector("#tze");
-    link.id = anchor.id;
-    anchor.parentNode.replaceChild(link, anchor);
-}
-function packTzeFile() {
-	return {
-		version: 1,
-		creatdAt: (new Date()).toISOString(),
-		wpm: parseInt(wpm.value),
-		hangul: hasHangul,
-		queue: queue.map(x => [x[0].toFixed(3),parseInt(x[1])])
-	};
-}
+// 	var anchor = document.querySelector("#tze");
+//     link.id = anchor.id;
+//     anchor.parentNode.replaceChild(link, anchor);
+// }
+// function packTzeFile() {
+// 	return {
+// 		version: 1,
+// 		creatdAt: (new Date()).toISOString(),
+// 		wpm: parseInt(wpm.value),
+// 		hangul: hasHangul,
+// 		queue: queue.map(x => [x[0].toFixed(3),parseInt(x[1])])
+// 	};
+// }
 
 var ditdah = document.querySelector("#ditdah");
 var last = false, lastWidth = 0;
