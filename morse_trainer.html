@@ -116,11 +116,10 @@
 }
 @media (max-width: 768px) {
     table th, table td {
-      /* font-size: 14px; */
-      padding: 0px;
-      resize: none;
+        padding: 0px;
+        resize: none;
     }
- }
+}
 body {
     width: 500px;
     margin: 0px 0px 0px 0px;
@@ -170,13 +169,11 @@ table{
     resize: none;
 }
 input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     text-align: center;
     vertical-align: middle;
     margin: 0px 2px 0px 2px;
-    font-family: inherit;
-    font-size: inherit;
 }
 input{
     color: red;
@@ -216,7 +213,12 @@ button {
     font-weight: bold;
     margin: 0px 0px 0px 0px;
     font-family: inherit;
-    font-size: inherit;
+    font-size: 15px;
+}
+.view_checkbox {
+    width: 30px;
+    height: 30px;
+    margin: 0px 0px 0px 2px;
 }
 textarea {
     width : 494px;
@@ -237,12 +239,10 @@ textarea {
 #play {
     color: blue;
     font-family: inherit;
-    font-size: inherit;
 }
 #stop {
     color: red;
     font-family: inherit;
-    font-size: inherit;
 }
 #freq { 
     width: 18px;
@@ -368,16 +368,16 @@ legend {
         <div id="main_button">
             <fieldset id="main_control" style="text-align:center;">
             <legend> 🐣 Main Menu 🐣 </legend>
-            <button id="play" class="main_button" style="width:90px;" title="PLAY, PAUSE ALT+P" accesskey="p">PLAY</button>
-            <button id="stop" class="main_button" title="STOP ALT+S" accesskey="s">STOP</button>
+            <button id="play" class="main_button" title="PLAY, PAUSE ALT+P" accesskey="p">▶ PLAY</button>
+            <button id="stop" class="main_button" title="STOP ALT+S" accesskey="s">⏹️ STOP</button>
             <button id="make_mp3" class="main_button" title="CREATE MP3 FILE ALT+M" accesskey="m">💾 MP3</button>
             <button id="make_tze" class="main_button" title="MAKE 1TZE FILE ALT+T" accesskey="t">💾 TZE</button>
             <button id="reset" class="main_button" title="OPTION RESET ALT+R" accesskey="r">🔄</button>
+            <button id="qrcode" onclick="qrcode_toggle();" class="main_button" title="Qrcode Link View">🧭</button>
             <input type="checkbox" id="view1" title="OPTION VIEW TOGGLE ALT+K" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="k">
             <input type="checkbox" id="view2" title="BUTTON VIEW TOGGLE ALT+L" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey="l">
             <input type="checkbox" id="view3" title="BUTTON VIEW TOGGLE ALT+;" style="width:24px;height:24px;margin: 0px 0px 0px 2px;" accesskey=";">
             <input type="checkbox" id="filesave_view_toggle" title="FILE SAVE VIEW TOGGLE" style="width:24px;height:24px;margin: 0px 0px 0px 2px;">
-            <button onclick="qrcode_toggle();" title="Qrcode Link View">Q</button>
             <script>
                 function qrcode_toggle(){
                     const qrcode = document.getElementById('qrcodeImage');
@@ -572,7 +572,7 @@ legend {
             <span class="setting_bold">Effect:</span><input type="checkbox" id="flute"><label for="flute">Flute</label>
             <input type="checkbox" id="noise"><label for="noise">Noise</label>
             <input type="checkbox" id="fading"><label for="fading">Fading</label>&nbsp;
-            <div id="keyer_setting">✅ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button> (IC-7300, 7610 USB Keying(CW)-DTR</div>
+            <div id="keyer_setting">⚙✅ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button> (IC-7300, 7610 USB Keying(CW)-DTR</div>
         </fieldset>
     </div>
 </td></tr>
@@ -990,12 +990,12 @@ legend {
         <div align="left"><textarea id="user_txt"></textarea></div>
         <div class="log_container_ditdah"><span id="ditdah" align="center" title="Click to see the text you are playing in a Larger View 🎵"> </span></div>
         <div style="text-align:center;vertical-align:top;">
-            <div id="user_txt_caption" style="display:block;font-size:14px;"></div>
+            <div id="user_txt_caption" style="display:block;font-size:15px;"></div>
             <label for="sos_check"><font size="5" title="SOS SEND" style="vertical-align:middle;">🚨</font></label>
             <input type="checkbox" id="sos_check" style="width:22px;height:22px;" onchange="sos_start();" title="SOS START">
-            <button id="play_sub" onclick="play.click();" style="width:95px;height:33px;margin: 0px 5px 0px 5px;color:blue;">PLAY</button>
-            <button id="stop_sub" onclick="stop.click();" style="width:80px;height:33px;margin: 0px 5px 0px 5px;color:red;">STOP</button>
-            <select id="morsecode_download" style="width:155px;color:black;border-color:white;background-color: white;margin: 0px 2px 0px 2px;" onchange="download_document();">
+            <button id="play_sub" onclick="play.click();" style="font-size:17px;">▶ PLAY</button>
+            <button id="stop_sub" onclick="stop.click();" style="font-size:17px;">⏹️ STOP</button>
+            <select id="morsecode_download" style="font-size:20px;width:160px;color:black;border-color:white;background-color: white;margin: 0px 2px 0px 2px;" onchange="download_document();">
                 <option value="" title="Morse Code Chart Download" style="text-align:center;">💾 Morse Chart</option>
                 <option value="MORSE_CODE.png" title="Morse Code Chart Download">Morse Code Chart PNG 그림파일</option>
                 <option value="MORSE_CODE.pdf" title="Morse Code Chart Download pdf">Morse Code Chart PDF 문서</option>
@@ -1624,8 +1624,8 @@ stop.onclick = function() {
     }
     stopped = true;
 
-    play.replaceChild(document.createTextNode("PLAY"), play.firstChild);
-    document.getElementById('play_sub').innerHTML = 'PLAY';
+    play.replaceChild(document.createTextNode("▶ PLAY"), play.firstChild);
+    document.getElementById('play_sub').innerHTML = '▶ PLAY';
     paused = false;
     timer_reset();
 }
@@ -1642,22 +1642,22 @@ play.onclick = function() {
     }
     if (paused) {
         timer_start();
-        play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
-        document.getElementById('play_sub').innerHTML = 'PAUSE';
+        play.replaceChild(document.createTextNode("⏯️ PAUSE"), play.firstChild);
+        document.getElementById('play_sub').innerHTML = '⏸️ PAUSE';
         paused = false;
         ac.resume();
         return;
     } else if (stopped == false && repeatId == -1) {
         timer_stop();
-        play.replaceChild(document.createTextNode("RESUME"), play.firstChild);
-        document.getElementById('play_sub').innerHTML = 'RESUME';
+        play.replaceChild(document.createTextNode("⏯️ RESUME"), play.firstChild);
+        document.getElementById('play_sub').innerHTML = '⏯️ RESUME';
         paused = true;
         ac.suspend();
         return;
     } else {
         timer_start();
-        play.replaceChild(document.createTextNode("PAUSE"), play.firstChild);
-        document.getElementById('play_sub').innerHTML = 'PAUSE';
+        play.replaceChild(document.createTextNode("⏸️ PAUSE"), play.firstChild);
+        document.getElementById('play_sub').innerHTML = '⏸️ PAUSE';
         paused = false;
     }
     document.getElementById('timerDisplay').innerHTML = '00:00:00';
@@ -3176,9 +3176,12 @@ function personal_computer_setup(){
             document.getElementById('display_font').value = '17';
             window.localStorage.setItem('display_font', '17')
         }
+        document.getElementById('play').innerHTML = '▶ PLAY';
+        document.getElementById('stop').innerHTML = '⏹️ STOP';
         document.getElementById('make_mp3').innerHTML = '💾 MP3';
         document.getElementById('make_tze').innerHTML = '💾 1TZE';
         document.getElementById('reset').innerHTML = '🔄 RESET';
+        document.getElementById('qrcode').innerHTML = '🧭 LINK';
 
         if(localStorage.getItem('textarea_fontsize')){
         document.getElementById('user_txt').style.fontSize = localStorage.getItem('textarea_fontsize');
