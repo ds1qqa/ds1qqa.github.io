@@ -1642,7 +1642,7 @@ play.onclick = function() {
     }
     if (paused) {
         timer_start();
-        play.replaceChild(document.createTextNode("⏯️ PAUSE"), play.firstChild);
+        play.replaceChild(document.createTextNode("⏸️ PAUSE"), play.firstChild);
         document.getElementById('play_sub').innerHTML = '⏸️ PAUSE';
         paused = false;
         ac.resume();
