@@ -2592,6 +2592,10 @@ window.addEventListener('DOMContentLoaded', function() {
         if (window.localStorage.getItem('hide_text')) hideText.checked = window.localStorage.getItem('hide_text') == 'true';
         if (window.localStorage.getItem('repeat')) repeat.checked = window.localStorage.getItem('repeat') == 'true';
         if (window.localStorage.getItem('key')) document.getElementById('selectkey').selected = true;
+        if (window.localStorage.getItem('textarea_fontsize')){
+            document.getElementById('user_txt').style.fontSize = window.localStorage.getItem('textarea_fontsize');
+            document.getElementById('font_text').innerHTML = window.localStorage.getItem('textarea_fontsize');
+        } 
         if (window.localStorage.getItem('font_name')){
             document.getElementById('font_select').value = window.localStorage.getItem('font_name');
             document.body.style.fontFamily = window.localStorage.getItem('font_name');
