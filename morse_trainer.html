@@ -790,7 +790,7 @@ legend {
 </td></tr>
 <tr><td width="500" align="left">
     <div class="class_view3">
-        <fieldset id="user_text"><legend> 🎵 PLAY MONITER 🎵 </legend>
+        <fieldset id="user_text"><legend> 🎵 Play Moniter 🎵 </legend>
             <div id="play_moniter_top" style="width:100%;text-align:center;vertical-align:top;">
                 <a id="copy_text" onclick="copy_text();" title="Copy Contents To Clipboard ALT+C" accesskey="c" style="font-size:24px;cursor: pointer;">📋</a>
                 <a onclick="paste_text();" title="paste the contents of the clipboard" style="font-size:22px;cursor: pointer;">✔️</a>
@@ -817,7 +817,6 @@ legend {
             <script>
                 function check_str(str){
                     let result = str.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r\x20]/g, ' ');
-                    result = zero_replace(result);
                     result = result.toUpperCase();
                     return result;
                 }
@@ -2655,7 +2654,8 @@ function changeQsoSample(data) {
     cm = user_txt.CodeMirror;
     doc = cm.doc;
     cm.refresh();
-    doc.setValue(data);
+    const result = zero_replace(data);
+    doc.setValue(result);
     window.localStorage.setItem('user_txt', doc.getValue());
     clearDitdah();
     setProgressBar(0)
@@ -2683,7 +2683,6 @@ function generateHLCallsigns(count, repeatCount) {
         var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
         var suffixLength = (prefix.startsWith("HL") ? (Math.random() > 0.2 ? 3 : 2) : 3);
         var callsign = prefix + generateSuffix(suffixLength);
-        callsign = zero_replace(callsign);
         callsigns.push(Array(repeatCount).fill(callsign));
     }
     return callsigns;
@@ -2700,7 +2699,6 @@ function generateITUCallsigns(count, repeatCount) {
             randomChars += String.fromCharCode(Math.floor(Math.random() * 26) + 65);
         }
         callsign = prefix1 + randoNnum + randomChars;
-        callsign = zero_replace(callsign);
         callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
@@ -2718,7 +2716,6 @@ function generateJACallsigns(count, repeatCount) {
     for (var i = 0; i < count; i++) {
         var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
         var callsign = prefix + generateSuffix(3);
-        callsign = zero_replace(callsign);
         callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
@@ -2735,7 +2732,6 @@ function generateBABVCallsigns(count, repeatCount) {
     for (var i = 0; i < count; i++) {
         var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
         var callsign = prefix + generateSuffix(3);
-        callsign = zero_replace(callsign);
         callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
