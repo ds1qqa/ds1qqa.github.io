@@ -508,7 +508,7 @@ legend {
                     var display_font_value = document.getElementById('display_font').value;
                     document.body.style.fontSize = display_font_value + 'px';
                     localStorage.setItem('display_font', display_font_value)
-                    char_layer_height = 250 + display_font_value*4;
+                    char_layer_height = 230 + display_font_value*4;
                     document.getElementById('user_txt').style.height = char_layer_height + 'px';
                     document.getElementById('textarea_select_char').style.height = (char_layer_height+2) + 'px';
                     updateLayerPosition();
@@ -742,7 +742,7 @@ legend {
             <input type=text id="add_vvv_text" style="width: 150px;text-align:center;" size="10" max=100 value="VVV VVV <BT>" title="Type characters to add to the beginning">
             <input type="checkbox" id="add_ar" title="To add a text at the end"><label for="add_ar">End</label>
             <input type=text id="add_ar_text" style="width: 150px;text-align:center;" size="10" max=100 value="<AR>" title="Type a character to add to the end">
-            <span class="setting_bold"><a onclick="check_zero();">Replace(Ø)</a></span><input id="zero_change" type="checkbox" style="width:24px;height:24px;" title="Replace zero(0) with Ø">
+            <span class="setting_bold"><a onclick="check_zero();">Replace(Ø)</a></span><input id="zero_change" type="checkbox" checked style="width:24px;height:24px;" title="Replace zero(0) with Ø">
             <script>
                 function add_str(){
                     const add_string = document.getElementById('add_vvv_text').value + ' ' + doc.getValue() + ' ' + document.getElementById('add_ar_text').value;
