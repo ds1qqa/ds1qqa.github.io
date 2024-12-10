@@ -508,7 +508,7 @@ legend {
                     var display_font_value = document.getElementById('display_font').value;
                     document.body.style.fontSize = display_font_value + 'px';
                     localStorage.setItem('display_font', display_font_value)
-                    char_layer_height = display_font_value*15;
+                    char_layer_height = 280 + display_font_value*4;
                     document.getElementById('user_txt').style.height = char_layer_height + 'px';
                     document.getElementById('textarea_select_char').style.height = (char_layer_height+2) + 'px';
                     updateLayerPosition();
@@ -742,6 +742,7 @@ legend {
             <input type=text id="add_vvv_text" style="width: 150px;text-align:center;" size="10" max=100 value="VVV VVV <BT>" title="Type characters to add to the beginning">
             <input type="checkbox" id="add_ar" title="To add a text at the end"><label for="add_ar">End</label>
             <input type=text id="add_ar_text" style="width: 150px;text-align:center;" size="10" max=100 value="<AR>" title="Type a character to add to the end">
+            <span class="setting_bold"><a onclick="check_zero();">Replace(Ø)</a></span><input id="zero_change" type="checkbox" style="width:24px;height:24px;" title="Replace zero(0) with Ø">
             <script>
                 function add_str(){
                     const add_string = document.getElementById('add_vvv_text').value + ' ' + doc.getValue() + ' ' + document.getElementById('add_ar_text').value;
@@ -812,7 +813,7 @@ legend {
             <script>
                 function check_str(str){
                     let result = str.replace(/[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣぁ-ゔァ-ヴ!@$&*()-+=,.;:'"?Ø\n\r\x20]/g, ' ');
-                    result = result.replace(/0/g, 'Ø');
+                    result = zero_replace(result);
                     result = result.toUpperCase();
                     return result;
                 }
@@ -1528,6 +1529,7 @@ var repeat = document.querySelector("#repeat");
 var connect = document.querySelector("#connect");
 var disconnect = document.querySelector("#disconnect");
 var layer_display = document.querySelector("#layer_display");
+var zero_change = document.querySelector("#zero_change");
 var add_vvv = document.querySelector("#add_vvv");
 var add_ar = document.querySelector("#add_ar");
 var add_vvv_text = document.querySelector("#add_vvv_text");
@@ -1536,6 +1538,23 @@ var add_ar_text = document.querySelector("#add_ar_text");
 var gen_hangul_option = document.querySelector("#gen_hangul_option");
 var gen_random_option = document.querySelector("#gen_random_option");
 var gen_syllables_option = document.querySelector("#gen_syllables_option");
+
+function zero_replace(string) {
+    if (!zero_change || typeof string !== 'string') {
+        return string;
+    }
+    if (zero_change.checked) {
+        var replace_string = string.replace(/0/g, 'Ø');
+        return replace_string;
+    } else {
+        var replace_string = string.replace(/Ø/g, '0');
+        return replace_string;
+    }
+}
+
+function check_zero(){
+    changeQsoSample(zero_replace(doc.getValue()));
+}
 
 connect.addEventListener("click", async () => {
 	if (isAndroid || isIOS) {
@@ -2213,8 +2232,7 @@ gen_random_option.addEventListener('change', function() {
         resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
         add_string(resultArray_repeat);
         var data = resultArray_repeat.join(add_spacer());
-        let newStr = data.replace(/0/g, "Ø");
-        changeQsoSample(newStr);
+        changeQsoSample(data);
     }else if(selectedValue=="random_alphabat"){
         const resultArray = random_alphabat();
         resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
@@ -2235,8 +2253,7 @@ gen_random_option.addEventListener('change', function() {
         resultArray_repeat = result.flatMap(element => Array(getRepeatCount()).fill(element));
         add_string(resultArray_repeat)
         data = resultArray_repeat.join(add_spacer());
-        let newStr = data.replace(/0/g, "Ø");
-        changeQsoSample(newStr);
+        changeQsoSample(data);
     }else if(selectedValue=="random_alphabat_specialchar"){
         var callsigns = random_alphabat();
         callsigns = callsigns.concat(random_specialchar());
@@ -2245,8 +2262,7 @@ gen_random_option.addEventListener('change', function() {
         resultArray_repeat = result.flatMap(element => Array(getRepeatCount()).fill(element));
         add_string(resultArray_repeat)
         data = resultArray_repeat.join(add_spacer());
-        let newStr = data.replace(/0/g, "Ø");
-        changeQsoSample(newStr);
+        changeQsoSample(data);
     }else if(selectedValue=="random_number_alphabat_specialchar"){
         var callsigns = random_number();
         callsigns = callsigns.concat(random_alphabat());
@@ -2256,8 +2272,7 @@ gen_random_option.addEventListener('change', function() {
         resultArray_repeat = result.flatMap(element => Array(getRepeatCount()).fill(element));
         add_string(resultArray_repeat)
         data = resultArray_repeat.join(add_spacer());
-        let newStr = data.replace(/0/g, "Ø");
-        changeQsoSample(newStr);
+        changeQsoSample(data);
     }else if(selectedValue=="random_moum"){
         const resultArray = random_moum();
         resultArray_repeat = resultArray.flatMap(element => Array(getRepeatCount()).fill(element));
@@ -2313,7 +2328,7 @@ function random_number(){
         for (let j = 0; j < 5; j++) {
             randomNumbers.push(Math.floor(Math.random() * 10));
         }
-        resultArray.push(randomNumbers.join(''));
+        resultArray.push(zero_replace(randomNumbers.join('')));
     }
     return resultArray;
 }
@@ -2526,6 +2541,9 @@ add_vvv.onchange = function() {
 layer_display.onchange = function() {
     window.localStorage.setItem('layer_display', layer_display.checked);
 }
+zero_change.onchange = function() {
+    window.localStorage.setItem('zero_change', zero_change.checked);
+}
 add_ar.onchange = function() {
     window.localStorage.setItem('add_ar', add_ar.checked);
 }
@@ -2550,6 +2568,7 @@ window.addEventListener('DOMContentLoaded', function() {
             toggleSetting3(true);
         }
         if(window.localStorage.getItem('layer_display') == 'true') document.getElementById('layer_display').checked = true;
+        if(window.localStorage.getItem('zero_change') == 'true') document.getElementById('zero_change').checked = true;
         if(window.localStorage.getItem('add_vvv') == 'true') document.getElementById('add_vvv').checked = true;
         if(window.localStorage.getItem('add_ar') == 'true') document.getElementById('add_ar').checked = true;
         if(window.localStorage.getItem('add_vvv_text')) document.getElementById('add_vvv_text').value = window.localStorage.getItem('add_vvv_text');
@@ -2655,12 +2674,12 @@ function getRepeatCount() {
 }
 function generateHLCallsigns(count, repeatCount) {
     var callsigns = [];
-    var PREFIX = ["HLØ","HL1","HL2","HL3","HL4","HL5","DSØ","DS1","DS2","DS3","DS4","DS5","DTØ","D7Ø","D8Ø","D9Ø","6KØ","6K2","6K5","6LØ","6L5","6MØ","6M5","6NØ"];
+    var PREFIX = ["HL0","HL1","HL2","HL3","HL4","HL5","DS0","DS1","DS2","DS3","DS4","DS5","DT0","D70","D80","D90","6K0","6K2","6K5","6L0","6L5","6M0","6M5","6N0"];
     for (var i = 0; i < count; i++) {
         var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
         var suffixLength = (prefix.startsWith("HL") ? (Math.random() > 0.2 ? 3 : 2) : 3);
         var callsign = prefix + generateSuffix(suffixLength);
-        callsign = callsign.replace('0','Ø');
+        callsign = zero_replace(callsign);
         callsigns.push(Array(repeatCount).fill(callsign));
     }
     return callsigns;
@@ -2677,7 +2696,7 @@ function generateITUCallsigns(count, repeatCount) {
             randomChars += String.fromCharCode(Math.floor(Math.random() * 26) + 65);
         }
         callsign = prefix1 + randoNnum + randomChars;
-        callsign = callsign.replace('0','Ø');
+        callsign = zero_replace(callsign);
         callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
@@ -2695,7 +2714,7 @@ function generateJACallsigns(count, repeatCount) {
     for (var i = 0; i < count; i++) {
         var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
         var callsign = prefix + generateSuffix(3);
-        callsign = callsign.replace('0','Ø');
+        callsign = zero_replace(callsign);
         callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
@@ -2712,7 +2731,7 @@ function generateBABVCallsigns(count, repeatCount) {
     for (var i = 0; i < count; i++) {
         var prefix = PREFIX[Math.floor(Math.random() * PREFIX.length)];
         var callsign = prefix + generateSuffix(3);
-        callsign = callsign.replace('0','Ø');
+        callsign = zero_replace(callsign);
         callsigns.push(Array(repeatCount).fill(callsign).join(add_spacer()));
     }
     add_string(callsigns);
