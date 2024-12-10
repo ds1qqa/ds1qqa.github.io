@@ -508,7 +508,7 @@ legend {
                     var display_font_value = document.getElementById('display_font').value;
                     document.body.style.fontSize = display_font_value + 'px';
                     localStorage.setItem('display_font', display_font_value)
-                    char_layer_height = 280 + display_font_value*4;
+                    char_layer_height = 250 + display_font_value*4;
                     document.getElementById('user_txt').style.height = char_layer_height + 'px';
                     document.getElementById('textarea_select_char').style.height = (char_layer_height+2) + 'px';
                     updateLayerPosition();
