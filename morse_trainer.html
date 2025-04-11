@@ -18,6 +18,7 @@ A:link{COLOR: #666666; FONT-FAMILY: Verdana,굴림; TEXT-DECORATION: none}
 A:visited{COLOR: #666666; FONT-FAMILY: Verdana,굴림; TEXT-DECORATION: none}
 A:hover{COLOR: #FF6600; FONT-FAMILY: Verdana,굴림; TEXT-DECORATION: none}
 A:active{COLOR: #515151; FONT-FAMILY: Verdana,굴림; TEXT-DECORATION: none}
+
 @font-face {
 	font-family:'EBSSR';
 	src: url('/font/EBSSR.woff') format('woff');
@@ -203,11 +204,13 @@ select {
 button {
     color: black;
     margin: 0px 2px 5px 2px;
-    height: 30px;
     font-weight: bold;
     font-family: inherit;
     font-size: inherit;
     vertical-align: middle;
+}
+button.display{
+    padding: 0.1rem;
 }
 .main_button {
     color: black;
@@ -442,7 +445,7 @@ legend {
 <tr><td align="center"><div id="filesave_view"><span id="mp3" style="display:none;"> </span> <a id="tze"> </a></div></td></tr>
 <tr><td align=left>
     <div class="setting" style="text-align:center;">
-        <fieldset id="option"><legend> <a href="morse_trainer2.html">▶️</a> Play Setup ▶️</legend>
+        <fieldset id="option"><legend>▶️ Play Setup ▶️</legend>
             <span class="setting_bold">Font:</span>
             <select id="font_select" style="width:100px;text-align:left;"  class="select2" title="https://brunch.co.kr/@jade/203">
                 <option value="Helvetica" style="font-family: 'Helvetica';" Selected>Helvetica</option>
@@ -497,6 +500,16 @@ legend {
                 <option value="23">23</option>
                 <option value="24">24</option>
                 <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
             </select>
             <script>
                 document.getElementById('font_select').addEventListener('change', function() {
@@ -513,8 +526,9 @@ legend {
                     document.body.style.fontSize = display_font_value + 'px';
                     localStorage.setItem('display_font', display_font_value)
                     char_layer_height = display_font_value*20;
+                    user_txt_height = display_font_value*20;
                     char_layer_fontsize = char_layer_height-(display_font_value*6);
-                    document.getElementById('user_txt').style.height = char_layer_height + 'px';
+                    document.getElementById('user_txt').style.height = user_txt_height + 'px';
                     document.getElementById('textarea_select_char').style.height = (char_layer_height+2) + 'px';
                     document.getElementById('textarea_select_char').style.fontSize = char_layer_fontsize + 'px';
                     updateLayerPosition();
@@ -545,6 +559,7 @@ legend {
             </select>Wpm
             &nbsp;
             <span class="setting_bold">Vol:</span><select id="volume" name="volume" style="width:55px;">
+                <option value="0">0</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
@@ -578,7 +593,7 @@ legend {
             <span class="setting_bold">Effect:</span><input type="checkbox" id="flute"><label for="flute">Flute</label>
             <input type="checkbox" id="noise"><label for="noise">Noise</label>
             <input type="checkbox" id="fading"><label for="fading">Fading</label>&nbsp;
-            <div id="keyer_setting">✅ CW Keyer: <button id="connect">Key Connect</button> <button id="disconnect">Un Connected</button> (IC-7300, 7610 USB Keying(CW)-DTR</div>
+            <div id="keyer_setting" style="display: inline-block;">✅ CW Keyer: <button class="display" id="connect">🔌</button> <button class="display" id="disconnect">✂️</button></div>
         </fieldset>
     </div>
 </td></tr>
@@ -745,11 +760,17 @@ legend {
             <input type="file" id="fileInput" accept=".txt" style="width:175px;text-align:center;height:30px;" title="Text File Open(Limit 30,000 Characters) ALT+O" accesskey="o"></span>
             <span class="setting_bold"><a onclick="add_str();">Add:</a></a></span> 
             <input type="checkbox" id="add_vvv" title="To add a character to the beginning"><label for="add_vvv">Start</label>
-            <input type="text" id="add_vvv_text" style="width: 150px;text-align:center;" size="10" max="100" value="VVV VVV <BT>" title="Type characters to add to the beginning">
+            <input type=text id="add_vvv_text" style="width: 150px;text-align:center;" size="10" max="100" value="VVV VVV <BT>" title="Type characters to add to the beginning">
             <input type="checkbox" id="add_ar" title="To add a text at the end"><label for="add_ar">End</label>
-            <input type="text" id="add_ar_text" style="width: 150px;text-align:center;" size="10" max="100" value="<AR>" title="Type a character to add to the end">
+            <input type=text id="add_ar_text" style="width: 150px;text-align:center;" size="10" max="100" value="<AR>" title="Type a character to add to the end">
             &nbsp;
-            <span class="setting_bold"><a onclick="check_zero();">Replace(Ø):</a></span><input id="zero_change" type="checkbox" title="Replace zero(0) with Ø">
+            <span class="setting_bold"><a onclick="check_zero();">Zero(Ø):</a></span><input id="zero_change" type="checkbox" title="Replace zero(0) with Ø">
+            &nbsp;
+            <span class="setting_bold"><a onclick="replace_string();">Exchange</a>:
+            <a onclick="text_exchange();" title="exchange">🔄</a>
+            <input type=text id="replace_text1" style="width: 100px;text-align:center;" size="8" max="100" value="" title="">
+            <span class="setting_bold"><a onclick="replace_string();" title="Replace">To</a></span>
+            <input type=text id="replace_text2" style="width: 100px;text-align:center;" size="8" max="100" value="" title="">
             <script>
                 function add_str(){
                     var doc_text = doc.getValue();
@@ -758,6 +779,19 @@ legend {
                     if(document.getElementById('add_vvv').checked) doc_text = vvv_text + ' ' + doc_text;
                     if(document.getElementById('add_ar').checked) doc_text = doc_text + ' ' + ar_text;
                     changeQsoSample(doc_text);
+                }
+                function replace_string(){
+                    var text1_value = document.getElementById('replace_text1').value;
+                    var text2_value = document.getElementById('replace_text2').value;
+                    var docvalue = doc.getValue();
+                    var result = docvalue.replace(new RegExp(text1_value, 'g'), text2_value);
+                    doc.setValue(result);
+                }
+                function text_exchange(){
+                    var temp1 = document.getElementById('replace_text1').value;
+                    var temp2 = document.getElementById('replace_text2').value;
+                    document.getElementById('replace_text1').value = temp2;
+                    document.getElementById('replace_text2').value = temp1;
                 }
                 const loadButton = document.getElementById('loadScript_src');
                 loadButton.addEventListener('change', () => {
@@ -799,21 +833,21 @@ legend {
     <div class="class_view3">
         <fieldset id="user_text"><legend> 🎵 Play Moniter 🎵 </legend>
             <div id="play_moniter_top" style="width:100%;text-align:center;vertical-align:top;">
-                <a id="copy_text" onclick="copy_text();" title="Copy Contents To Clipboard ALT+C" accesskey="c" style="font-size:24px;cursor: pointer;">📋</a>
-                <a onclick="paste_text();" title="paste the contents of the clipboard" style="font-size:22px;cursor: pointer;">✔️</a>
-                <a id="copy_text" onclick="print_text();" title="Text to Print" style="font-size:22px;cursor: pointer;">🖨️</a>
-                <a id="save_as_file" title="Text Save as File ALT+V" accesskey="v" style="font-size:22px;cursor: pointer;">💾</a>
-                <a onclick="user_txt_del();" title="Text Clear ALT+N" accesskey="n" style="font-size:20px;cursor: pointer;">❌</a>
-                <button id="font_text" onclick="resetFontSize()" title="Click to Font Size Reset">20px</button>
-                <button onclick="increaseFontSize()" title="Font Size Up ALT+Q" accesskey="q">➕</button>
-                <button onclick="decreaseFontSize()" title="Font Size Down ALT+W" accesskey="w">➖</button>
-                <button id="textarea_play_char" style="font-size: 1.3em;width:40px;color:red;text-align:center;vertical-align:middle;" title="Now Playing Character, Click to Larger View ALT+B" accesskey="b"></button>
-                <input id="layer_display" type="checkbox" style="width:28px;height:28px;" title="Play on the Character displayed">
-                <button id='cwport_signal' style="border-radius:14px;width:28px;height:28px;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
+                <a id="copy_text" onclick="copy_text();" title="Copy Contents To Clipboard ALT+C" accesskey="c" style="cursor: pointer;">📋</a>
+                <a onclick="paste_text();" title="paste the contents of the clipboard" style="cursor: pointer;">✔️</a>
+                <a id="copy_text" onclick="print_text();" title="Text to Print" style="cursor: pointer;">🖨️</a>
+                <a id="save_as_file" title="Text Save as File ALT+V" accesskey="v" style="cursor: pointer;">💾</a>
+                <a onclick="user_txt_del();" title="Text Clear ALT+N" accesskey="n" style="cursor: pointer;">❌</a>
+                <button class="display" id="font_text" onclick="resetFontSize()" title="Click to Font Size Reset">20px</button>
+                <button class="display" onclick="increaseFontSize()" title="Font Size Up ALT+Q" accesskey="q">➕</button>
+                <button class="display" onclick="decreaseFontSize()" title="Font Size Down ALT+W" accesskey="w">➖</button>
+                <button class="display" id="textarea_play_char" style="color:red;text-align:center;vertical-align:middle;width:45px;" title="Now Playing Character, Click to Larger View ALT+B" accesskey="b"></button>
+                <input id="layer_display" type="checkbox" style="width: 1em;height: 1em;" title="Play on the Character displayed">
+                <button class="display" id='cwport_signal' style="border-radius: 0.5em;width: 1em;height: 1em;background-color:white;" title="CW Port Signal" onclick="view_toggle();"></button>
                 <div id="new_line" style="display: inline-block;"></div>
-                <button id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button>
-                <button id="textarea_select_percent" style="text-align:center;color:red;text-align:right;" title="Now Playing Percent">0</button>%
-                <button id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
+                <button class="display" id="textarea_count" style="color:black;text-align:right;" title="Total Count(Space Count+Character Count)">0(0+0)</button>
+                <button class="display" id="textarea_select_percent" style="text-align:center;color:red;text-align:right;" title="Now Playing Percent">0</button>%
+                <button class="display" id="textarea_select_count" style="color:red;text-align:center;" title="Now Playing Count">0</button>
                     <span class="setting_bold">⏰
                         <div id="timerDisplay_total" style="display: inline-block;" title="Total Record">00:00:00</span></div>
                         <div id="timerDisplay" style="display: inline-block;" title="Current Time">00:00:00</div>
@@ -1540,11 +1574,12 @@ var connect = document.querySelector("#connect");
 var disconnect = document.querySelector("#disconnect");
 var layer_display = document.querySelector("#layer_display");
 var zero_change = document.querySelector("#zero_change");
+var replace_text1 = document.querySelector("#replace_text1");
+var replace_text2 = document.querySelector("#replace_text2");
 var add_vvv = document.querySelector("#add_vvv");
 var add_ar = document.querySelector("#add_ar");
 var add_vvv_text = document.querySelector("#add_vvv_text");
 var add_ar_text = document.querySelector("#add_ar_text");
-
 var gen_hangul_option = document.querySelector("#gen_hangul_option");
 var gen_random_option = document.querySelector("#gen_random_option");
 var gen_syllables_option = document.querySelector("#gen_syllables_option");
@@ -1609,8 +1644,10 @@ reset.addEventListener("click", async () => {
 });
 
 function toggleConnectButtons(connected) {
-	connect.replaceChild(document.createTextNode(connected ? "CONNECTED!" : "CONNECT"), connect.firstChild);
-	disconnect.replaceChild(document.createTextNode(connected ? "DISCONNECT" : "DISCONNECTED!"), disconnect.firstChild);
+	// connect.replaceChild(document.createTextNode(connected ? "CONNECTED!" : "CONNECT"), connect.firstChild);
+	// disconnect.replaceChild(document.createTextNode(connected ? "DISCONNECT" : "DISCONNECTED!"), disconnect.firstChild);
+	connect.replaceChild(document.createTextNode(connected ? "⭕" : "🔌"), connect.firstChild);
+	disconnect.replaceChild(document.createTextNode(connected ? "✂️" : "✂️"), disconnect.firstChild);
 }
 
 function renewMorse() {
@@ -1637,6 +1674,7 @@ stop.onclick = function() {
     try { clearTimeout(repeatId); repeatId = -1;}
     catch (e) {}
     document.getElementById('char_layer').style.display = 'none';
+    document.getElementById('textarea_select_char').innerText = '';
     renewMorse();
     if (noiseNode) noiseGain.disconnect();
     morse.playString(false, ac.currentTime, " ", vol, document.getElementById('selectkey').value, fading.checked);
@@ -1811,11 +1849,17 @@ function highlight() {
         if (!stopped && cursorTempTo.ch != 0) {
             cm.focus();
             doc.setSelection(cursorTempFrom, cursorTempTo);
-            document.getElementById('textarea_select_char').innerHTML = doc.getSelection();
-            if(!(document.getElementById('hide_text').checked==true)) document.getElementById('textarea_play_char').innerHTML = doc.getSelection();
-            document.getElementById('textarea_select_count').innerHTML = highlightEnd.toLocaleString('en-US');
+            document.getElementById('textarea_select_char').innerText = doc.getSelection();
+            if(!(document.getElementById('hide_text').checked==true)){
+                if(doc.getSelection() == ' '){
+                    document.getElementById('textarea_play_char').innerText = '_';
+                }else{
+                    document.getElementById('textarea_play_char').innerText = doc.getSelection();
+                }
+            }
+            document.getElementById('textarea_select_count').innerText = highlightEnd.toLocaleString('en-US');
             var now_percent = parseInt(highlightEnd/txtValue.length*100);
-            document.getElementById('textarea_select_percent').innerHTML = now_percent;
+            document.getElementById('textarea_select_percent').innerText = now_percent;
             setProgressBar(now_percent);
             if (hideText.checked) {
                 setMarker(cursorTempTo, cursorTempEnd);
@@ -2560,6 +2604,12 @@ add_ar.onchange = function() {
 add_vvv_text.onchange = function() {
     window.localStorage.setItem('add_vvv_text', add_vvv_text.value);
 }
+replace_text1.onchange = function() {
+    window.localStorage.setItem('replace_text1', replace_text1.value);
+}
+replace_text2.onchange = function() {
+    window.localStorage.setItem('replace_text2', replace_text2.value);
+}
 add_ar_text.onchange = function() {
     window.localStorage.setItem('add_ar_text', add_ar_text.value);
 }
@@ -2583,6 +2633,8 @@ window.addEventListener('DOMContentLoaded', function() {
         if(window.localStorage.getItem('add_ar') == 'true') document.getElementById('add_ar').checked = true;
         if(window.localStorage.getItem('add_vvv_text')) document.getElementById('add_vvv_text').value = window.localStorage.getItem('add_vvv_text');
         if(window.localStorage.getItem('add_ar_text')) document.getElementById('add_ar_text').value = window.localStorage.getItem('add_ar_text');
+        if(window.localStorage.getItem('replace_text1')) document.getElementById('replace_text1').value = window.localStorage.getItem('replace_text1');
+        if(window.localStorage.getItem('replace_text2')) document.getElementById('replace_text2').value = window.localStorage.getItem('replace_text2');
         if (window.localStorage.getItem('word_space')) word_space.value = parseInt(window.localStorage.getItem('word_space'));
         if (window.localStorage.getItem('repeat_count')) repeat_count.value = parseInt(window.localStorage.getItem('repeat_count'));
         if (window.localStorage.getItem('gen_number')) gen_number.value = parseInt(window.localStorage.getItem('gen_number'));
@@ -2670,7 +2722,7 @@ function changeQsoSample(data) {
     window.localStorage.setItem('user_txt', doc.getValue());
     clearDitdah();
     setProgressBar(0)
-    document.getElementById('textarea_play_char').innerHTML = '';
+    document.getElementById('textarea_play_char').innerHTML = '🪟';
     document.getElementById('textarea_select_count').innerHTML = '0';
     document.getElementById('textarea_select_percent').innerHTML = '0';
     document.getElementById('timerDisplay').innerHTML = '00:00:00';
@@ -3150,10 +3202,10 @@ function getDeviceInfo() {
     var userAgent = navigator.userAgent.toLowerCase();
     if (/iphone|ipad|ipod/.test(userAgent)) {
         var connected_macine = "Apple Mobile";
-        document.getElementById('new_line').style.display = 'block';
+        // document.getElementById('new_line').style.display = 'block';
     } else if (/android/.test(userAgent)) {
         var connected_macine = "Android Mobile";
-        document.getElementById('new_line').style.display = 'block';
+        // document.getElementById('new_line').style.display = 'block';
     } else {
         var connected_macine = "Personal Computer";
     }
@@ -3217,11 +3269,12 @@ function personal_computer_setup(){
         if(localStorage.getItem('textarea_fontsize')){
         document.getElementById('user_txt').style.fontSize = localStorage.getItem('textarea_fontsize');
         document.getElementById('font_text').innerHTML = localStorage.getItem('textarea_fontsize');
-    } else{
-        document.getElementById('user_txt').style.fontSize = '20px';
-        document.getElementById('font_text').innerHTML = '20px';
-    }
-
+        } else{
+            document.getElementById('user_txt').style.fontSize = '20px';
+            document.getElementById('font_text').innerHTML = '20px';
+        }
+    }else{
+        document.getElementById("keyer_setting").style.display = 'none'; 
     }
 }
 
