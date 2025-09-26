@@ -2009,7 +2009,7 @@ function saveTzeFile() {
 	
 	var link = document.createElement("A");
 	link.href = url;
-	link.appendChild(document.createTextNode(" 💾 DS1TZE "));
+	link.appendChild(document.createTextNode(" 💾 TZE "));
 	var filename = (new Date()).toISOString().replace(/[\-\:T]/ig, '').substring(0, 14);
 	link.download = filename + ".tze";
 	
@@ -3260,7 +3260,7 @@ function personal_computer_setup(){
         document.getElementById('play').style.width = '140px';
         document.getElementById('stop').innerHTML = '⏹️ STOP';
         document.getElementById('make_mp3').innerHTML = '💾 MP3';
-        document.getElementById('make_tze').innerHTML = '💾 DS1TZE';
+        document.getElementById('make_tze').innerHTML = '💾 TZE';
         document.getElementById('reset').innerHTML = '🔄 RESET';
         document.getElementById('qrcode').innerHTML = '🧭 LINK';
 
@@ -3394,6 +3394,7 @@ document.getElementById('filesave_view_toggle').style.display = 'none';
 </BODY>
 
 </HTML>
+
 
 
 
